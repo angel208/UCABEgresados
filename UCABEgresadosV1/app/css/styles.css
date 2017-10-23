@@ -1,0 +1,130 @@
+:root {
+    --sidebar-hover: rgba(255,255,255,0.2);
+    --white : #fff;
+    --main-content-background : #EFFFFE;
+    --sidebar-background : #000;
+    --sidebar-brand :#0E615E;
+
+    --main-green:#0E615E; /* verde principal, usado en los tips y en el sidebar */
+    --success-green:#05AF21; /*verde usado en los success*/
+    --warning-yellow:#FB6704; /* amarillo usado en las warning */
+    --hover-orange: #F7901E; /* naranja usado en los botones (hover)*/
+    --neutral-blue: #005677; /* azul usado en los recordatorios y en los botones */
+    --light-blue: #748BC4;
+    --dark-blue: #16263C;
+    --darker-blue: #161B2D;
+
+
+}
+
+p, h1, h2, h3, a, button{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+.vertical-center-parent{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.vertical-center-child{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.main-background-light{
+    background-color: var(--main-content-background);
+    height: 100%;
+}
+
+.main-background-dark{
+   background-color: var(--dark-blue);
+    height: 100%;
+}
+
+.background-login{
+    background-image: url("/sources/background-login.jpg");
+    height: 100%;
+
+}
+/*=============login=====================*/
+
+
+
+/*==============ALERTAS=================*/
+
+.alert{
+    margin-top: -13px;
+    font-size: 16px;
+}
+
+.custom-warning-alert{
+
+    border-color: var(--warning-yellow);
+    background: var(--warning-yellow);
+    color: black;
+
+}
+
+.custom-success-alert{
+
+    border-color: var(--success-green);
+    background: var(--success-green);
+    color: white;
+
+}
+
+.custom-tip-alert{
+
+    border-color: var(--main-green);
+    background: var(--main-green);
+    color: white;
+
+}
+
+.custom-neutral-alert{
+
+    border-color: var(--neutral-blue);
+    background: var(--neutral-blue);
+    color: white;
+
+}
+
+/*=========== MAIN PAGE ==============*/
+.main-background-title{
+    color: #adadad;
+    text-align: center;
+    font-size: 56px;
+}
+
+.secondary-background-title{
+    color: #adadad;
+    text-align: center;
+    font-size: 42px;
+}
+
+/*=====================================*/
+.brandTPropuesta{
+    display: inline ;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 15px
+}
+
+.brandPropuesta {
+    display: inline;
+    font-size: 16px;
+    margin-left: 15px
+}
+
+
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="30ca2b6b-70ce-4148-a30a-4a1324fe964a" name="nodehost" url="http://localhost:8000">
+        <fileTransfer port="0" mountedRoot="D:\Escritorio\NodeSQLTry\app" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>

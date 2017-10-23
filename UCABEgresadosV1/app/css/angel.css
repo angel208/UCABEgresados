@@ -1,0 +1,243 @@
+:root {
+    --sidebar-hover: rgba(255,255,255,0.2);
+    --white : #fff;
+    --main-content-background : #EFFFFE;
+    --sidebar-background : #000;
+    --sidebar-brand :#0E615E;
+
+    --main-green:#0E615E; /* verde principal, usado en los tips y en el sidebar */
+    --success-green:#05AF21; /*verde usado en los success*/
+    --warning-yellow:#FB6704; /* amarillo usado en las warning */
+    --hover-orange: #F7901E; /* naranja usado en los botones (hover)*/
+    --button-blue: #009DB2;
+    --neutral-blue: #005677; /* azul usado en los recordatorios y en los botones */
+    --light-blue: #748BC4;
+    --dark-blue: #16263C;
+    --darker-blue: #161B2D;
+
+
+}
+
+body{
+    padding-bottom: 15px;
+
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.sangria{
+    margin-left: 30px;
+}
+
+.subtitulo{
+    font-size: 24px;
+    margin-top: -30px;
+}
+
+
+.subtitulo-alerta{
+    font-size: 24px;
+    margin-top: 0px;
+}
+
+.full-height{
+    height: 100%;
+}
+
+.inline{
+    display: inline;
+}
+
+.align-right{
+    margin-left:auto; margin-right:0;
+}
+
+
+
+.form-group{
+    margin-bottom: 30px;
+}
+
+.btn-primary{
+    background-color: var(--button-blue);
+}
+
+.horizontal-button{
+   display: inline;
+   margin-right: 20px;
+    margin-bottom: 10px;
+   width: 120px;
+}
+
+.button-group{
+    width: 45%;
+    margin-bottom: 30px;
+}
+
+.btn-primary:hover,
+.btn-primary:active{
+    background-color: var(--hover-orange) !important;
+}
+
+.input-with-button{
+    display: inline;
+    width: 85%;
+    margin-bottom: 10px
+}
+
+/*=============BOTONES ANCHOS==========*/
+
+.btn-block{
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.btn-block:hover{
+    background-color: var(--main-green)!important;
+}
+
+.btn-block > .text-left{
+    font-size: 32px;
+
+}
+
+.btn-block img{
+    height: 80%;
+    width: auto;
+
+}
+
+
+/*============PANEL CUSTOM=====================*/
+
+.custom-panel{
+   margin-top: 0px;
+   margin-bottom: 15px;
+}
+
+/*aspecto de la cabecera del panel*/
+
+.custom-panel > .panel-heading{
+    background-color: var(--button-blue);
+    color: white;
+}
+
+.custom-panel > .panel-heading p{
+    font-size: 26px;
+    margin-bottom: 0px;
+}
+
+.custom-panel > .simple-heading{
+    background-color: white !important;
+    color: Black !important;
+}
+
+.custom-panel > .simple-heading p{
+    font-size: 28px;
+}
+
+/*aspecto del elemento tipo "media" dentro del body del panel*/
+
+.custom-panel > .panel-body > .media {
+    background-color: var(--button-blue);
+    color: white;
+    padding : 10px;
+    margin: -10px;
+    margin-bottom: 10px;
+
+}
+
+.custom-panel > .panel-body > .media > .media-body{
+
+    margin-top: 10px;
+    padding-top: 10px;
+
+}
+
+.custom-panel > .panel-body > .media > .media-body > .pull-right{
+
+margin-right: 15px;
+
+}
+
+.inline-radio{
+    margin-right: 75px !important;
+    margin-left: 30px !important;
+}
+
+/*aspecto del elemento tipo "media" dentro de la cabecera del panel*/
+
+.custom-panel > .panel-heading > .media > .media-body{
+    margin-top: 10px;
+    padding-top: 10px;
+
+}
+
+.custom-panel > .panel-heading > .media > .media-body p{
+    font-size: 18px;
+    margin-left: 10px;
+
+}
+
+.custom-panel > .panel-heading > .media > .media-body >.media-heading{
+    font-size: 30px;
+
+}
+
+/*aspecto del elemento tipo "row" dentro de la cabecera del panel
+en caso de tener  que recrear una tabla usando filas*/
+
+.custom-panel > .panel-body > .row{
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-bottom: 5px;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #ededed;
+}
+
+.custom-panel > .panel-body > .btn{
+    color: #adadad;
+}
+
+.custom-panel > .panel-body > .btn:focus{
+    outline: none;
+}
+/*aspecto de un elemento tipo "table" dentro del cuerpo del panel*/
+
+.custom-panel > .panel-body > .table{
+    margin-bottom: 15px;
+}
+
+custom-panel > .panel-body > .table>tbody>tr>th, .table>tbody>tr>td {
+    border-top: none;
+    border-bottom: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #ededed;
+
+
+}
+
+
+/*si la form tiene mucho texto, al ser centrada, se desbordara verticalmente. esto soluciona ese problema
+en las pantallas muy peque;as
+ */
+@media(max-width:620px) and (max-height:575px){
+    .form-with-lots-of-text {
+        width: 90%;
+    }
+    .form-with-lots-of-text h3 {
+        margin-top: 75px;
+    }
+
+
+}
+
+@media(max-width:540px){
+    .inline-radio {
+        margin-left: 10px !important;
+    }
+}

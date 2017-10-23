@@ -1,0 +1,254 @@
+/*!
+ * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+:root {
+    --sidebar-hover: rgba(255,255,255,0.2);
+    --white : #fff;
+    --main-content-background : #EFFFFE;
+    --sidebar-background : #000;
+    --sidebar-text:#999999;
+    --sidebar-brand :#0E615E;
+
+}
+
+ body {
+    overflow-x: hidden
+
+ }
+
+ html, body{
+     height: 100%;
+ }
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    height: 100%;
+
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+    height: 100%;
+}
+
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+
+}
+/*==============titulo del sidebar=================*/
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+    background-color: #0E615E;
+    text-indent: 0px;
+
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: white;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+.brandEgresados {
+    display: inline;
+    font-size: 26px
+}
+
+.brandUCAB{
+    display: inline ;
+    font-weight: bold;
+    font-size: 30px
+}
+
+/*====================usuario del sidebar===============*/
+
+.sidebar-nav > .container-fluid {
+    margin-top: 10px;
+    border-bottom-style: solid;
+    margin-bottom: 15px;
+}
+
+.user-name{
+    color: #fff ;
+    margin-bottom: 15px;
+}
+
+.user-name p{
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.user-name a{
+    text-decoration: underline;
+    color: var(--sidebar-text);
+    font-size: 12px;
+
+}
+
+.user-name a:hover{
+    color: var(--white);
+}
+
+/*============Sidebar List================*/
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: var(--sidebar-text);
+    border-left-style:solid;
+    border-left-color: var(--sidebar-brand);
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+
+}
+
+/*============Botones colapsables==============*/
+
+.sidebar-nav li button {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+    width: 100%;
+    text-align: left;
+    height:45px;
+
+}
+
+.sidebar-nav li button div {
+   margin-left: 10px;
+}
+
+
+.sidebar-nav li button:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li button:active,
+.sidebar-nav li button:focus {
+
+    color : #999999;
+    text-decoration: none ;
+    border-style: none;
+}
+
+.button-border{
+    border-left-style:solid;
+    border-left-color: var(--sidebar-brand);
+}
+
+/*=================lista del menu expandible============= */
+
+.sub-list{
+    background-color: #222222;
+
+}
+.sub-list-item{
+    list-style-type: none;
+    color: #adadad;
+    margin-left: -30px;
+
+}
+
+.sub-list li a:hover {
+    color: #fff;
+    background-color: #5e5e5e;
+
+}
+
+/*===========Responsive=================*/
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
