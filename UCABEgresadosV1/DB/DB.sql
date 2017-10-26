@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema ucabegresados
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema ucabegresados
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `ucabegresados` DEFAULT CHARACTER SET utf8 ;
+USE `ucabegresados` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Usuario`
+-- Table `ucabegresados`.`Usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`Usuario` (
   `IDUsuario` INT NOT NULL,
   `NombreUsu` VARCHAR(45) NOT NULL,
   `ClaveUsu` VARCHAR(45) NOT NULL,
@@ -30,9 +30,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Carrera`
+-- Table `ucabegresados`.`Carrera`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Carrera` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`Carrera` (
   `IDCarrera` INT NOT NULL,
   `Nombre` VARCHAR(45) NOT NULL,
   `descripcion` VARCHAR(45) NOT NULL,
@@ -41,9 +41,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Egresado`
+-- Table `ucabegresados`.`Egresado`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Egresado` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`Egresado` (
   `CI` INT NOT NULL,
   `NombreEgresado` VARCHAR(45) NOT NULL,
   `ApellidoEgresado` VARCHAR(45) NOT NULL,
@@ -61,39 +61,39 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Egresado` (
   INDEX `fk_Egresado_Carrera1_idx` (`Carrera_IDCarrera` ASC),
   CONSTRAINT `fk_Egresado_Usuario1`
     FOREIGN KEY (`Usuario_IDUsuario`)
-    REFERENCES `mydb`.`Usuario` (`IDUsuario`)
+    REFERENCES `ucabegresados`.`Usuario` (`IDUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Egresado_Carrera1`
     FOREIGN KEY (`Carrera_IDCarrera`)
-    REFERENCES `mydb`.`Carrera` (`IDCarrera`)
+    REFERENCES `ucabegresados`.`Carrera` (`IDCarrera`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`DatosEgresado`
+-- Table `ucabegresados`.`DatosEgresado`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`DatosEgresado` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`DatosEgresado` (
   `CIEgresado` INT NOT NULL,
   `CorreoUCAB` VARCHAR(45) NOT NULL,
-  `AñoIngreso` INT NOT NULL,
-  `AñoEgreso` INT NOT NULL,
+  `AnoIngreso` INT NOT NULL,
+  `AnoEgreso` INT NOT NULL,
   `Eficiencia1` TINYINT NOT NULL,
   PRIMARY KEY (`CIEgresado`),
   CONSTRAINT `CIEgresado`
     FOREIGN KEY (`CIEgresado`)
-    REFERENCES `mydb`.`Egresado` (`CI`)
+    REFERENCES `ucabegresados`.`Egresado` (`CI`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Cargo`
+-- Table `ucabegresados`.`Cargo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Cargo` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`Cargo` (
   `IDCargo` INT NOT NULL,
   `NombreCargo` VARCHAR(45) NOT NULL,
   `descripcion` VARCHAR(45) NOT NULL,
@@ -102,9 +102,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`PeriodoElectoral`
+-- Table `ucabegresados`.`PeriodoElectoral`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`PeriodoElectoral` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`PeriodoElectoral` (
   `IDPE` INT NOT NULL,
   `FechaInicio` DATE NOT NULL,
   `FechaFin` DATE NOT NULL,
@@ -118,9 +118,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Postulacion`
+-- Table `ucabegresados`.`Postulacion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Postulacion` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`Postulacion` (
   `IDPostulacion` INT NOT NULL PRIMARY KEY,
   `CIEgresado` INT NOT NULL,
   `IDPE1` INT NOT NULL,
@@ -132,28 +132,28 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Postulacion` (
 
 
     FOREIGN KEY (`CIEgresado`)
-    REFERENCES `mydb`.`Egresado` (`CI`)
+    REFERENCES `ucabegresados`.`Egresado` (`CI`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
 
 
     FOREIGN KEY (`IDPE1`)
-    REFERENCES `mydb`.`PeriodoElectoral` (`IDPE`)
+    REFERENCES `ucabegresados`.`PeriodoElectoral` (`IDPE`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
 
 
     FOREIGN KEY (`IDCargo1`)
-    REFERENCES `mydb`.`Cargo` (`IDCargo`)
+    REFERENCES `ucabegresados`.`Cargo` (`IDCargo`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`RetiroPostulacion`
+-- Table `ucabegresados`.`RetiroPostulacion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`RetiroPostulacion` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`RetiroPostulacion` (
   `IDRetiro` INT NOT NULL,
   `IDPostulacion` INT NOT NULL,
   `Causa` VARCHAR(45) NOT NULL,
@@ -162,16 +162,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`RetiroPostulacion` (
   INDEX `IDPostulacion_idx` (`IDPostulacion` ASC),
   CONSTRAINT `IDPostulacion`
     FOREIGN KEY (`IDPostulacion`)
-    REFERENCES `mydb`.`Postulacion` (`IDPostulacion`)
+    REFERENCES `ucabegresados`.`Postulacion` (`IDPostulacion`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`PapeletaElectoral`
+-- Table `ucabegresados`.`PapeletaElectoral`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`PapeletaElectoral` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`PapeletaElectoral` (
   `IDPapeleta` INT NOT NULL,
   `IDPE` INT NOT NULL,
   `IDPostulacion` INT NOT NULL,
@@ -182,26 +182,26 @@ CREATE TABLE IF NOT EXISTS `mydb`.`PapeletaElectoral` (
   INDEX `IDCargo_idx` (`IDCargo` ASC),
 
     FOREIGN KEY (`IDPE`)
-    REFERENCES `mydb`.`PeriodoElectoral` (`IDPE`)
+    REFERENCES `ucabegresados`.`PeriodoElectoral` (`IDPE`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
 
     FOREIGN KEY (`IDPostulacion`)
-    REFERENCES `mydb`.`Postulacion` (`IDPostulacion`)
+    REFERENCES `ucabegresados`.`Postulacion` (`IDPostulacion`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
 
     FOREIGN KEY (`IDCargo`)
-    REFERENCES `mydb`.`Cargo` (`IDCargo`)
+    REFERENCES `ucabegresados`.`Cargo` (`IDCargo`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Votacion`
+-- Table `ucabegresados`.`Votacion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Votacion` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`Votacion` (
   `idVotacion` INT NOT NULL,
   `IDPE` INT NULL,
   `IDPostulacion` INT NULL,
@@ -211,47 +211,47 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Votacion` (
   INDEX `IDPostulacion_idx` (`IDPostulacion` ASC),
 
     FOREIGN KEY (`IDPE`)
-    REFERENCES `mydb`.`PeriodoElectoral` (`IDPE`)
+    REFERENCES `ucabegresados`.`PeriodoElectoral` (`IDPE`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
 
     FOREIGN KEY (`IDPostulacion`)
-    REFERENCES `mydb`.`Postulacion` (`IDPostulacion`)
+    REFERENCES `ucabegresados`.`Postulacion` (`IDPostulacion`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`GanadorEleccion`
+-- Table `ucabegresados`.`GanadorEleccion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`GanadorEleccion` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`GanadorEleccion` (
   `CIEgresado` INT NOT NULL,
   `IDPE` INT NOT NULL,
   `IDCargo` INT NOT NULL,
   PRIMARY KEY (`CIEgresado`, `IDPE`, `IDCargo`),
   CONSTRAINT `IDPE`
     FOREIGN KEY (`IDPE`)
-    REFERENCES `mydb`.`PeriodoElectoral` (`IDPE`)
+    REFERENCES `ucabegresados`.`PeriodoElectoral` (`IDPE`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `CI`
     FOREIGN KEY (`CIEgresado`)
-    REFERENCES `mydb`.`Egresado` (`CI`)
+    REFERENCES `ucabegresados`.`Egresado` (`CI`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
   CONSTRAINT `IDCargo`
     FOREIGN KEY (`IDCargo`)
-    REFERENCES `mydb`.`Cargo` (`IDCargo`)
+    REFERENCES `ucabegresados`.`Cargo` (`IDCargo`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`CargosxCarrera`
+-- Table `ucabegresados`.`CargosxCarrera`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`CargosxCarrera` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`CargosxCarrera` (
   `Carrera_IDCarrera` INT NOT NULL,
   `Cargo_IDCargo` INT NOT NULL,
   `PeriodoElectoral_IDPE` INT NOT NULL,
@@ -261,34 +261,34 @@ CREATE TABLE IF NOT EXISTS `mydb`.`CargosxCarrera` (
   INDEX `fk_CargosxCarrera_PeriodoElectoral1_idx` (`PeriodoElectoral_IDPE` ASC),
   CONSTRAINT `fk_CargosxCarrera_Carrera1`
     FOREIGN KEY (`Carrera_IDCarrera`)
-    REFERENCES `mydb`.`Carrera` (`IDCarrera`)
+    REFERENCES `ucabegresados`.`Carrera` (`IDCarrera`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_CargosxCarrera_Cargo1`
     FOREIGN KEY (`Cargo_IDCargo`)
-    REFERENCES `mydb`.`Cargo` (`IDCargo`)
+    REFERENCES `ucabegresados`.`Cargo` (`IDCargo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_CargosxCarrera_PeriodoElectoral1`
     FOREIGN KEY (`PeriodoElectoral_IDPE`)
-    REFERENCES `mydb`.`PeriodoElectoral` (`IDPE`)
+    REFERENCES `ucabegresados`.`PeriodoElectoral` (`IDPE`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`PropuestaCampaña`
+-- Table `ucabegresados`.`PropuestaCampana`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`PropuestaCampaña` (
+CREATE TABLE IF NOT EXISTS `ucabegresados`.`PropuestaCampana` (
   `IDPC` INT NOT NULL AUTO_INCREMENT,
   `Postulacion_IDPostulacion` INT NOT NULL,
   `prpuesta` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`IDPC`),
-  INDEX `fk_PropuestaCampaña_Postulacion1_idx` (`Postulacion_IDPostulacion` ASC),
-  CONSTRAINT `fk_PropuestaCampaña_Postulacion1`
+  INDEX `fk_PropuestaCampana_Postulacion1_idx` (`Postulacion_IDPostulacion` ASC),
+  CONSTRAINT `fk_PropuestaCampana_Postulacion1`
     FOREIGN KEY (`Postulacion_IDPostulacion`)
-    REFERENCES `mydb`.`Postulacion` (`IDPostulacion`)
+    REFERENCES `ucabegresados`.`Postulacion` (`IDPostulacion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -1,8 +1,10 @@
 var express = require('express');
 var app = express();
 
-module.exports = app;
+var path = require('path');
+var rootPath = path.normalize(__dirname + '/../');
 
-app.get('/eg', function(req, res) {
-    res.send('Hello World!')
-});
+var conector = require(rootPath +'/connect.js');
+var con = conector.conectar();
+
+module.exports = app;

@@ -9,10 +9,10 @@
     <title>UCABEgresados</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/angel.css" rel="stylesheet">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/angel.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,20 +31,21 @@
     <div class="row" style="height: 100%">
 
         <!-- VENTANA DE LOGIN -->
-        <div class="col-md-4 " style="height: 100%;" >
-            <form class=" ">
+        <div class="col-md-4 vcenter-custom-width-parent" style="height: 100%;" >
+
+            <h1> Sistema de Votacion para Egresados </h1>
+
+            <form class="vertical-center-child three-quarters-width" action="/login" method="POST">
                 <div class="form-group">
-                    <label for="email">Email address:</label>
-                    <input type="email" class="form-control" id="email">
+                    <label for="user">Nombre de Usuario:</label>
+                    <input type="text" name="user" class="form-control" id="user">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd">
+                    <label for="pwd">Contraseña:</label>
+                    <input type="password" name="pass" class="form-control" id="pwd">
                 </div>
-                <div class="checkbox">
-                    <label><input type="checkbox"> Remember me</label>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <a href="#">He olvidado mi contraseña</a>
+                <button type="submit" class="btn btn-default pull-right">Submit</button>
             </form>
         </div>
         <!--=============================-->

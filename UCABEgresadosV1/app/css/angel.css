@@ -46,6 +46,10 @@ body{
     height: 100%;
 }
 
+.three-quarters-width {
+    width: 75%;
+}
+
 .inline{
     display: inline;
 }
@@ -54,7 +58,10 @@ body{
     margin-left:auto; margin-right:0;
 }
 
-
+.vcenter-custom-width-parent{
+    position: relative;
+    height: 100%;
+}
 
 .form-group{
     margin-bottom: 30px;
@@ -86,6 +93,26 @@ body{
     width: 85%;
     margin-bottom: 10px
 }
+
+/*==========LOGIN--------*/
+
+
+.background-login{
+    color: #e7e7e7;
+}
+
+.background-login a{
+    color: #e7e7e7;
+    text-decoration: underline;
+}
+
+.background-login h1{
+    color: #e7e7e7;
+    position: absolute;
+    bottom: 75%;
+    margin-bottom: 0px;
+}
+
 
 /*=============BOTONES ANCHOS==========*/
 
