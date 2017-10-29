@@ -17,9 +17,10 @@ var con = conector.conectar();
 var comision = require('./routes/comision');
 var egresados = require('./routes/egresados');
 
+//variable que contiene la lista dinamica de candidatos
 var SidebarList = ['null'];
 
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
 
 app.use(express.static(__dirname + '/app'));

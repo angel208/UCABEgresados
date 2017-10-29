@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+ <title>UCABEgresados</title>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
+<div id="wrapper">
+
+    <!-- Titulo en el sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <!-- Titulo en el sidebar -->
+            <li class="sidebar-brand">
+                <a href="#" style="text-align: center; ">
+                    <p class ="brandUCAB" > UCAB </p>
+                    <p class ="brandEgresados" >Egresados</p>
+                </a>
+            </li>
+            <!-- Usuario en el Sidebar -->
+            <div class="container-fluid">
+                <div class="row columns-parent" >
+
+                        <div class="col-md-3"   >
+                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
+                        </div>
+                        <div class="col-md-9">
+                            <div class="user-name">
+                                <p >Usuario</p>
+                                <a href="#">Cerrar Sesión</a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--------------LISTADO DE OPCIONES----------------->
+            <li>
+                <a href="#">Histórico de Resultados</a>
+            </li>
+            <li>
+                <div class ="button-border">
+                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#ConfiguracionElectoral">
+                        <div>Configuración del Proceso Electoral</div>
+                    </button>
+                </div>
+                <div id="ConfiguracionElectoral" class="collapse sub-list" >
+                    <ul>
+                        <li  class="sub-list-item" >
+                            <a href="#" > Crear Periódo Electoral </a>
+                        </li>
+                        <li  class="sub-list-item" >
+                            <a href="#" > Gestionar Cargos de las Carreras</a>
+                        </li>
+                        <li  class="sub-list-item" >
+                            <a href="#" > Conformar Papeletas </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <div class ="button-border">
+                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Totalizacion">
+                        <div>Totalización y asignación de cargos</div>
+                    </button>
+                </div>
+                <div id="Totalizacion" class="collapse sub-list" >
+                    <ul>
+                        <li  class="sub-list-item" >
+                            <a href="#" > Totalización de los Votos </a>
+                        </li>
+                        <li  class="sub-list-item" >
+                            <a href="#" > Asignación Final de los Cargos</a>
+                        </li>
+                        <li  class="sub-list-item" >
+                            <a href="#" > Generar Reportes Impresos </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <div class ="button-border">
+                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Candidatos">
+                        <div>Candidatos</div>
+                    </button>
+                </div>
+                <div id="Candidatos" class="collapse sub-list" >
+                    <ul>
+                        <li  class="sub-list-item" >
+                            <a href="#" > asdasd </a>
+                        </li>
+                        <li  class="sub-list-item" >
+                            <a href="#" > asdasdasd </a>
+                        </li>
+                        <li  class="sub-list-item" >
+                            <a href="#" > asdasdads </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+            <li>
+                <a href="#">Imprimir Papeletas</a>
+            </li>
+
+        </ul>
+
+
+
+    </div>
+<!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" class="vertical-center-parent main-background-dark" >
+        <div class="container-fluid " >
+
+                    <h1 class="main-background-title"> Resultados de las Elecciones <%= Nombre%></h1>
+                    <h2 class="secondary-background-title">Infromática Periodo 2016-2020</h2>
+
+
+
+<br>
+<br>
+
+
+<div class="container-fluid">
+
+    
+
+      <!-- Team Members Row -->
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="text-center">Candidatos</h1>
+        </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+        <div class="col-lg-4 col-sm-6 text-center mb-4">
+          <img class="img-circle img-fluid d-block mx-auto" src="/sources/non-usuario.png" style="width: 100px">
+          <h3>Pedro Perez </h3>
+          <p>Promesas Electorales</p>
+        </div>
+
+          <div class="col-lg-4 col-sm-6 text-center mb-4">
+          <img class="img-circle img-fluid d-block mx-auto" src="/sources/non-usuario.png" style="width: 100px">
+          <h3>Pedro Perez </h3>
+          <p>Promesas Electorales</p>
+        </div>
+
+          <div class="col-lg-4 col-sm-6 text-center mb-4">
+          <img class="img-circle img-fluid d-block mx-auto" src="/sources/non-usuario.png" style="width: 100px">
+          <h3>Pedro Perez </h3>
+          <p>Promesas Electorales</p>
+        </div>
+
+          <div class="col-lg-4 col-sm-6 text-center mb-4">
+          <img class="img-circle img-fluid d-block mx-auto" src="/sources/non-usuario.png" style="width: 100px">
+          <h3>Pedro Perez </h3>
+          <p>Promesas Electorales</p>
+        </div>
+
+          <div class="col-lg-4 col-sm-6 text-center mb-4">
+          <img class="img-circle img-fluid d-block mx-auto" src="/sources/non-usuario.png" style="width: 100px">
+          <h3>Pedro Perez </h3>
+          <p>Promesas Electorales</p>
+        </div>
+
+          <div class="col-lg-4 col-sm-6 text-center mb-4">
+          <img class="img-circle img-fluid d-block mx-auto" src="/sources/non-usuario.png" style="width: 100px">
+          <h3>Pedro Perez </h3>
+          <p>Promesas Electorales</p>
+        </div>
+
+          <div class="col-lg-4 col-sm-6 text-center mb-4">
+          <img class="img-circle img-fluid d-block mx-auto" src="sources/non-usuario.png" style="width: 100px">
+          <h3>Pedro Perez </h3>
+          <p>Promesas Electorales</p>
+        </div>
+
+
+
+
+       
+        
+        
+    
+      </div>
+
+    </div>
+    
+</div>
+</div>
+
+
+
+
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

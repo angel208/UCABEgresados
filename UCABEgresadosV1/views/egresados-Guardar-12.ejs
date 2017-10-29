@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>UCABEgresados</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
+<div id="wrapper">
+
+
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <!-- Titulo en el sidebar -->
+            <li class="sidebar-brand">
+                <a href="#" style="text-align: center; ">
+                    <p class ="brandUCAB">UCAB</p>
+                    <p class ="brandEgresados">Egresados</p>
+                </a>
+            </li>
+            <!-- Usuario en el Sidebar -->
+            <div class="container-fluid">
+                <div class="row columns-parent" >
+                        <div class="col-md-3"   >
+                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
+                        </div>
+                        <div class="col-md-9">
+                            <div class="user-name">
+                                <p>Usuario</p>
+                                <a href="#">Editar</a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+
+            <li>
+                <a href="#">Postulación</a>
+            </li>
+            <li>
+                <div class ="button-border">
+                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo">
+                        <div>Candidatos</div>
+                    </button>
+                </div>
+                <div id="demo" class="collapse sub-list" >
+                    <ul>
+                        <li  class="sub-list-item" >
+                            <a href="#" > asdasd </a>
+                        </li>
+                        <li  class="sub-list-item" >
+                            <a href="#" > asdasd </a>
+                        </li>
+                        <li  class="sub-list-item" >
+                            <a href="#" > asdasd </a>
+                        </li>
+                        <li  class="sub-list-item" >
+                            <a href="#" > asdasd </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="#">Votación</a>
+            </li>
+            <li>
+                <a href="#">Resultados</a>
+            </li>
+
+        </ul>
+
+
+
+    </div>
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" class="vertical-center-parent main-background-dark" >
+        <div class="container-fluid " >  <!--  container-fluid 0-->
+
+                    <h1 class="main-background-title"> Editar</h1>
+           
+
+
+<br>
+<br>
+     <div class="container-fluid">  <!--  container-fluid 1-->
+  
+  
+    <div class="panel custom-panel">
+      <div class="panel-heading">
+          
+          <div class="media">
+              <div class="media-left">
+                  
+                  <img src="sources/non-usuario.png" class=" media-object img-circle" style="width: 60px" > 
+              </div>
+
+              <div class="media-body">
+                  
+                  <h4 class="media-heading " style="display: inline;">Pedro Perez.</h4> <small>V-20.345.321</small>
+                  <p> Egresado de Ingeniería Informática en el Año 1998</p>
+              </div>
+
+          </div>
+
+      </div>
+
+       <div class="table-responsive">          
+  <table class="table">
+    <thead>
+        <tr>
+        <th>Telefono De Contacto</th>
+        
+        <th>Email</th>
+        
+        <th>Dirección</th>
+        
+      </tr>
+     
+    </thead>
+    <tbody>
+      
+        <tr>
+        <td>
+        <input type="tel"  id="Telefono" pattern="[0-9]{9}">
+        </td>
+         
+        <td>
+        <input type="Email" class="form-control" id="Email">
+        </td>
+        
+        <td>
+        <input type="text" class="form-control" id="Dirección">
+        </td>
+         </tr>
+
+</tbody>
+     
+  </table>
+  </div>
+
+  <br><br>
+
+
+
+  
+
+
+
+</div>   <!--fin div panel custom-panel -->
+
+
+   
+
+  
+</div>   <!-- Pfin div container-fluid 1-->
+
+<div class="container-fluid"> <!--  container-fluid2-->
+
+<br> 
+        <div class="row vertical-center-parent">
+        <button type="button"  style="display: inline; margin-left: 15px;" class="btn btn-success btn-lg vertical-center-parent">Guardar Cambios</button>
+   
+
+        </div>
+
+        
+    
+      
+    </div>  <!-- fin div container-fluid2-->
+
+
+        </div>  <!-- Pfin div container-fluid 0-->
+    </div>  <!--  fin page-content-wrapper -->
+    
+
+</div>
+
+
+
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

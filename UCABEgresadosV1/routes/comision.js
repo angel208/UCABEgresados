@@ -14,11 +14,15 @@ module.exports = app;
 
 //++++++++++++++++++  RUTAS  +++++++++++++++++++++++++++++
 
-app.get('/index2', function(req, res) {
+app.get('/candidatos-comision/:carrera', function(req, res) {
 
-    sess=req.session;
-    console.log(sess.SBList);
-    res.render('index_egresados', { IDUsuario : sess.IDUsuario, NombreUsu : "Angel", SideBarList : sess.SBList });
+    con.query("SELECT Nombre  FROM carrera WHERE IDCarrera = '"+req.params.carrera+"' ", function (err, result, fields) {
+        sess = req.session;
+        if (err) throw err;
+        res.render('egresados-CandidatoCU-5', { IDUsuario : sess.IDUsuario, NombreUsu : "Angel", SideBarList : sess.SBList, Nombre: result[0].Nombre });
+
+    });
+
 
 });
 

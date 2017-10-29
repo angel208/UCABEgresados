@@ -15,9 +15,18 @@ module.exports = app;
 //++++++++++++++++++  RUTAS +++++++++++++++++++++++++++++
 
 
+app.get('/candidatos-egre/:IDCargo', requireLogin, function(req, res) {
 
+    con.query("SELECT NombreCargo FROM cargo WHERE IDCargo ='"+req.params.IDCargo+"'", function (err, result, fields) {
+        sess = req.session;
+        var NombreCargo;
+        console.log(result[0].NombreCargo);
+        NombreCargo = result[0].NombreCargo;
 
+        res.render('egresado-listaCandidato',{nombreCargo:NombreCargo,SideBarList:sess.SBList, IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario});
+    });
 
+});
 
 
 //++++++++++++++++++  FUNCIONES GLOBALES +++++++++++++++++++++++++++++
