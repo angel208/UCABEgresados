@@ -1,0 +1,66 @@
+<% if (!SideBarList[0].NombreCargo) {
+
+    sistem.log("redirecting");
+    response.statusCode = 302;
+    response.setHeader("Location", "/login");
+    response.end();
+
+}%>
+
+<ul class="sidebar-nav">
+    <!-- Titulo en el sidebar -->
+    <li class="sidebar-brand">
+        <a href="#" style="text-align: center; ">
+            <p class ="brandUCAB">UCAB</p>
+            <p class ="brandEgresados">Egresados</p>
+        </a>
+    </li>
+    <!-- Usuario en el Sidebar -->
+    <div class="container-fluid">
+        <div class="row columns-parent" >
+            <div class="col-md-3"   >
+                <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
+            </div>
+            <div class="col-md-9">
+                <div class="user-name">
+                    <p>Usuario</p>
+                    <a href="#">Editar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <li>
+        <a href="#">Postulación</a>
+    </li>
+    <li>
+        <div class ="button-border">
+            <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo">
+                <div>Candidatos</div>
+            </button>
+        </div>
+        <div id="demo" class="collapse sub-list" >
+            <ul>
+
+                <% SideBarList.forEach(function(Elemento){ %>
+
+                    <li class="sub-list-item">
+                        <a href="#" >
+                            <%= Elemento.NombreCargo %>
+                        </a>
+                    </li>
+
+                <% }); %>
+
+            </ul>
+        </div>
+    </li>
+    <li>
+        <a href="#">Votación</a>
+    </li>
+    <li>
+        <a href="#">Resultados</a>
+    </li>
+
+</ul>
