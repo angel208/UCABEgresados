@@ -10,9 +10,9 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/angel.css" rel="stylesheet">
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
-    <link rel="stylesheet" href="/vendor/bootstrap-combobox/css/bootstrap-combobox.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,46 +26,45 @@
 
 
 <body>
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!1!!!!!!!!!!!! -->
 <div id="wrapper">
 
     <!-- Titulo en el sidebar -->
     <div id="sidebar-wrapper">
 
-        <% include Partials/SideBar_Comision.ejs %>
+        <%include Partials/SideBar_Comision.ejs%>
 
     </div>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper" class="vertical-center-parent main-background-light" >
+    <div id="page-content-wrapper" class="main-background-light" >
+        <div class="container-fluid full-height " >
 
-        <h1>Consultar Histórico de Resultados</h1>
-         <div class="alert custom-tip-alert">
-                        <span class="glyphicon glyphicon-exclamation-sign" style="display:inline"></span>
-                        <p style="display:inline">TIP!</p>
-                        <p>Este módulo te permite ver los resultados de las elecciones pasadas. Solo selecciona el período que quieres consultar.</p>
+            <!--==========TITULO Y ALERTAS====================-->
+            <div class="row">
+                <div class="col-lg-12">
 
-                    </div>
+                    <h1>Asignación Final de Cargos</h1>
+                    <h1 class="subtitulo">Seleccione el Cargo</h1>
 
-        <div class="container-fluid vertical-center vertical-center-child" >
-
-            <form action="/resultados" method="GET">
-                    <div class="form-group">
-                        <label for="cedula">Periodo:</label>
-
-                        <select class="selectpicker" class="form-control" id="cedula"  name="periodo">
-                            <% Periodos.forEach( function(Periodo){ %>
-                            <option><%=Periodo.IDPE%></option>
-                            <% });%>
-                        </select>
-                    </div>
-                <br><br>
-                     <button type="submit"  class="btn btn-primary btn-lg ">Consultar</button>
-             </form>
-   
+                </div>
+            </div>
 
 
+            <!--==========BODY  ====================-->
+            <div class="row">
+
+                <% lista.forEach ( function( Element ){ %>
+                    <a href="/conformacion/<%=Element.IDCargo%>">
+                        <button type="button" class="btn btn-primary btn-block">
+                             <div class="col-xs-8 col-md-10 text-left"><%=Element.NombreCargo%></div>
+                             <img src="sources/check.png" class="col-xs-4 col-md-2 img-responsive pull-right" alt="progreso">
+                        </button>
+                    </a>
+                <%});%>
+
+
+            </div>
 
 
         </div>

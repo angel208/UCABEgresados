@@ -94,6 +94,14 @@ body{
     margin-bottom: 10px
 }
 
+
+.modal-label {
+
+    margin-top :20px;
+    margin-bottom: 20px;
+}
+
+
 /*==========LOGIN--------*/
 
 
@@ -112,7 +120,6 @@ body{
     bottom: 75%;
     margin-bottom: 0px;
 }
-
 
 /*=============BOTONES ANCHOS==========*/
 
