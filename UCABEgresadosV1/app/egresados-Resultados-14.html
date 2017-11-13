@@ -30,104 +30,7 @@
 
     <!-- Titulo en el sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB" > UCAB </p>
-                    <p class ="brandEgresados" >Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
-
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p >Usuario</p>
-                                <a href="#">Cerrar Sesión</a>
-                            </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!--------------LISTADO DE OPCIONES----------------->
-            <li>
-                <a href="#">Histórico de Resultados</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#ConfiguracionElectoral">
-                        <div>Configuración del Proceso Electoral</div>
-                    </button>
-                </div>
-                <div id="ConfiguracionElectoral" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Crear Periódo Electoral </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Gestionar Cargos de las Carreras</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Conformar Papeletas </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Totalizacion">
-                        <div>Totalización y asignación de cargos</div>
-                    </button>
-                </div>
-                <div id="Totalizacion" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Totalización de los Votos </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Asignación Final de los Cargos</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Generar Reportes Impresos </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Candidatos">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="Candidatos" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdads </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-            <li>
-                <a href="#">Imprimir Papeletas</a>
-            </li>
-
-        </ul>
+         <%include Partials/Sidebar_Egresados.ejs%>
 
 
 
@@ -138,8 +41,8 @@
     <div id="page-content-wrapper" class="vertical-center-parent main-background-dark" >
         <div class="container-fluid " >
 
-                    <h1 class="main-background-title"> Resultados de las Elecciones de Ingeniería</h1>
-                    <h2 class="secondary-background-title">Infromática Periodo 2016-2020</h2>
+                    <h2 class="main-background-title"> Resultados de las Elecciones de Ingeniería</h2>
+                    <h3 class="secondary-background-title">InfoRrmática Periodo 2016-2020</h3>
 
 
 <br>
