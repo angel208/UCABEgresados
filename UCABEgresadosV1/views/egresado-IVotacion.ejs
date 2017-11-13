@@ -25,70 +25,56 @@
 
 
 <body>
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
 <div id="wrapper">
 
     <!-- Titulo en el sidebar -->
     <div id="sidebar-wrapper">
-        <%include Partials/Sidebar_Egresados.ejs%>
+       <%include Partials/Sidebar_Egresados.ejs%>
 
 
 
     </div>
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper" class="vertical-center-parent main-background-light" >
-        <div class="container-fluid " >
-
-                    <h3 style="color: black;" class="main-background-title"> Resultados de las Elecciones.</h3>
-                    
+<h1 style="text-align: center;">Votación</h1>
 
 
 <br>
 <br>
-     <div class="container-fluid">
-  
-  
+    <div class="alert alert-danger">
+        <span class="glyphicon glyphicon-exclamation-sign" style="display:inline"></span>
+          <p style="display:inline"> <strong>¡ADVERTENCIA! </strong></p>  <p>Si no selecciona a un candidato para algun cargo, el voto para ese cargo sera nulo.</p>
+    </div>
 
-  
+<br>
+<br>
+<form action="/egresado-Votacion/"  method="post">
 
-  <% cargos.forEach( function( cargos ) {%>
- <div class="panel panel-primary">
-          
+ <div class="container-fluid" >
+
+
+<% cargos.forEach( function( cargos ) {%>
+ <div class="panel panel-default custom-panel">
+
     <div class="panel-heading">
-
-     <h4> <strong><%= cargos.NombreCargo %> </strong></h4>
+     <p> <strong><%= cargos.NombreCargo %> </strong></p>
       </div>
 
         <div class="panel-body">
-            
-            <table class="table">
-                
-            <thead>
-                 <tr>
-                   <th>Postulado</th>
-                   <th>Votos</th>
-                 </tr>
-            </thead>
-    <tbody>
-        <% GANADOR.forEach( function( GANA ) {%>
-                 <% if (cargos.IDCargo1 == GANA.IDCargo){%>
-      <tr>
-        <td>  <%=GANA.nombre%> </td>
-        <td>  <%= GANA.TotalVotos %></td>
-        
-      </tr>
-              <% } %>
+            <% nombreE.forEach( function( nombresEgresados ) {%>
+             <% if (cargos.IDCargo1 == nombresEgresados.IDCargo1){%>
+                    <div class="row">
+                            <div class="col-xs-11 ">
+                             <%=nombresEgresados.nombre%>
+                            </div>
+                        <div class="col-sm-1 ">
+                         <input type="checkbox" class="checks" name="cargos_seleccionados[]" value= "<%=nombresEgresados.nombre%>">
+                        </div>
+                    </div>
+                                                        <% } %>
                                             <%});%>
-        
-</tbody>
-     
-  </table>
-
-
-
-
         </div>
     </div>
     <%});%>
@@ -97,19 +83,28 @@
 
 
 
+  
+      
+       <button   type="submit"   name="InicioVotacion" value="votar" class="btn btn-info btn-block">Votar</button>
 
+    
+  
+        </form>
+        
+	        
+		      </div>
 
-
-   </div>
-
-
-        </div>
     </div>
     <!-- /#page-content-wrapper -->
 
 </div>
 
 
+    </div>
+
+
+
+</div>
 
 
 
