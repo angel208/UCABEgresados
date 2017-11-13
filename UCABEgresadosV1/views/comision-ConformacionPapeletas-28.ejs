@@ -70,14 +70,17 @@
                                         <%=Element.NombreEgresado+" "+Element.ApellidoEgresado%>
                                     </div>
                                     <div class="col-sm-1">
-                                        <input type="checkbox" name="seleccionados[]" value="<%= Element.IDPostulacion %>" placeholder="First name">
+                                        <% if ( Element.ValidadaCE == 1 ) { %>
+                                              <input type="checkbox" name="seleccionados[]" value="<%= Element.IDPostulacion %>" placeholder="First name" checked>
+                                        <% } else { %>
+                                              <input type="checkbox" name="seleccionados[]" value="<%= Element.IDPostulacion %>" placeholder="First name">
+                                        <%}%>
                                     </div>
                                 </div>
                                 <% });%>
 
                             </div>
                         </div>
-
                             <button type="submit" class="btn btn-primary center-block" >
                                 Seleccionar Cargos
                             </button>
