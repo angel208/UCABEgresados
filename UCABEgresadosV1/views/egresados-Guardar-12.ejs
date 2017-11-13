@@ -30,65 +30,7 @@
 
 
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB">UCAB</p>
-                    <p class ="brandEgresados">Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p>Usuario</p>
-                                <a href="#">Editar</a>
-                            </div>
-                        </div>
-                </div>
-            </div>
-
-
-            <li>
-                <a href="#">Postulación</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="demo" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a href="#">Votación</a>
-            </li>
-            <li>
-                <a href="#">Resultados</a>
-            </li>
-
-        </ul>
-
+        <%include Partials/Sidebar_Egresados.ejs%>
 
 
     </div>
@@ -113,13 +55,13 @@
           <div class="media">
               <div class="media-left">
                   
-                  <img src="sources/non-usuario.png" class=" media-object img-circle" style="width: 60px" > 
+                  <img src="/sources/non-usuario.png" class=" media-object img-circle" style="width: 60px" > 
               </div>
 
               <div class="media-body">
                   
-                  <h4 class="media-heading " style="display: inline;">Pedro Perez.</h4> <small>V-20.345.321</small>
-                  <p> Egresado de Ingeniería Informática en el Año 1998</p>
+                  <h4 class="media-heading " style="display: inline;"><%= datos[0].nombre %></h4> <small><%= datos[0].CI %></small>
+                  <p> Egresado de <%=datos[0].NombreC%> </p>
               </div>
 
           </div>
@@ -140,18 +82,20 @@
      
     </thead>
     <tbody>
-      
+      <form action="/Editar-Perfil" method="post">
+        <input class= 'hidden' name="CI" value="<%= datos[0].CI %>">
+        <input class= 'hidden' name="IDCarrera" value="<%= datos[0].IDCarrera %>">
         <tr>
         <td>
-        <input type="tel"  id="Telefono" pattern="[0-9]{9}">
+        <input type="tel"  id="Telefono" pattern="[0-9]{9}" name="Telefono">
         </td>
          
         <td>
-        <input type="Email" class="form-control" id="Email">
+        <input type="Email" class="form-control" id="Email" name="Email">
         </td>
         
         <td>
-        <input type="text" class="form-control" id="Dirección">
+        <input type="text" class="form-control" id="Dirección" name="Dirección">
         </td>
          </tr>
 
@@ -171,6 +115,8 @@
 </div>   <!--fin div panel custom-panel -->
 
 
+
+
    
 
   
@@ -180,12 +126,11 @@
 
 <br> 
         <div class="row vertical-center-parent">
-        <button type="button"  style="display: inline; margin-left: 15px;" class="btn btn-success btn-lg vertical-center-parent">Guardar Cambios</button>
-   
+       <button type="submit" name="EditarPerfil" value="Guardar" class="btn btn-primary center-block" style="width: 200px"> Guardar Cambios</button>
 
         </div>
 
-        
+   </form>     
     
       
     </div>  <!-- fin div container-fluid2-->

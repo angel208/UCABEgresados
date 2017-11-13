@@ -1,6 +1,6 @@
 <% if (!SideBarList[0].NombreCargo) {
 
-    sistem.log("redirecting");
+    system.log("redirecting");
     response.statusCode = 302;
     response.setHeader("Location", "/login");
     response.end();
@@ -19,12 +19,12 @@
     <div class="container-fluid">
         <div class="row columns-parent" >
             <div class="col-md-3"   >
-                <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
+                <img src="/sources/non-usuario.png" class="img-responsive img-rounded "   >
             </div>
             <div class="col-md-9">
                 <div class="user-name">
                     <p>Usuario</p>
-                    <a href="#">Editar</a>
+                    <a href="/egresados-Perfil">Editar</a>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
 
 
     <li>
-        <a href="#">Postulación</a>
+        <a href="/egresado-Postulacion/">Postulación</a>
     </li>
     <li>
         <div class ="button-border">
@@ -57,10 +57,10 @@
         </div>
     </li>
     <li>
-        <a href="#">Votación</a>
+        <a href="/egresado-InicioVotacion">Votación</a>
     </li>
     <li>
-        <a href="#">Resultados</a>
+        <a href="/egresados-Resultados">Resultados</a>
     </li>
 
 </ul>

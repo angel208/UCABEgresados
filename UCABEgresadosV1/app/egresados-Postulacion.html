@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
- <title>UCABEgresados</title>
+    <title>UCABEgresados</title>
 
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -25,70 +25,49 @@
 
 
 <body>
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
 <div id="wrapper">
 
     <!-- Titulo en el sidebar -->
     <div id="sidebar-wrapper">
-        <%include Partials/Sidebar_Egresados.ejs%>
+       <%include Partials/Sidebar_Egresados.ejs%>
+
+
+
     </div>
-<!-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper" class="vertical-center-parent main-background-light" >
-        <div class="container-fluid " >
-
-            <h4 style="font-size:300%; color:black; " class="main-background-title">Lista Candidatos de <%= nombreCargo%> </h4>
-                   
-
+<h1 style="text-align: center;">Postulación</h1>
 
 
 <br>
 <br>
+<div class="alert custom-tip-alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" style="display:inline"></span>
+                         <% resultado.forEach(function(Elemento){ %>
+                        <p style="display:inline">TIP!</p>
+                        <p>Actualmente, usted se encuentra postulado en los siguientes cargos:</p>
+                        <p><%= Elemento.nombreCargo%></p>
+                          <% }); %>
+
+                    </div>
+<br>
+<br>
 
 
-<div class="container-fluid"><!-- div container1 -->
-
-    
-
-      <!-- Team Members Row -->
-      <div class="row">
-        <div class="col-lg-12">
-          <h1 style="color:black;" class="text-center">Candidatos</h1>
+        <div class="container-fluid" >
+        	<button type="button" class="btn btn-info btn-block">Postularse a un Cargo.</button>
+	        <button type="button" class="btn btn-info btn-block">Retirar postulación</button>
+		    
+            
         </div>
+    </div>
+    <!-- /#page-content-wrapper -->
 
-<br>
-<br>
-<br>
-
-
-
-          <% resultado.forEach(function(Elemento){ %>
-        <div class="col-lg-4 col-sm-6 text-center mb-4">
-          <img class="img-circle img-fluid d-block mx-auto" src="/sources/non-usuario.png" style="width: 100px ">
-          <h3 style="color:black;"> <%= Elemento.nombre %></h3>
-        <a style="color:blue;" href="/candidatos-promesas/<%= Elemento.IDP %>">Ver Mas...</a>
-        </div>
-         <% }); %>
-
-          
-
-
-
-
-       
-        
-        
-    
-      </div>
-
-    </div> <!-- /div container1 -->
-    
-</div><!-- /div container -->
 </div>
 
-
-
+</div>
 
 
 

@@ -39,7 +39,7 @@
     <div id="page-content-wrapper" class="vertical-center-parent main-background-dark" >
         <div class="container-fluid " >
 
-                    <h1 class="main-background-title"> Candidato</h1>
+                    <h1 class="main-background-title"> Perfil</h1>
            
 
 
@@ -59,8 +59,8 @@
 
               <div class="media-body">
                   
-                  <h4 class="media-heading"> <%= resultado[0].nombre %>.</h4>
-                  <p> Aspirante a representante de <%=resultado[0].Nombre %>. </p>
+                  <h4 class="media-heading"> <%= datos[0].nombre %>.</h4>
+                  <p>Egresado de <%=datos[0].NombreC %>. </p>
               </div>
 
           </div>
@@ -72,49 +72,26 @@
     <thead>
       <tr>
         
-        <th>Carrera</th>
-        <th>Edad</th>
-        <th>Partido</th>
-        <th>City</th>
+        <th>Telefono</th>
+        <th>Dirección</th>
         <th>Email</th>
       </tr>
      
     </thead>
     <tbody>
       <tr>
-        <td><%= resultado[0].Nombre%> </td>
-        <td><%= resultado[0].edad%></td>
-        <td>Somos Ucabistas</td>
-        <td><%= resultado[0].direccion%></td>
-        <td><%= resultado[0].Email%></td>
+        <td><%= datos[0].Tlf%> </td>
+        <td><%= datos[0].direccion%></td>
+        <td><%= datos[0].Email%></td>
       </tr>
 </tbody>
      
   </table>
   </div>
   <br><br>
-  <div class="panel custom-panel">
-      <div class="panel-heading">
-        <p>Propuestas:</p>  
-          
-      </div>
-      <% resultado.forEach(function(Elemento){ %>
-              <p style="text-align: center; ">
-                    <p class ="brandTPropuesta" > Propuesta : </p>
-                    <p class ="brandPropuesta" ><%= Elemento.prpuesta%></p>
-                </p>
-                 <% }); %>
-
-              
-
-
-                
-
-    </div>
-
-
-
+ 
 </div> 
+
 
 
    
@@ -126,6 +103,18 @@
 
 
         </div>
+
+        <form method="get"  style="display: inline;" action="/egresados-Editar">
+ 
+    
+    <div style="display: inline;">
+        
+
+    
+    <button type="submit" class="btn btn-primary center-block" style="width: 300px">Editar Perfil</button>
+</div>
+
+</form>
     </div>
     <!-- /#page-content-wrapper -->
 
