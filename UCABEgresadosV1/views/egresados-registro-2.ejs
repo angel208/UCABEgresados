@@ -8,10 +8,10 @@
     <title>UCABEgresados</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/angel.css" rel="stylesheet">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/angel.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -27,72 +27,7 @@
 
 <body>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
-<div id="wrapper">
 
-
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB">UCAB</p>
-                    <p class ="brandEgresados">Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p>Usuario</p>
-                                <a href="#">Editar</a>
-                            </div>
-                        </div>
-                </div>
-            </div>
-
-
-            <li>
-                <a href="#">Postulación</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="demo" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a href="#">Votación</a>
-            </li>
-            <li>
-                <a href="#">Resultados</a>
-            </li>
-
-        </ul>
-
-
-
-    </div>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT                !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
@@ -105,20 +40,26 @@
             </div>
 
             <div class="row  vertical-center-parent" style="height:75% !important;">
-                <form class="vertical-center-child form-with-lots-of-text" >
+                <form class="vertical-center-child form-with-lots-of-text" method="post" action="/egresado-registro3">
 
                     <h3>Se encontraron los siguientes datos correspondientes a esa cédula</h3>
                     <!--dinamico-->
-                    <p class="sangria">nombre: Pedro Perez</p>
-                    <p class="sangria">Correo UCAB: paperez10@est.ucab.edu.ve</p>
+                    <p class="sangria">nombre: <%= datosE[0].nombre %></p>
+                    <p class="sangria">Correo UCAB: <%= datosE[0].Correoucab %></p>
 
                     <h3 style="margin-top: 50px;">Necesitamos verificar su identidad, por favor responda la siguiente pregunta</h3>
 
                     <div class="form-group">
                         <!--dinamico-->
                         <label for="respuesta">¿En que año se graduó?</label>
-                        <input type="text" class="form-control" id="respuesta">
+            <input type="text" class="form-control" id="respuesta" name="respuesta">
                     </div>
+
+
+
+<input type="hidden" name="CI" value="<%= datosE[0].CIEgresado %> ">
+<input type="hidden" name="nombre" value="<%= datosE[0].nombre %> ">
+<input type="hidden" name="AnoEgresado" value="<%=datosE[0].AnoEgreso%> ">
 
                     <button type="submit" class="btn btn-primary center-block">
                         Validar
@@ -131,7 +72,7 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-</div>
+
 
 
 
@@ -141,6 +82,6 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

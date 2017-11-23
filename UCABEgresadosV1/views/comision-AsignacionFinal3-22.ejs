@@ -8,10 +8,10 @@
     <title>UCABEgresados</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/angel.css" rel="stylesheet">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/angel.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -31,106 +31,8 @@
 
     <!-- Titulo en el sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB" > UCAB </p>
-                    <p class ="brandEgresados" >Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
 
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p >Usuario</p>
-                                <a href="#">Cerrar Sesión</a>
-                            </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!--------------LISTADO DE OPCIONES----------------->
-            <li>
-                <a href="#">Histórico de Resultados</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#ConfiguracionElectoral">
-                        <div>Configuración del Proceso Electoral</div>
-                    </button>
-                </div>
-                <div id="ConfiguracionElectoral" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Crear Periódo Electoral </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Gestionar Cargos de las Carreras</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Conformar Papeletas </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Totalizacion">
-                        <div>Totalización y asignación de cargos</div>
-                    </button>
-                </div>
-                <div id="Totalizacion" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Totalización de los Votos </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Asignación Final de los Cargos</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Generar Reportes Impresos </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Candidatos">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="Candidatos" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdads </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-            <li>
-                <a href="#">Imprimir Papeletas</a>
-            </li>
-
-        </ul>
-
-
+        <% include Partials/SideBar_Comision.ejs %>
 
     </div>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
@@ -165,13 +67,13 @@
             <!--==========PANEL====================-->
             <div class="row">
                 <div class="col-lg-12">
-                    <form>
+                    <form action="/asignacion_final" method="post" id="form">
 
 
                         <div class="panel panel-default custom-panel">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <p class="col-xs-6 col-sm-7">Postulados a Consejo Universitario</p>
+                                    <p class="col-xs-6 col-sm-7"><%=lista[0].NombreCargo%></p>
                                     <div class="col-xs-5 col-sm-3">
                                         <div class="inline text-left">Principal</div>
                                         <div class="inline pull-right" > Suplente</div>
@@ -184,65 +86,48 @@
                             </div>
                             <div class="panel-body">
 
+                                <% var asignado = 0;
+
+                                   lista.forEach( function ( Element ){
+                                        asignado += Element.principal;
+                                   });%>
 
 
+                            <%lista.forEach( function( Element, index ){ %>
                                 <div class="row">
                                     <div class="col-xs-7">
-                                        angel
+                                        <%=Element.NombreEgresado+" "+Element.ApellidoEgresado%>
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="radio" name="optradio"  >
-                                        <input type="radio" name="optradio2" class=" pull-right">
-                                    </div>
-                                    <div class="col-xs-2 text-center ">
-                                        <p>234 votos</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-7">
-                                        angel
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="radio" name="optradio"  >
-                                        <input type="radio" name="optradio2" class=" pull-right">
-                                    </div>
-                                    <div class="col-xs-2 text-center ">
-                                        <p>234 votos</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-7">
-                                        angel
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="radio" name="optradio"  >
-                                        <input type="radio" name="optradio2" class=" pull-right">
-                                    </div>
-                                    <div class="col-xs-2 text-center ">
-                                        <p>234 votos</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-7">
-                                        angel
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="radio" name="optradio"  >
-                                        <input type="radio" name="optradio2" class=" pull-right">
-                                    </div>
-                                    <div class="col-xs-2 text-center ">
-                                        <p>234 votos</p>
-                                    </div>
-                                </div>
 
 
+                                        <% if ( Element.principal == 1) {%>
+                                              <input type="radio" name="principal" value="<%=Element.IDPostulacion%>" checked>
+                                        <% }else if ( asignado == 0&& index == 0) {%>
+                                              <input type="radio" name="principal" value="<%=Element.IDPostulacion%>" checked>
+                                        <% }else{ %>
+                                              <input type="radio" name="principal" value="<%=Element.IDPostulacion%>" >
 
+
+                                        <% }if ( Element.suplente == 1){ %>
+                                              <input type="radio" name="suplente" value="<%=Element.IDPostulacion%>" class=" pull-right" checked>
+                                        <% } else if ( asignado == 0  && index == 1){ %>
+                                              <input type="radio" name="suplente" value="<%=Element.IDPostulacion%>" class=" pull-right" checked>
+                                        <% }else{ %>
+                                              <input type="radio" name="suplente" value="<%=Element.IDPostulacion%>" class=" pull-right">
+                                        <% } %>
+
+                                    </div>
+                                    <div class="col-xs-2 text-center ">
+                                        <p><%=Element.Votos%> votos</p>
+                                    </div>
+                                </div>
+                            <% });%>
 
 
                             </div>
                         </div>
-
-                            <button type="submit" class="btn btn-primary center-block" >
+                            <button type="submit" class="btn btn-primary center-block" id="asignar" >
                                 Asignar Cargos
                             </button>
 
@@ -264,8 +149,26 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script>
+
+    $("#asignar").on('click', function(e) {
+
+            var check_suplente = $('input[name=suplente]:checked', '#form').val();
+            var check_principal = $('input[name=principal]:checked', '#form').val();
+
+            if( check_suplente == check_principal ) {
+                e.preventDefault(); //prevent the default action
+                alert("A un candidato no puede serle asignado tanto el puesto de principal como de suplente. Por favor, revise su selección");
+            }
+
+        });
+
+</script>
+
+
 </body>
 </html>

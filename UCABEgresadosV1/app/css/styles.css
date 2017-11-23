@@ -84,6 +84,14 @@ h1{
 
 }
 
+.custom-error-alert{
+
+    border-color: #dd1a1a;
+    background: #dd1a1a;
+    color: white;
+
+}
+
 .custom-tip-alert{
 
     border-color: var(--main-green);

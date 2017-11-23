@@ -26,73 +26,8 @@
 
 
 <body>
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
-<div id="wrapper">
 
 
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB">UCAB</p>
-                    <p class ="brandEgresados">Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p>Usuario</p>
-                                <a href="#">Editar</a>
-                            </div>
-                        </div>
-                </div>
-            </div>
-
-
-            <li>
-                <a href="#">Postulación</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="demo" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a href="#">Votación</a>
-            </li>
-            <li>
-                <a href="#">Resultados</a>
-            </li>
-
-        </ul>
-
-
-
-    </div>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT                !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
@@ -105,27 +40,31 @@
             </div>
 
             <div class="row  vertical-center-parent" style="height:75% !important;">
-                <form class=" vertical-center-child form-with-lots-of-text" >
+    <form class=" vertical-center-child form-with-lots-of-text" method="post" action="/registro-egresado4" >
                     <!--dinamico-->
                     <h3>Por último, Necesitaras crear una contraseña para ingresar al sistema</h3>
 
                     <div class="form-group" style="margin-top: 30px">
-                        <label for="pass">Contraseña</label>
-                        <input type="password" class="form-control" id="pass">
+                        <label for="usu">Usuario</label>
+                        <input type="text" class="form-control" id="usu" name="usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="pass"> Contraseña</label>
+                        <input type="password" class="form-control" id="pass" name="pass">
                     </div>
                     <div class="form-group">
                         <label for="pass2">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="pass2">
+                        <input type="password" class="form-control" id="pass2" name="pass2">
                     </div>
                     <div class="form-group">
                         <label for="pregunta">Pregunta de Seguridad (usada en caso de extravío de contraseña) </label>
-                        <input type="text" class="form-control" id="pregunta">
+                        <input type="text" class="form-control" id="pregunta" name="preg">
                     </div>
                     <div class="form-group">
                         <label for="respuesta">Respuesta de Seguridad </label>
-                        <input type="text" class="form-control" id="respuesta">
+                        <input type="text" class="form-control" id="respuesta" name="resp">
                     </div>
-
+<input type="hidden" name="CI" value="<%=CI%> ">
 
                     <button type="submit" class="btn btn-primary center-block " data-toggle="modal" data-target="#myModal">
                         Finalizar
@@ -139,7 +78,7 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-</div>
+
 
 
 

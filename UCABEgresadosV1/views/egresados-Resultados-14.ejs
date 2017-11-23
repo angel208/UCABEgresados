@@ -8,9 +8,9 @@
     <title>UCABEgresados</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -30,104 +30,7 @@
 
     <!-- Titulo en el sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB" > UCAB </p>
-                    <p class ="brandEgresados" >Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
-
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p >Usuario</p>
-                                <a href="#">Cerrar Sesión</a>
-                            </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!--------------LISTADO DE OPCIONES----------------->
-            <li>
-                <a href="#">Histórico de Resultados</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#ConfiguracionElectoral">
-                        <div>Configuración del Proceso Electoral</div>
-                    </button>
-                </div>
-                <div id="ConfiguracionElectoral" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Crear Periódo Electoral </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Gestionar Cargos de las Carreras</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Conformar Papeletas </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Totalizacion">
-                        <div>Totalización y asignación de cargos</div>
-                    </button>
-                </div>
-                <div id="Totalizacion" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Totalización de los Votos </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Asignación Final de los Cargos</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Generar Reportes Impresos </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Candidatos">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="Candidatos" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdads </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-            <li>
-                <a href="#">Imprimir Papeletas</a>
-            </li>
-
-        </ul>
+        <%include Partials/Sidebar_Egresados.ejs%>
 
 
 
@@ -135,11 +38,11 @@
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
-    <div id="page-content-wrapper" class="vertical-center-parent main-background-dark" >
+    <div id="page-content-wrapper" class="vertical-center-parent main-background-light" >
         <div class="container-fluid " >
 
-                    <h1 class="main-background-title"> Resultados de las Elecciones de Ingeniería</h1>
-                    <h2 class="secondary-background-title">Infromática Periodo 2016-2020</h2>
+                    <h3 style="color: black;" class="main-background-title"> Resultados de las Elecciones.</h3>
+                    
 
 
 <br>
@@ -147,72 +50,57 @@
      <div class="container-fluid">
   
   
-    <div class="panel custom-panel">
-      <div class="panel-heading">
-          
-          <div class="media">
-              <div class="media-left">
-                  
-                  <img src="sources/non-usuario.png" class=" media-object img-circle" style="width: 60px" > 
-              </div>
 
-              <div class="media-body">
-                  
-                  <h4 class="media-heading">Pedro Perez.</h4>
-                  <p> Ganador para consejo universitario.</p>
-              </div>
-          </div>
-      </div>
-      <div class="panel-body">Anita la Huerfanita</div>
-      <div class="panel-body">Juan Callado</div>
-      <div class="panel-body">Luis Mcgyver</div>
-    </div>
-
-
-    <div class="panel custom-panel">
-      <div class="panel-heading">
-          
-          <div class="media">
-              <div class="media-left">
-                  
-                  <img src="sources/non-usuario.png" class=" media-object img-circle" style="width: 60px" > 
-              </div>
-
-              <div class="media-body">
-                  
-                  <h4 class="media-heading">Pedro Perez.</h4>
-                  <p> Ganador para consejo Extesnión.</p>
-              </div>
-          </div>
-      </div>
-      <div class="panel-body">Anita la Huerfanita</div>
-      <div class="panel-body">Juan Callado</div>
-      <div class="panel-body">Luis Mcgyver</div>
-    </div>
-
-    <div class="panel custom-panel">
-      <div class="panel-heading">
-          
-          <div class="media">
-              <div class="media-left">
-                  
-                  <img src="sources/non-usuario.png" class=" media-object img-circle" style="width: 60px" > 
-              </div>
-
-              <div class="media-body">
-                  
-                  <h4 class="media-heading">Pedro Perez.</h4>
-                  <p> Ganador para consejero Escuela.</p>
-              </div>
-          </div>
-      </div>
-      <div class="panel-body">Anita la Huerfanita</div>
-      <div class="panel-body">Juan Callado</div>
-      <div class="panel-body">Luis Mcgyver</div>
-    </div>
-   
   
-</div>
+
+  <% cargos.forEach( function( cargos ) {%>
+ <div class="panel panel-primary">
+          
+    <div class="panel-heading">
+
+     <h4> <strong><%= cargos.NombreCargo %> </strong></h4>
+      </div>
+
+        <div class="panel-body">
+            
+            <table class="table">
+                
+            <thead>
+                 <tr>
+                   <th>Postulado</th>
+                   <th>Votos</th>
+                 </tr>
+            </thead>
+    <tbody>
+        <% GANADOR.forEach( function( GANA ) {%>
+                 <% if (cargos.IDCargo1 == GANA.IDCargo){%>
+      <tr>
+        <td>  <%=GANA.nombre%> </td>
+        <td>  <%= GANA.TotalVotos %></td>
+        
+      </tr>
+              <% } %>
+                                            <%});%>
+        
+</tbody>
+     
+  </table>
+
+
+
+
+        </div>
+    </div>
+    <%});%>
+
+
+
+
+
+
+
+
+   </div>
 
 
         </div>
@@ -227,8 +115,8 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

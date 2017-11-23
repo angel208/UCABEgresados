@@ -8,9 +8,9 @@
     <title>UCABEgresados</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -30,107 +30,8 @@
 
     <!-- Titulo en el sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB" > UCAB </p>
-                    <p class ="brandEgresados" >Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
-
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p >Usuario</p>
-                                <a href="#">Cerrar Sesión</a>
-                            </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!--------------LISTADO DE OPCIONES----------------->
-            <li>
-                <a href="#">Histórico de Resultados</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#ConfiguracionElectoral">
-                        <div>Configuración del Proceso Electoral</div>
-                    </button>
-                </div>
-                <div id="ConfiguracionElectoral" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Crear Periódo Electoral </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Gestionar Cargos de las Carreras</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Conformar Papeletas </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Totalizacion">
-                        <div>Totalización y asignación de cargos</div>
-                    </button>
-                </div>
-                <div id="Totalizacion" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Totalización de los Votos </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Asignación Final de los Cargos</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Generar Reportes Impresos </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Candidatos">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="Candidatos" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdads </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-            <li>
-                <a href="#">Imprimir Papeletas</a>
-            </li>
-
-        </ul>
-
-
-
+        
+<%include Partials/Sidebar_Egresados.ejs%>
     </div>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
 
@@ -153,13 +54,13 @@
           <div class="media">
               <div class="media-left">
                   
-                  <img src="sources/non-usuario.png" class=" media-object img-circle" style="width: 60px" > 
+                  <img src="/sources/non-usuario.png" class=" media-object img-circle" style="width: 60px" > 
               </div>
 
               <div class="media-body">
                   
-                  <h4 class="media-heading">Pedro Perez.</h4>
-                  <p> Aspirante a representante de Consejo Universitario.</p>
+                  <h4 class="media-heading"> <%= resultado[0].nombre %>.</h4>
+                  <p> Aspirante a representante de <%=resultado[0].Nombre %>. </p>
               </div>
 
           </div>
@@ -181,11 +82,11 @@
     </thead>
     <tbody>
       <tr>
-        <td>Ingeniría Informática</td>
-        <td>22</td>
+        <td><%= resultado[0].Nombre%> </td>
+        <td><%= resultado[0].edad%></td>
         <td>Somos Ucabistas</td>
-        <td>Puerto ordaz</td>
-        <td>pedroperez22@gmail.com</td>
+        <td><%= resultado[0].direccion%></td>
+        <td><%= resultado[0].Email%></td>
       </tr>
 </tbody>
      
@@ -197,22 +98,17 @@
         <p>Propuestas:</p>  
           
       </div>
-
+      <% resultado.forEach(function(Elemento){ %>
               <p style="text-align: center; ">
-                    <p class ="brandTPropuesta" > Propuesta 1: </p>
-                    <p class ="brandPropuesta" >hola mundo</p>
+                    <p class ="brandTPropuesta" > Propuesta : </p>
+                    <p class ="brandPropuesta" ><%= Elemento.prpuesta%></p>
                 </p>
+                 <% }); %>
 
-                <p style="text-align: center; ">
-                    <p class ="brandTPropuesta" > Propuesta 2: </p>
-                    <p class ="brandPropuesta" >hola mundo</p>
-                </p>
+              
 
 
-                <p style="text-align: center; ">
-                   <p class ="brandTPropuesta" > Propuesta 3: </p>
-                    <p class ="brandPropuesta" >hola mundo</p>
-                </p>
+                
 
     </div>
 
@@ -241,8 +137,8 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

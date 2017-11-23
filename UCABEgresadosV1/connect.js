@@ -6,7 +6,7 @@ exports.conectar = function () {
 	  host: "localhost",
 	  user: "root",
 	  password: "",
-	  database: "ucabegresados",
+	  database: "ucabegresado",
 	  port: 3306 
 	});	
 	con.connect(function(err) {

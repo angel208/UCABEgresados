@@ -27,72 +27,10 @@
 
 <body>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
-<div id="wrapper">
-
-
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB">UCAB</p>
-                    <p class ="brandEgresados">Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p>Usuario</p>
-                                <a href="#">Editar</a>
-                            </div>
-                        </div>
-                </div>
-            </div>
-
-
-            <li>
-                <a href="#">Postulación</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="demo" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a href="#">Votación</a>
-            </li>
-            <li>
-                <a href="#">Resultados</a>
-            </li>
-
-        </ul>
 
 
 
-    </div>
+    
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT                !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
@@ -105,24 +43,14 @@
             </div>
 
             <div class="row  vertical-center-parent" style="height:75% !important;">
-                <form class=" vertical-center-child" >
+                <form class=" vertical-center-child" method="post" action="egresado-Registro">
 
                     <div class="form-group">
                         <label for="cedula">Introduzca su Cédula de Identidad</label>
-                        <input type="text" class="form-control" id="cedula">
+                        <input type="text" class="form-control" id="cedula" name="CI">
                     </div>
 
-                    <div class="form-group">
-
-                        <label for="carrera">Carrera (si posee más de una, seleccione la primera)</label>
-                        <select class="form-control" id="carrera">
-                            <option>Ingeniería Informática</option>
-                            <option>Ingeniería Civil</option>
-                            <option>Comunicación Social</option>
-                        </select>
-
-                    </div>
-
+     
                     <button type="submit" class="btn btn-primary center-block">
                         Verificar
                     </button>
@@ -134,7 +62,7 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-</div>
+
 
 
 
