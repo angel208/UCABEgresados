@@ -41,64 +41,22 @@
             <h1>Registro en el Sistema</h1>
             <div class="alert custom-tip-alert">Lo Sentimos, no fue encontrado en nuestro sistema, por favor introduzca sus datos.</div>
             </div>
-<br>
-            <div class="row  vertical-center-parent" style="height:40% !important;">
- <form  method="post" action="/egresado-RegistroNuevo">
 
-                     
-                 <label for="cedula">Introduzca su Cédula de Identidad</label>
-                <input  style="width: 300px" type="text" class="form-control" id="cedula" name="CI">
-                         
+            <div class="row  vertical-center-parent" style="height:75% !important;">
+                <form class=" vertical-center-child" method="post" action="egresado-Registro">
 
-                        
+                    <div class="form-group">
+                        <label for="cedula">Introduzca su Cédula de Identidad</label>
+                        <input type="text" class="form-control" id="cedula" name="CI">
+                    </div>
+                    <div class="form-group">
                         <label for="cedula">Introduzca su Nombre(s)</label>
-                        <input style="width: 500px" type="text" class="form-control" id="nombreE" name="nombreE">
-                        
-
-                        
+                        <input type="text" class="form-control" id="nombreE" name="nombreE">
+                    </div>
+                    <div class="form-group">
                         <label for="cedula">Introduzca su Apellido(s)</label>
-                        <input  style="width: 500px" type="text" class="form-control" id="apellidoE" name="apellidoE">
-                        
-
-                    
-                        <label for="Email">Email</label>
-                        <input  style="width: 500px" type="Email" class="form-control" id="Email" name="Email">
-
-                         <label for="tlf">Telefono:</label>
-                        <input style="width: 500px" type="text" class="form-control" id="text" name="tlf">
-                       
-                       
-
-                       
-                        <label for="fenac">Fecha Nacimiento</label>
-                        <input style="width: 500px" type="text" class="form-control" id="fenac" name="fenac">
-
-                         <label for="Dirección">Dirección</label>
-                        <input style="width: 500px" type="text" class="form-control" id="Dirección" name="Dirección">
-                        
-<br>
-                           
-        <label for="carrera">Carrera:</label>
-
-<select style="width: 435px"  class="selectpicker " id="carrera"   name="carrera">
-    <% carrera.forEach(function(Elemento){ %>
-  <option><%= Elemento.Nombre%> </option>
-   <% }); %>
-  
-</select><br>
-
-
-                      
-                        
-                        <label for="preg">pregunta Seguridad</label>
-                        <input style="width: 500px" type="text" class="form-control" id="preg" name="preg">
-                       
-                      
-                     
-                        <label for="resp">Respuesta Seguridad</label>
-                        <input style="width: 500px" type="text" class="form-control" id="resp" name="resp">
-                       
-<br>
+                        <input type="text" class="form-control" id="apellidoE" name="apellidoE">
+                    </div>
 
 
      

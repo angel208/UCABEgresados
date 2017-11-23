@@ -1,7 +1,7 @@
 :root {
     --sidebar-hover: rgba(255,255,255,0.2);
     --white : #fff;
-    --main-content-background : #82C5D9;
+    --main-content-background : #EFFFFE;
     --sidebar-background : #000;
     --sidebar-brand :#0E615E;
 
@@ -43,7 +43,7 @@ h1{
 }
 
 .main-background-light{
-    background-color: #FFC57D;
+    background-color: var(--main-content-background);
     height: 100%;
 }
 
@@ -52,19 +52,11 @@ h1{
     height: 100%;
 }
 
-@media only screen and (min-width: 1000px) {
-
 .background-login{
     background-image: url("/sources/background-login.jpg");
-    background-color:rgb(0, 0, 0);
-    background-size: 100%;
-    height: 102%;
-    background-repeat: no-repeat;
+    height: 100%;
 
 }
- }
-
-
 /*=============login=====================*/
 
 
@@ -88,6 +80,14 @@ h1{
 
     border-color: var(--success-green);
     background: var(--success-green);
+    color: white;
+
+}
+
+.custom-error-alert{
+
+    border-color: #dd1a1a;
+    background: #dd1a1a;
     color: white;
 
 }

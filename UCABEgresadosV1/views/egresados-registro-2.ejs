@@ -40,30 +40,28 @@
             </div>
 
             <div class="row  vertical-center-parent" style="height:75% !important;">
-                <form class="vertical-center-child form-with-lots-of-text" method="post" name="registro2" action="/egresado-registro3">
+                <form class="vertical-center-child form-with-lots-of-text" method="post" action="/egresado-registro3">
 
                     <h3>Se encontraron los siguientes datos correspondientes a esa cédula</h3>
                     <!--dinamico-->
-                    <p class="sangria"> <strong>Nombre: <%= datosE[0].nombre %> </strong> </p>
-                    <p class="sangria"> <strong>Correo UCAB: <%= datosE[0].Correoucab %></strong></p>
+                    <p class="sangria">nombre: <%= datosE[0].nombre %></p>
+                    <p class="sangria">Correo UCAB: <%= datosE[0].Correoucab %></p>
 
                     <h3 style="margin-top: 50px;">Necesitamos verificar su identidad, por favor responda la siguiente pregunta</h3>
-                    <br> <br> 
-                    <div class="form-inline"  >
+
+                    <div class="form-group">
                         <!--dinamico-->
                         <label for="respuesta">¿En que año se graduó?</label>
-            <input style="width:500px" type="text" class="form-control" id="respuesta" name="respuesta" placeholder="Introduzca  solo el año YYYY" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+            <input type="text" class="form-control" id="respuesta" name="respuesta">
                     </div>
-
-                    <br> <br>
 
 
 
 <input type="hidden" name="CI" value="<%= datosE[0].CIEgresado %> ">
 <input type="hidden" name="nombre" value="<%= datosE[0].nombre %> ">
-<input type="hidden" name="AñoEgresado" value="<%=datosE[0].AnoEgreso%> ">
+<input type="hidden" name="AnoEgresado" value="<%=datosE[0].AnoEgreso%> ">
 
-                    <button  style="width:300px; height:50px" type="submit" class="btn btn-primary center-block" onclick="Confirm()">
+                    <button type="submit" class="btn btn-primary center-block">
                         Validar
                     </button>
 
@@ -77,15 +75,7 @@
 
 
 
-    <script type="text/javascript">
-        function Confirm() {
-            var respu = document.registro2.respuesta.value;
-        
-        if (respu=="" ) {
-        alert("Debe Introducir Un  Año Valido");
-        }
-        }
-        </script>
+
 
 
 

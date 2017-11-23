@@ -102,7 +102,7 @@
                         <div class="form-group">
                             <label for="periodo">Período Electoral</label>
                             <div>
-                            <select class="form-control input-with-button" id="periodo">
+                            <select class="form-control input-with-button" id="periodo" name="idperiodo">
                                 <!--Lista los periodos existentes en la BD-->
                                 <% periodos.forEach( function( Element ){ %>
                                      <option value="<%=Element.IDPE%>"><%=Element.IDPE%></option>

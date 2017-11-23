@@ -16,7 +16,7 @@
             <div class="col-md-9">
                 <div class="user-name">
                     <p >Usuario</p>
-                    <a href="#">Cerrar Sesión</a>
+                    <a href="/logout">Cerrar Sesión</a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div id="ConfiguracionElectoral" class="collapse sub-list" >
             <ul>
                 <li  class="sub-list-item" >
-                    <a href="/gestionar_periodos" > Crear Periódo Electoral </a>
+                    <a href="/gestionar_periodos" > Gestión de Periódo Electoral </a>
                 </li>
                 <li  class="sub-list-item" >
                     <a href="/gestionar_cargos" > Gestionar Cargos de las Carreras</a>
@@ -80,7 +80,7 @@
                 <% SideBarList.forEach(function(Elemento){ %>
 
                 <li class="sub-list-item">
-                    <a href= "candidatos-comision/<%= Elemento.IDCarrera.toString()%>" >
+                    <a href= "/candidatos_comision/<%= Elemento.IDCarrera.toString()%>" >
                         <%= Elemento.Nombre %>
                     </a>
                 </li>
@@ -90,9 +90,5 @@
         </div>
     </li>
 
-
-    <li>
-        <a href="#">Imprimir Papeletas</a>
-    </li>
 
 </ul>
