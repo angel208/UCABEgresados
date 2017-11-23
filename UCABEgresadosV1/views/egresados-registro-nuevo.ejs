@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>UCABEgresados</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/angel.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
+
+
+
+    
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT                !!!!!!!!!!!!!!!!!!!!11 -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" class="main-background-light" >
+        <div class="container-fluid full-height">
+
+            <div class="row">
+            <h1>Registro en el Sistema</h1>
+            <div class="alert custom-tip-alert">Lo Sentimos, no fue encontrado en nuestro sistema, por favor introduzca sus datos.</div>
+            </div>
+<br>
+            <div class="row  vertical-center-parent" style="height:40% !important;">
+ <form  method="post" action="/egresado-RegistroNuevo">
+
+                     
+                 <label for="cedula">Introduzca su Cédula de Identidad</label>
+                <input  style="width: 300px" type="text" class="form-control" id="cedula" name="CI">
+                         
+
+                        
+                        <label for="cedula">Introduzca su Nombre(s)</label>
+                        <input style="width: 500px" type="text" class="form-control" id="nombreE" name="nombreE">
+                        
+
+                        
+                        <label for="cedula">Introduzca su Apellido(s)</label>
+                        <input  style="width: 500px" type="text" class="form-control" id="apellidoE" name="apellidoE">
+                        
+
+                    
+                        <label for="Email">Email</label>
+                        <input  style="width: 500px" type="Email" class="form-control" id="Email" name="Email">
+
+                         <label for="tlf">Telefono:</label>
+                        <input style="width: 500px" type="text" class="form-control" id="text" name="tlf">
+                       
+                       
+
+                       
+                        <label for="fenac">Fecha Nacimiento</label>
+                        <input style="width: 500px" type="text" class="form-control" id="fenac" name="fenac">
+
+                         <label for="Dirección">Dirección</label>
+                        <input style="width: 500px" type="text" class="form-control" id="Dirección" name="Dirección">
+                        
+<br>
+                           
+        <label for="carrera">Carrera:</label>
+
+<select style="width: 435px"  class="selectpicker " id="carrera"   name="carrera">
+    <% carrera.forEach(function(Elemento){ %>
+  <option><%= Elemento.Nombre%> </option>
+   <% }); %>
+  
+</select><br>
+
+
+                      
+                        
+                        <label for="preg">pregunta Seguridad</label>
+                        <input style="width: 500px" type="text" class="form-control" id="preg" name="preg">
+                       
+                      
+                     
+                        <label for="resp">Respuesta Seguridad</label>
+                        <input style="width: 500px" type="text" class="form-control" id="resp" name="resp">
+                       
+<br>
+
+
+     
+                    <button type="submit" class="btn btn-primary center-block">
+                        Registrar
+                    </button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+
+
+
+
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

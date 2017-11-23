@@ -40,33 +40,33 @@
             </div>
 
             <div class="row  vertical-center-parent" style="height:75% !important;">
-    <form class=" vertical-center-child form-with-lots-of-text" method="post" action="/registro-egresado4" >
+    <form  method="post" action="/registro-egresado4N" >
                     <!--dinamico-->
                     <h3>Por último, Necesitaras crear una contraseña para ingresar al sistema</h3>
 
                     <div class="form-group" style="margin-top: 30px">
                         <label for="usu">Usuario</label>
-                        <input type="text" class="form-control" id="usu" name="usuario" placeholder="Nombre Usuario">
+                        <input style="width: 300px"  type="text" class="form-control" id="usu" name="usuario">
                     </div>
                     <div class="form-group">
                         <label for="pass"> Contraseña</label>
-                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Introduzca Contraseña">
+                        <input style="width: 300px" type="password" class="form-control" id="pass" name="pass">
                     </div>
                     <div class="form-group">
                         <label for="pass2">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Repita Contraseña">
+                        <input style="width: 300px" type="password" class="form-control" id="pass2" name="pass2">
                     </div>
                     <div class="form-group">
                         <label for="pregunta">Pregunta de Seguridad (usada en caso de extravío de contraseña) </label>
-                        <input type="text" class="form-control" id="pregunta" name="preg" placeholder="Pregunta Personal Seguridad ">
+                        <input style="width: 300px" type="text" class="form-control" id="pregunta" name="preg">
                     </div>
                     <div class="form-group">
                         <label for="respuesta">Respuesta de Seguridad </label>
-                        <input type="text" class="form-control" id="respuesta" name="resp" placeholder="Respuesta">
+                        <input style="width: 300px"  type="text" class="form-control" id="respuesta" name="resp">
                     </div>
-<input type="hidden" name="CI" value="<%=CI%> ">
 
-                    <button   style="width:300px; height:50px"  type="submit" class="btn btn-primary center-block " name="Registro4">
+<input type="hidden" name="CI" value="<%=ci%> ">
+                    <button type="submit" class="btn btn-primary center-block " data-toggle="modal" data-target="#myModal" value="Registro4">
                         Finalizar
                     </button>
 

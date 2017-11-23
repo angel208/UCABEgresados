@@ -8,10 +8,10 @@
     <title>UCABEgresados</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/angel.css" rel="stylesheet">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/angel.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -27,72 +27,10 @@
 
 <body>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
-<div id="wrapper">
-
-
-    <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB">UCAB</p>
-                    <p class ="brandEgresados">Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p>Usuario</p>
-                                <a href="#">Editar</a>
-                            </div>
-                        </div>
-                </div>
-            </div>
-
-
-            <li>
-                <a href="#">Postulación</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#demo">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="demo" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <a href="#">Votación</a>
-            </li>
-            <li>
-                <a href="#">Resultados</a>
-            </li>
-
-        </ul>
 
 
 
-    </div>
+    
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT                !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
@@ -105,24 +43,24 @@
             </div>
 
             <div class="row  vertical-center-parent" style="height:75% !important;">
-                <form class=" vertical-center-child" >
+                <form class=" vertical-center-child" method="post" action="/updateEgre" name="registro3" >
                     <!--dinamico-->
-                    <h3>Bienvenido Pedro Perez! Cuéntanos un poco más sobre ti</h3>
+                    <h3>Bienvenido <%=datos.nombre  %>! Cuéntanos un poco más sobre ti</h3>
                     <div class="form-group" style="margin-top: 30px">
                         <label for="direccion">¿Donde vives actualmente?</label>
-                        <input type="text" class="form-control" id="direccion">
+                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección Actual">
                     </div>
                     <div class="form-group">
                         <label for="telefono">¿Cuál es tu teléfono actual?</label>
-                        <input type="text" class="form-control" id="telefono">
+                        <input  placeholder=" N° Telefono Actual" type="tel" class="form-control"  pattern="[0-9]{11-15}" id="telefono" name="telefono" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                     </div>
                     <div class="form-group">
                         <label for="email">¿Cuál es tu correo electronico?</label>
-                        <input type="email" class="form-control" id="email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Actual">
                     </div>
 
-
-                    <button type="submit" class="btn btn-primary center-block">
+                    <input type="hidden" name="CIE" value=" <%= datos.CI%> ">
+                    <button  style="width:300px; height:50px" type="submit"  onclick="Confirm()" class="btn btn-primary center-block">
                         Continuar
                     </button>
 
@@ -133,9 +71,19 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-</div>
 
 
+    <script type="text/javascript">
+        function Confirm() {
+            var direccion = document.registro3.direccion.value;
+            var telefono = document.registro3.telefono.value;
+            var email = document.registro3.email.value;
+        
+        if (direccion=="" || telefono=="" || email=="" ) {
+        alert("Uno De Los Campos Se Encuentran Vacios");
+        }
+        }
+        </script>
 
 
 
@@ -143,6 +91,6 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
