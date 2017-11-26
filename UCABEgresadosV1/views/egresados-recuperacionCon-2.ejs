@@ -60,7 +60,7 @@
                     </div>
 
      
-                    <button type="submit" style="width:300px; height:50px;" class="btn btn-primary center-block" onclick="ConfirmDemo()" >
+                    <button type="submit" style="width:300px; height:50px;" class="btn btn-primary center-block" id="VerifyButton" >
                         Verificar
                     </button>
 
@@ -73,27 +73,31 @@
 
 
 
-    <script type="text/javascript">
-        function ConfirmDemo() {
-            var Respu = document.registro1.Respu.value;
-            var Respubd = document.registro1.Respubd.value;
-        
-        if (Respu=="") {
-            alert("Debe Introducir Una Respuesta");
-        }
-
-   if(Respubd !=Respu)
-   { alert("Contraseñas Distintas");}
-
-        }
-        </script>
-
-
-
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+
+
+
+
+<script>
+
+    $('#VerifyButton').on( 'click', function(e) {
+        var Respu = document.registro1.Respu.value;
+        var Respubd = document.registro1.Respubd.value;
+
+        if (Respu=="") {
+            e.preventDefault(); //prevent the default action
+            alert("Debe Introducir Una Respuesta");
+        }
+        else if(Respubd != Respu){
+            e.preventDefault(); //prevent the default action
+            alert("Contraseñas Distintas");}
+
+    });
+</script>
+
+
 </body>
 </html>

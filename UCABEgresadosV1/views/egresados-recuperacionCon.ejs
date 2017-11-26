@@ -55,7 +55,7 @@
                     </div>
 
      
-                    <button type="submit" class="btn btn-primary center-block" onclick="ConfirmDemo()" >
+                    <button type="submit" class="btn btn-primary center-block" id="VerifyButton">
                         Verificar
                     </button>
 
@@ -68,22 +68,26 @@
 
 
 
-    <script type="text/javascript">
-        function ConfirmDemo() {
-            var CI = document.registro1.CIEmail.value;
-        
-        if (CI=="") {
-        alert("Debe Introducir Un Numero de Cédula Valido");
-        }
-        }
-        </script>
-
-
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+
+
+
+
+<script >
+    $('#VerifyButton').on( 'click', function (e) {
+        var CI = document.registro1.CIEmail.value;
+
+        if (CI=="") {
+            e.preventDefault(); //prevent the default action
+            alert("Debe Introducir Un Numero de Cédula Valido");
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -1045,7 +1045,7 @@ app.post('/egresado-Recuperacion2', function(req, res) {
         
          console.log("redireccionado egresados-recuperacionCon-2");
         
-         res.render('egresados-recuperacionCon-3',{datos:result,usubd});
+         res.render('egresados-recuperacionCon-3',{datos:result, usubd: usubd});
     
      }); // query existe
     }  
