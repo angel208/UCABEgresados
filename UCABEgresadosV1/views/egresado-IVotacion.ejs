@@ -50,7 +50,7 @@
 
 <br>
 <br>
-<form action="/egresado-Votacion/"  method="post">
+<form action="/egresado_votacion"  method="post" name="form">
 
  <div class="container-fluid" >
 
@@ -70,7 +70,7 @@
                              <%=nombresEgresados.nombre%>
                             </div>
                         <div class="col-sm-1 ">
-                         <input type="checkbox" class="checks" name="cargos_seleccionados[]" value= "<%=nombresEgresados.nombre%>">
+                            <input type="checkbox" class="checks" name="cargos[]" value= "<%=nombresEgresados.IDCargo1%>">
                         </div>
                     </div>
                                                         <% } %>
@@ -80,12 +80,12 @@
     <%});%>
 
 
-
+  <div id="hola"></div>
 
 
   
       
-       <button   type="submit"   name="InicioVotacion" value="votar" class="btn btn-info btn-block">Votar</button>
+       <button   type="submit"  id="votar" name="InicioVotacion" value="votar" class="btn btn-info btn-block">Votar</button>
 
     
   
@@ -110,8 +110,43 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/js/bootstrap.min.js"></script>
+
+<script>
+
+    $("#votar").on('click', function(e) {
+
+        var elem = document.form.elements["cargos[]"];
+        var cargo_ischecked = false;
+        var valid = true;
+
+        if (elem.length > 0) {
+            for (i = 0, len = elem.length; i < len; i++){
+
+                if (i > 0 &&  ( elem[i].value != elem[i - 1].value ))
+                    cargo_ischecked = false;
+
+                if ( cargo_ischecked == true && elem[i].checked == true ){
+                    valid = false;
+                    break;
+                }
+
+                if ( elem[i].checked == true )
+                      cargo_ischecked = true;
+
+            }
+        }
+
+        if ( valid == false) {
+            e.preventDefault(); //prevent the default action
+            alert("No puede seleccionar dos candidatos para un mismo cargo, por favor, revise su selección");
+        }
+
+    });
+
+</script>
+
 </body>
 </html>

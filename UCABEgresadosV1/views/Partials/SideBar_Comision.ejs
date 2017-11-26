@@ -1,7 +1,7 @@
 <ul class="sidebar-nav">
     <!-- Titulo en el sidebar -->
     <li class="sidebar-brand">
-        <a href="#" style="text-align: center; ">
+        <a href="/index" style="text-align: center; ">
             <p class ="brandUCAB" > UCAB </p>
             <p class ="brandEgresados" >Egresados</p>
         </a>
@@ -16,7 +16,7 @@
             <div class="col-md-9">
                 <div class="user-name">
                     <p >Usuario</p>
-                    <a href="#">Cerrar Sesión</a>
+                    <a href="/logout">Cerrar Sesión</a>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
 
     <!--------------LISTADO DE OPCIONES----------------->
     <li>
-        <a href="#">Histórico de Resultados</a>
+        <a href="/historico">Histórico de Resultados</a>
     </li>
     <li>
         <div class ="button-border">
@@ -36,13 +36,13 @@
         <div id="ConfiguracionElectoral" class="collapse sub-list" >
             <ul>
                 <li  class="sub-list-item" >
-                    <a href="#" > Crear Periódo Electoral </a>
+                    <a href="/gestionar_periodos" > Gestión de Periódo Electoral </a>
                 </li>
                 <li  class="sub-list-item" >
-                    <a href="#" > Gestionar Cargos de las Carreras</a>
+                    <a href="/gestionar_cargos" > Gestionar Cargos de las Carreras</a>
                 </li>
                 <li  class="sub-list-item" >
-                    <a href="#" > Conformar Papeletas </a>
+                    <a href="/conformacion" > Conformar Papeletas </a>
                 </li>
             </ul>
         </div>
@@ -57,13 +57,13 @@
         <div id="Totalizacion" class="collapse sub-list" >
             <ul>
                 <li  class="sub-list-item" >
-                    <a href="#" > Totalización de los Votos </a>
+                    <a href="/totalizacion" > Totalización de los Votos </a>
                 </li>
                 <li  class="sub-list-item" >
-                    <a href="#" > Asignación Final de los Cargos</a>
+                    <a href="/asignacion_final" > Asignación Final de los Cargos</a>
                 </li>
                 <li  class="sub-list-item" >
-                    <a href="#" > Generar Reportes Impresos </a>
+                    <a href="/generar_reporte" > Generar Reporte Impreso </a>
                 </li>
             </ul>
         </div>
@@ -80,7 +80,7 @@
                 <% SideBarList.forEach(function(Elemento){ %>
 
                 <li class="sub-list-item">
-                    <a href= "candidatos-comision/<%= Elemento.IDCarrera.toString()%>" >
+                    <a href= "/candidatos_comision/<%= Elemento.IDCarrera.toString()%>" >
                         <%= Elemento.Nombre %>
                     </a>
                 </li>
@@ -90,9 +90,5 @@
         </div>
     </li>
 
-
-    <li>
-        <a href="#">Imprimir Papeletas</a>
-    </li>
 
 </ul>

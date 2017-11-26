@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -8,9 +8,9 @@
     <title>UCABEgresados</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -31,114 +31,15 @@
 
     <!-- Titulo en el sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <!-- Titulo en el sidebar -->
-            <li class="sidebar-brand">
-                <a href="#" style="text-align: center; ">
-                    <p class ="brandUCAB" > UCAB </p>
-                    <p class ="brandEgresados" >Egresados</p>
-                </a>
-            </li>
-            <!-- Usuario en el Sidebar -->
-            <div class="container-fluid">
-                <div class="row columns-parent" >
-
-                        <div class="col-md-3"   >
-                            <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
-                        </div>
-                        <div class="col-md-9">
-                            <div class="user-name">
-                                <p >Usuario</p>
-                                <a href="#">Cerrar Sesión</a>
-                            </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!--------------LISTADO DE OPCIONES----------------->
-            <li>
-                <a href="#">Histórico de Resultados</a>
-            </li>
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#ConfiguracionElectoral">
-                        <div>Configuración del Proceso Electoral</div>
-                    </button>
-                </div>
-                <div id="ConfiguracionElectoral" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Crear Periódo Electoral </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Gestionar Cargos de las Carreras</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Conformar Papeletas </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Totalizacion">
-                        <div>Totalización y asignación de cargos</div>
-                    </button>
-                </div>
-                <div id="Totalizacion" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Totalización de los Votos </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Asignación Final de los Cargos</a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > Generar Reportes Impresos </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <div class ="button-border">
-                    <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Candidatos">
-                        <div>Candidatos</div>
-                    </button>
-                </div>
-                <div id="Candidatos" class="collapse sub-list" >
-                    <ul>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdasd </a>
-                        </li>
-                        <li  class="sub-list-item" >
-                            <a href="#" > asdasdads </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-            <li>
-                <a href="#">Imprimir Papeletas</a>
-            </li>
-
-        </ul>
-
-
+        <%include Partials/SideBar_Comision.ejs%>
 
     </div>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper" class="vertical-center-parent main-background-light" >
-<h1 style="text-align: center;">Consultar Histórico De Resultados.</h1>
-<h2 style="text-align: center;">Seleccione La Carrera:</h2>
+<h1 style="text-align: center;"><%=titulo%></h1>
+<h2 style="text-align: center;"><%=subtitulo%></h2>
 
 <br>
 <br>
@@ -146,10 +47,11 @@
 
 
         <div class="container-fluid" >
-        	<button type="button" class="btn btn-info btn-block">Ingeníera Informática.</button>
-	        <button type="button" class="btn btn-info btn-block">Ingeníera Civil.</button>
-		    <button type="button" class="btn btn-info btn-block">Comunicación Social..</button>
-            
+            <% lista.forEach( function(Element){ %>
+        	<a type="button" class="btn btn-info btn-block" href="<%=next_page+"/"+Element.IDCarrera%>">
+                <%=Element.Nombre%>
+            </a>
+            <%});%>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -162,8 +64,8 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

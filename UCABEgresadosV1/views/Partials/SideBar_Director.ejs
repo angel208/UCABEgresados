@@ -1,0 +1,57 @@
+<ul class="sidebar-nav">
+    <!-- Titulo en el sidebar -->
+    <li class="sidebar-brand">
+        <a href="/index" style="text-align: center; ">
+            <p class ="brandUCAB" > UCAB </p>
+            <p class ="brandEgresados" >Egresados</p>
+        </a>
+    </li>
+    <!-- Usuario en el Sidebar -->
+    <div class="container-fluid">
+        <div class="row columns-parent" >
+
+            <div class="col-md-3"   >
+                <img src="sources/non-usuario.png" class="img-responsive img-rounded "   >
+            </div>
+            <div class="col-md-9">
+                <div class="user-name">
+                    <p >Usuario</p>
+                    <a href="/logout">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--------------LISTADO DE OPCIONES----------------->
+    <li>
+        <a href="/historico">Histórico de Resultados</a>
+    </li>
+
+    <li>
+        <a href="/aprobacion">Aprobar Postulaciones</a>
+    </li>
+
+
+    <li>
+        <div class ="button-border">
+            <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#Candidatos">
+                <div>Candidatos</div>
+            </button>
+        </div>
+        <div id="Candidatos" class="collapse sub-list" >
+            <ul>
+                <% SideBarList.forEach(function(Elemento){ %>
+
+                <li class="sub-list-item">
+                    <a href= "/candidatos_comision/<%= Elemento.IDCarrera.toString()%>" >
+                        <%= Elemento.Nombre %>
+                    </a>
+                </li>
+
+                <% }); %>
+            </ul>
+        </div>
+    </li>
+
+</ul>

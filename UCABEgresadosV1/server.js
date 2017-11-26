@@ -16,6 +16,7 @@ var con = conector.conectar();
 
 var comision = require('./routes/comision');
 var egresados = require('./routes/egresados');
+var director = require('./routes/director');
 
 //variable que contiene la lista dinamica de candidatos
 var SidebarList = ['null'];
@@ -31,6 +32,7 @@ app.use(session({secret: 'ssshhhhh', resave: true, saveUninitialized: false}));
 
 app.use(comision);
 app.use(egresados);
+app.use(director);
 
 
 //++++++++++++++++++  RUTAS  +++++++++++++++++++++++++++++
@@ -68,7 +70,19 @@ app.post('/login', function(req, res) {
             sess.cargo = result[0].cargo.toString();
             GetSideBar( sess.cargo, sess.IDUsuario );
 
-            res.redirect('/index');
+            con.query("SELECT * FROM periodoelectoral WHERE Estado <> 'X'", function (err, result, field){
+
+                if( !result.length ){
+                    sess.PeridoAct = null;
+                }
+                else{
+                    sess.PeridoAct = result[0];
+
+                }
+
+                res.redirect('/index');
+
+            });
         }
     });
 });
@@ -84,13 +98,15 @@ app.get('/index', requireLogin ,function(req, res) {
 
         sess.NombreUsuario = result[0].NombreUsu;
 
+
+
         switch (sess.cargo){
 
             case '1': res.render('index_comision', { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList }); break;
 
             case '3': res.render('index_egresados', { IDUsuario : sess.IDUsuario , NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList }); break;
 
-            case '2': res.redirect('/login'); break;
+            case '2': res.render('index_director', { IDUsuario : sess.IDUsuario , NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList });break;
 
             case '4': res.redirect('/login'); break;
 
@@ -99,6 +115,16 @@ app.get('/index', requireLogin ,function(req, res) {
         }
 
     });
+
+});
+
+app.get('/logout', requireLogin ,function(req, res) {
+
+
+    req.session.destroy(function(err) {
+        res.redirect("/login");
+    })
+
 
 });
 
@@ -121,7 +147,7 @@ function requireLogin (req, res, next) {
 function GetSideBar( cargo, id ) {
 
     //sidebar de comision (la lista en candidatos muestra las carreras)
-    if( cargo == 1 ) {
+    if( cargo == 1 || cargo == 2 ) {
 
         con.query("SELECT IDCarrera, Nombre  FROM carrera ", function (err, result, fields) {
 
@@ -135,12 +161,14 @@ function GetSideBar( cargo, id ) {
     //Sidebar de egresados (la lista en candidatos muestra los cargos de su carrera)
     if( cargo == 3 ) {
 
-        con.query("SELECT cargo.IDCargo, cargo.NombreCargo FROM usuario, egresado, cargosxcarrera, carrera, cargo " +
+        con.query("SELECT cargo.IDCargo, cargo.NombreCargo FROM usuario, egresado, cargosxcarrera, carrera, cargo, periodoelectoral " +
             "      WHERE usuario.IDUsuario = '"+id+"' " +
             "      AND usuario.IDUsuario = egresado.Usuario_IDUsuario " +
             "      AND egresado.Carrera_IDCarrera = carrera.IDCarrera " +
             "      AND carrera.IDCarrera = cargosxcarrera.Carrera_IDCarrera " +
-            "      AND cargosxcarrera.Cargo_IDCargo = cargo.IDCargo ", function (err, result, fields) {
+            "      AND cargosxcarrera.Cargo_IDCargo = cargo.IDCargo " +
+            "      AND cargosxcarrera.PeriodoElectoral_IDPE = periodoelectoral.IDPE " +
+            "      AND periodoelectoral.Estado <> 'X'", function (err, result, fields) {
 
             if (err) throw err;
 
