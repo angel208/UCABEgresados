@@ -43,24 +43,24 @@
             </div>
 
             <div class="row  vertical-center-parent" style="height:75% !important;">
-                <form class=" vertical-center-child" method="post" action="/updateEgre" >
+                <form class=" vertical-center-child" method="post" action="/updateEgre" name="registro3" >
                     <!--dinamico-->
-                    <h3>Bienvenido <%=nombre  %>! Cuéntanos un poco más sobre ti</h3>
+                    <h3>Bienvenido <%=datos.nombre  %>! Cuéntanos un poco más sobre ti</h3>
                     <div class="form-group" style="margin-top: 30px">
                         <label for="direccion">¿Donde vives actualmente?</label>
-                        <input type="text" class="form-control" id="direccion" name="direccion">
+                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección Actual">
                     </div>
                     <div class="form-group">
                         <label for="telefono">¿Cuál es tu teléfono actual?</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono">
+                        <input  placeholder=" N° Telefono Actual" type="tel" class="form-control"  pattern="[0-9]{11-15}" id="telefono" name="telefono" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                     </div>
                     <div class="form-group">
                         <label for="email">¿Cuál es tu correo electronico?</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Actual">
                     </div>
 
-
-                    <button type="submit" class="btn btn-primary center-block">
+                    <input type="hidden" name="CIE" value=" <%= datos.CI%> ">
+                    <button  style="width:300px; height:50px" type="submit"  onclick="Confirm()" class="btn btn-primary center-block">
                         Continuar
                     </button>
 
@@ -73,7 +73,17 @@
 
 
 
-
+    <script type="text/javascript">
+        function Confirm() {
+            var direccion = document.registro3.direccion.value;
+            var telefono = document.registro3.telefono.value;
+            var email = document.registro3.email.value;
+        
+        if (direccion=="" || telefono=="" || email=="" ) {
+        alert("Uno De Los Campos Se Encuentran Vacios");
+        }
+        }
+        </script>
 
 
 

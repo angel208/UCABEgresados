@@ -43,15 +43,16 @@
             </div>
 
             <div class="row  vertical-center-parent" style="height:75% !important;">
-                <form class=" vertical-center-child" method="post" action="egresado-Registro">
+                <form class=" vertical-center-child" method="post" action="egresado-Registro" name="registro1">
 
                     <div class="form-group">
                         <label for="cedula">Introduzca su Cédula de Identidad</label>
-                        <input type="text" class="form-control" id="cedula" name="CI">
+                        <input type="text" class="form-control" id="cedula"  pattern="[0-9]{-15}" name="CI" placeholder="N° cédula identidad "  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                        
                     </div>
 
      
-                    <button type="submit" class="btn btn-primary center-block">
+                    <button type="submit" class="btn btn-primary center-block" onclick="ConfirmDemo()" >
                         Verificar
                     </button>
 
@@ -64,7 +65,15 @@
 
 
 
-
+    <script type="text/javascript">
+        function ConfirmDemo() {
+            var CI = document.registro1.CI.value;
+        
+        if (CI=="") {
+        alert("Debe Introducir Un Numero de Cédula Valido");
+        }
+        }
+        </script>
 
 
 

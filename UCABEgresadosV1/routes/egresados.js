@@ -30,15 +30,26 @@ function isEmptyObject(obj) {
 //******************************************************************//
 //++++++++++++++++++  RUTAS +++++++++++++++++++++++++++++
 //******************************************************************//
-     var NombreCargo;
+var NombreCargo;
+
 app.get('/candidatos-egre/:IDCargo', requireLogin, function(req, res) {
 
-    con.query("SELECT NombreCargo FROM cargo WHERE IDCargo ='"+req.params.IDCargo+"'", function (err, result, fields) {
-        sess = req.session;
+    sess = req.session;
+
+    if(sess.PeridoAct == null){
+
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Candidatos", mensaje: "Actualmente, no hay ningún período activo."  });
+
+    }
+    if(  new Date() < new Date(sess.PeridoAct.FechaFV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
+
+        con.query("SELECT NombreCargo FROM cargo WHERE IDCargo ='"+req.params.IDCargo+"'", function (err, result, fields) {
+
    
       
         NombreCargo = result[0].NombreCargo;
-//QUERIE ACTUALZIADO JM 2211
+        //QUERIE ACTUALZIADO JM 2211
                     con.query("SELECT eg.CI, concat_ws(' ',eg.NombreEgresado,eg.ApellidoEgresado) as nombre, post.IDPostulacion as IDP "+
                                 "FROM egresado as eg, "+
                                  "periodoelectoral as PE, "+
@@ -55,6 +66,11 @@ app.get('/candidatos-egre/:IDCargo', requireLogin, function(req, res) {
     });
 
 });
+    }
+    else {
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Candidatos", mensaje: "El listado de candidatos no está disponible aún."  });
+    }
 
 });
 
@@ -99,6 +115,14 @@ app.get('/candidatos-promesas/:IDP', requireLogin, function(req, res) {
 app.get('/egresado-Postulacion/', requireLogin, function(req, res) {
 
     sess = req.session;
+
+    if(sess.PeridoAct == null){
+
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Postulación", mensaje: "Actualmente, no hay ningún período activo."  });
+
+    }
+    if(  new Date() >= new Date(sess.PeridoAct.FechaIP) && new Date() < new Date(sess.PeridoAct.FechaFP) ) {
       //QUERIE ACTUALZIADO JM 2211
          con.query("SELECT  cargo.NombreCargo, post.IDPE1 as IDP "+
                     "FROM cargo, Usuario as U, Egresado as eg,postulacion as post "+
@@ -112,7 +136,11 @@ app.get('/egresado-Postulacion/', requireLogin, function(req, res) {
                      IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, resultado: result,nombreCargos:result});
             
     });
-
+    }
+    else {
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Postulación", mensaje: "El proceso de postulación no esta disponible."  });
+    }
 
 });
 //******************************************************************//
@@ -384,9 +412,24 @@ console.log("redireccionado");
 app.get('/egresado-InicioVotacion', requireLogin, function(req, res) {
 sess = req.session;
 
-res.render('egresado-InicioVotacion',{SideBarList:sess.SBList,
-                     IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuari});
+    if(sess.PeridoAct == null){
 
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Votación", mensaje: "Actualmente, no hay ningún período activo."  });
+
+    }
+    if(  new Date() >= new Date(sess.PeridoAct.FechaIV) && new Date() < new Date(sess.PeridoAct.FechaFV) ) {
+
+        res.render('egresado-InicioVotacion', {
+            SideBarList: sess.SBList,
+            IDUsuario: sess.IDUsuario,
+            NombreUsu: sess.NombreUsuari
+        });
+
+    } else {
+            res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+                titulo: "Votación", mensaje: "El proceso de votación no esta disponible."  });
+        }
    
    
 });
@@ -459,32 +502,48 @@ console.log("redireccionado");
 app.get('/egresados-Resultados', requireLogin, function(req, res) {
 sess = req.session;
 
-//query que devuelve los resultados de las elecciones y los ordena por cargo de forma descendete
-//QUERIE ACTUALZIADO JM 2211
-con.query("SELECT c.IDCargo,c.NombreCargo, concat_ws(' ',e.NombreEgresado,e.ApellidoEgresado) as nombre, p.IDPostulacion,v.TotalVotos "
-  +" FROM votacion as v, egresado as e, cargo as c, postulacion as p,usuario as u "
-  +" WHERE p.IDPostulacion =v.IDPostulacion "
-  +" AND p.IDPE1=v.IDPE "
-  +" AND p.CIEgresado =e.CI "
-  +" AND c.IDCargo=p.IDcargo1  group by v.TotalVotos desc; "
-  , function (err, result, fields){
-    GANADOR=result;
+    if(sess.PeridoAct == null){
 
-    //QUERIE ACTUALZIADO JM 2211
-con.query(" SELECT p.IDCargo1,c.NombreCargo "
-  +" FROM postulacion as p,cargo as c "
-  +" WHERE p.IDcargo1=c.IDCargo "
-  +" group by p.IDCArgo1;"
-  , function (err, result, fields){
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Resultado de las Elecciones", mensaje: "Actualmente, no hay ningún período activo."  });
+
+    }
+    if(  new Date() >= new Date(sess.PeridoAct.FechaFV) && new Date() < new Date(sess.PeridoAct.FechaFinal)   ) {
+
+        //query que devuelve los resultados de las elecciones y los ordena por cargo de forma descendete
+        //QUERIE ACTUALZIADO JM 2211
+        con.query("SELECT c.IDCargo,c.NombreCargo, concat_ws(' ',e.NombreEgresado,e.ApellidoEgresado) as nombre, p.IDPostulacion,v.TotalVotos "
+          +" FROM votacion as v, egresado as e, cargo as c, postulacion as p,usuario as u "
+          +" WHERE p.IDPostulacion =v.IDPostulacion "
+          +" AND p.IDPE1=v.IDPE "
+          +" AND p.CIEgresado =e.CI "
+          +" AND c.IDCargo=p.IDcargo1  group by v.TotalVotos desc; "
+          , function (err, result, fields){
+            GANADOR=result;
+
+            //QUERIE ACTUALZIADO JM 2211
+        con.query(" SELECT p.IDCargo1,c.NombreCargo "
+          +" FROM postulacion as p,cargo as c "
+          +" WHERE p.IDcargo1=c.IDCargo "
+          +" group by p.IDCArgo1;"
+          , function (err, result, fields){
 
 
 
 
-res.render('egresados-Resultados-14',{SideBarList:sess.SBList,
-                     IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuari,GANADOR:GANADOR, cargos:result});
+        res.render('egresados-Resultados-14',{SideBarList:sess.SBList,
+                             IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuari,GANADOR:GANADOR, cargos:result});
 
-   }); // 2do QUERY
-    }); // 1er  query       
+           }); // 2do QUERY
+            }); // 1er  query
+
+
+    }
+    else {
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Resultado de las Elecciones", mensaje: "La lista de resultados no esta disponible aún."  });
+    }
+
 }); // GET
 
 

@@ -102,6 +102,7 @@
                         <div class="form-group">
                             <label for="periodo">Período Electoral</label>
                             <div>
+
                             <select class="form-control input-with-button" id="periodo" name="idperiodo">
                                 <!--Lista los periodos existentes en la BD-->
                                 <% periodos.forEach( function( Element ){ %>
@@ -123,7 +124,7 @@
 
                         <div class="form-group">
                             <label for="nombre">Nombre del Período Electoral</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="20XX-20XX" value="<%=periodos[0].IDPE +" ("+NombreEstado+")"%>">
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="20XX-20XX" value="<%=periodos[0].IDPE +" ("+NombreEstado+")"%>" disabled>
                         </div>
 
 
@@ -132,10 +133,6 @@
                             <input type="text" class="form-control datepicker" id="FI" name="FI" value="<%=periodos[0].FechaInicio%>">
                         </div>
 
-                        <div class="form-group">
-                            <label for="FF">Fecha de Culminación del Período Electoral</label>
-                            <input type="text" class="form-control datepicker" id="FF" name="FF" value="<%=periodos[0].FechaFin%>">
-                        </div>
 
                         <div class="form-group">
                             <label for="FIP">Fecha de Inicio del Período de Postulación</label>
@@ -156,14 +153,23 @@
                             <input type="text" class="form-control datepicker" id="FFV"  name="FFV" value="<%=periodos[0].FechaFV%>">
                         </div>
 
+                        <div class="form-group">
+                            <label for="FF">Fecha de Culminación del Período Electoral</label>
+                            <input type="text" class="form-control datepicker" id="FF" name="FF" value="<%=periodos[0].FechaFin%>">
+                        </div>
+
                         <div class="center-block button-group">
-                            <button type="submit" name="submit" value="guardar" class="btn btn-primary horizontal-button" id="guardar">
+                            <button type="submit" name="submit_type" value="guardar" class="btn btn-primary horizontal-button" id="guardar">
                                 Guardar Cambios
                             </button>
-                            <button type="submit" name="submit" value="eliminar" class="btn btn-primary horizontal-button" id="eliminar">
+
+                            <button type="button" name="submit_type" value="eliminar" class="btn btn-primary horizontal-button" id="eliminar" data-toggle="modal" data-target="#myModal" >
                                 Eliminar Período
                             </button>
+
+
                        </div>
+
 
                     </form>
 
@@ -177,19 +183,50 @@
 </div>
 
 
-
-
-
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
+<!--=============MODAL DE CONFIRMACION DE ELIMINACION==================================-->
+
+<div id="myModal" class="modal fade" role="dialog">
+
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Eliminar Periódo</h4>
+            </div>
+
+            <div class="modal-body">
+                ADVERTENCIA: Si elmina este período, se borrará toda la información relacionada con el, incluyendo cargos asignados a las carreras!
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger btn-ok" id="eliminar-modal">Borrar</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
 <script>
-    $("#periodo").on("change", function(){
-        var selected = $(this).val();
-        makeAjaxRequest(selected);
+
+//<!--=============FUNCION PARA ELIMINAR A TRAVES DEL BOTON DEL MODAL==================================-->
+
+    $("#eliminar-modal").on( 'click' , function(){
+        /* when the submit button in the modal is clicked, submit the form */
+        $("#eliminar").prop('type','submit');
+        $("#eliminar").click();
     });
+
+//<!--=============COMPORTAMIENTO DEL BOTON DE "CREARNUEVO CARGO"==================================-->
 
     $('#NewButton').on("click", function(){
 
@@ -202,8 +239,65 @@
         $("#eliminar").prop("disabled", false);
 
     });
+//<!--=============VALIDACIONES DE FECHAS==================================-->
 
-    function makeAjaxRequest(opts){
+     $("#guardar").on('click', function(e) {
+
+            var FI  = $("#FI").datepicker('getDate');
+            var FF  = $("#FF").datepicker('getDate');
+            var FIP = $("#FIP").datepicker('getDate');
+            var FFP = $("#FFP").datepicker('getDate');
+            var FIV = $("#FIV").datepicker('getDate');
+            var FFV = $("#FFV").datepicker('getDate');
+
+
+            if( (FI < FIP) && (FIP < FFP) && (FFP < FIV) && (FIV < FFV) && (FFV < FF) ) {
+                //fechas ok.
+            }
+            else{
+                e.preventDefault(); //prevent the default action
+                alert("Hay un error en las fechas, por favor verifique los campos resaltados");
+            }
+
+     });
+
+     $(".datepicker").blur(function() {
+
+         var input_list = $("input");
+         var this_index = input_list.index($(this));
+         var i;
+         var map = {};
+
+         input_list.each(function () {
+             map[input_list.index($(this))] = $(this).datepicker('getDate');
+         });
+
+         var valid = true;
+
+         for (i = this_index; i < input_list.length; i++) {
+             if (map[this_index] > map[i])
+                 valid = false;
+         }
+
+        if ( valid == false) {
+            $(this).css({'border-color' : '#ff6666', 'background-color': '#ffe6e6'});
+        }
+        else{
+            $(this).css({'border-color' : '#bfbfbf' , 'background-color': 'white' });
+        }
+
+     });
+
+
+//<!--=============COMPORTAMIENTO DEL SELECT DE PERIODOS==================================-->
+
+    $("#periodo").on("change", function(){
+        var selected = $(this).val();
+        makeAjaxRequest(selected);
+    });
+
+//<!--=============Ajax RQUEST PARA TRAER LOS DATOS DEPENDIENDO DEL SELECT==================================-->
+    function makeAjaxRequest(opts){U
         $.ajax({
             type: "POST",
             data: { periodo: opts },
@@ -242,6 +336,8 @@
                     $("#guardar").prop("disabled", false);
                     $("#eliminar").prop("disabled", true);
                 }
+
+                $("#nombre").prop("disabled",true);
             }
         });
     }
