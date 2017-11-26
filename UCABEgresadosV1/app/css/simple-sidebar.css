@@ -131,6 +131,17 @@
     color: var(--white);
 }
 
+.logout-link {
+    text-decoration: underline;
+    color: var(--sidebar-text);
+    font-size: 12px;
+
+}
+
+.logout-link:hover{
+    color: var(--white);
+}
+
 /*============Sidebar List================*/
 
 .sidebar-nav {

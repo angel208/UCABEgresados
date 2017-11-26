@@ -79,9 +79,9 @@ app.get('/gestionar_periodos', requireLogin, function(req, res) {
 
 app.post('/gestionar_periodos', requireLogin, function(req, res) {
 
+    console.log(req.body.submit);
 
-
-    if (req.body.submit == 'guardar') {
+    if (req.body.submit_type == 'guardar') {
 
         var post = req.body;
 
@@ -103,7 +103,7 @@ app.post('/gestionar_periodos', requireLogin, function(req, res) {
 
 
     }
-    else if (req.body.submit == 'eliminar'){
+    else if (req.body.submit_type == 'eliminar'){
 
         var post = req.body;
 
@@ -552,7 +552,7 @@ app.get('/candidatos_comision/:carrera', requireLogin, function(req,res){
     if(sess.PeridoAct == null){
 
         res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
-            titulo: "Conformación de Papeletas", mensaje: "Actualmente, no hay ningún período activo."  });
+            titulo: "Candidatos", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
     if(  new Date() < new Date(sess.PeridoAct.FechaFV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
@@ -572,7 +572,7 @@ app.get('/candidatos_comision/:carrera', requireLogin, function(req,res){
     }
     else {
         res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
-            titulo: "Conformación de Papeletas", mensaje: "El listado de candidatos no está disponible aún."  });
+            titulo: "Candidatos", mensaje: "El listado de candidatos no está disponible aún."  });
     }
 
 
