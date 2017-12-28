@@ -51,6 +51,12 @@ h1{
    background-color: var(--dark-blue);
     height: 100%;
 }
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
 
 .background-login{
     background-image: url("/sources/background-login.jpg");
@@ -135,5 +141,11 @@ h1{
     margin-left: 15px
 }
 
+.btn {
+    margin-bottom: 15px;
+}
+td > .btn {
+    margin-bottom: 0px;
+}
 
 

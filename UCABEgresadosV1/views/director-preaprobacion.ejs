@@ -58,7 +58,10 @@
                     <a href="/aprobacion/<%=Element.IDCargo%>">
                         <button type="button" class="btn btn-primary btn-block">
                              <div class="col-xs-8 col-md-10 text-left"><%=Element.NombreCargo%></div>
-                             <img src="sources/check.png" class="col-xs-4 col-md-2 img-responsive pull-right" alt="progreso">
+                             <% aprobados.forEach( function(cargo){%>
+                                 <%if ((cargo.IDCargo == Element.IDCargo) && (cargo.conformado > 0)){%>
+                                     <img src="sources/check.png" class="col-xs-4 col-md-2 img-responsive pull-right" alt="progreso">
+                             <%}});%>
                         </button>
                     </a>
                 <%});%>

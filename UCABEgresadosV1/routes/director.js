@@ -27,18 +27,29 @@ app.get ( "/aprobacion" , requireLogin, function(req, res){
             titulo: "Aprobación de Postulaciones", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() < new Date(sess.PeridoAct.FechaIV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
+    else if(  new Date() < new Date(sess.PeridoAct.FechaIV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
 
         con.query("SELECT DISTINCT IDCargo, NombreCargo\n" +
-                "FROM  cargo, cargosxcarrera, directorescuela\n" +
-                "WHERE cargosxcarrera.PeriodoElectoral_IDPE = '"+sess.PeridoAct.IDPE+"' \n" +
-                "AND cargosxcarrera.Cargo_IDCargo = cargo.IDCargo\n" +
-                "AND cargosxcarrera.Carrera_IDCarrera = directorescuela.IDCarrera\n" +
-                "AND directorescuela.IDUsuario = '"+sess.IDUsuario+"'", function (err, result, fields) {
+                  "FROM  cargo, cargosxcarrera, directorescuela\n" +
+                  "WHERE cargosxcarrera.PeriodoElectoral_IDPE = '"+sess.PeridoAct.IDPE+"' \n" +
+                  "AND cargosxcarrera.Cargo_IDCargo = cargo.IDCargo\n" +
+                  "AND cargosxcarrera.Carrera_IDCarrera = directorescuela.IDCarrera\n" +
+                  "AND directorescuela.IDUsuario = '"+sess.IDUsuario+"'", function (err, result, fields) {
 
+            var lista = result;
 
-            res.render( "director-preaprobacion", { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList ,lista: result });
+            con.query("SELECT DISTINCT IDCargo, SUM(postulacion.ValidadaEscuela) as conformado\n" +
+                      "FROM  cargo, cargosxcarrera, directorescuela, postulacion\n" +
+                      "WHERE cargosxcarrera.PeriodoElectoral_IDPE = '"+sess.PeridoAct.IDPE+"'\n" +
+                      "AND cargosxcarrera.Cargo_IDCargo = cargo.IDCargo\n" +
+                      "AND cargosxcarrera.Carrera_IDCarrera = directorescuela.IDCarrera\n" +
+                      "AND directorescuela.IDUsuario = '"+sess.IDUsuario+"'\n" +
+                      "AND cargo.IDCargo = postulacion.IDCargo1   \n" +
+                      "GROUP BY IDCargo, NombreCargo", function (err, result){
 
+                     res.render( "director-preaprobacion", { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList ,lista: lista, aprobados: result });
+
+            });
 
         });
 
@@ -105,11 +116,20 @@ app.get ( "/aprobacion/:cargo" , requireLogin, function(req, res){
                     "AND Egresado.Carrera_IDCarrera = directorescuela.IDCarrera\n" +
                     "AND directorescuela.IDUsuario = '"+sess.IDUsuario+"' ", function (err, result, fields) {
 
+            var lista = result;
 
+            con.query(" SELECT NombreCargo, IDCargo FROM cargo WHERE cargo.IDCargo = '" + req.params.cargo + "' ", function (err, result) {
 
-                res.render( "director-aprobacion", { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList,  lista: result });
+                res.render("director-aprobacion", {
+                    IDUsuario: sess.IDUsuario,
+                    NombreUsu: sess.NombreUsuario,
+                    SideBarList: sess.SBList,
+                    lista: lista,
+                    cargo: result[0]
+                });
 
             });
+        });
 
 });
 

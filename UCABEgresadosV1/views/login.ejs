@@ -24,7 +24,9 @@
     <![endif]-->
 </head>
 
+
 <body class="background-login">
+
 
 <div class="container-fluid background-login">
 
@@ -36,6 +38,7 @@
             <h1> Sistema de Votacion para Egresados </h1>
 
             <form class="vertical-center-child three-quarters-width" action="/login" method="POST">
+
                 <div class="form-group">
                     <label for="user">Nombre de Usuario:</label>
                     <input type="text" name="user" class="form-control" id="user">
@@ -44,10 +47,22 @@
                     <label for="pwd">Contraseña:</label>
                     <input type="password" name="pass" class="form-control" id="pwd">
                 </div>
-                <a href="#">He olvidado mi contraseña</a>
-                <p><a href="/egresados-Registro">Registrarse en el Sistema</a></p>
-                <button type="submit" class="btn btn-default pull-right">Ingresar</button>
+
+              
+                <button  style="width:320px;height:50px; margin-bottom: 10px" type="submit" class="btn btn-success pull-left">Ingresar</button>
+
+                <div class="text-center">
+                <div style="margin-bottom: 5px;"><a href="/egresados-recuperacionCon" class="text-center">He olvidado mi contraseña</a></div>
+
+                <div><a href="/egresados-Registro" >¿Primera vez en el sistema?</a></div>
+                </div>
+
+
             </form>
+
+
+
+
         </div>
         <!--=============================-->
 

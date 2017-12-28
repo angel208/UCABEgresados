@@ -37,10 +37,11 @@
 
         <% include Partials/SideBar_Comision.ejs %>
 
+
     </div>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
 
-    <div id="page-content-wrapper" class="main-background-light" style="height: auto;">
+    <div id="page-content-wrapper" class="main-background-light" style="height: auto;" on>
         <div class="container-fluid full-height " >
 
             <!--==========TITULO Y ALERTAS====================-->
@@ -99,6 +100,8 @@
                 <div class="col-lg-12">
 
                     <form class="center-block" id="periodo-form" style="width: 75%" action="/gestionar_periodos" method="post">
+
+
                         <div class="form-group">
                             <label for="periodo">Período Electoral</label>
                             <div>
@@ -120,6 +123,8 @@
                             </div>
 
                         </div>
+
+                        <input value="<%=periodos[0].Estado%>" id="edo" hidden>
 
 
                         <div class="form-group">
@@ -296,8 +301,44 @@
         makeAjaxRequest(selected);
     });
 
+//<!--============= COMPORTAMIENTO AL INICIAR LA PAGINA ==================================-->
+    InitInput( $("#edo").val());
+
+    function InitInput( estado ){
+
+        var NombreEstado;
+
+        switch ( estado ){
+            case 'I': NombreEstado = 'Vigente'; break;
+            case 'P': NombreEstado = 'Postulaciones en Proceso'; break;
+            case 'V': NombreEstado = 'Votaciones en Proceso'; break;
+            default : NombreEstado = 'Culminado';
+        }
+
+        if(estado == 'X'){
+
+            alert("Disabled");
+            $("#periodo-form input").prop("disabled", true);
+            $("#guardar").prop("disabled", true);
+            $("#eliminar").prop("disabled", true);
+        }
+        else if ( estado == 'I') {
+            $("#periodo-form input").prop("disabled", false);
+            $("#guardar").prop("disabled", false);
+            $("#eliminar").prop("disabled", false);
+        }
+        else{
+            alert("Disabled3");
+            $("#periodo-form input").prop("disabled", false);
+            $("#guardar").prop("disabled", false);
+            $("#eliminar").prop("disabled", true);
+        }
+
+        $("#nombre").prop("disabled",true);
+    }
 //<!--=============Ajax RQUEST PARA TRAER LOS DATOS DEPENDIENDO DEL SELECT==================================-->
-    function makeAjaxRequest(opts){U
+
+    function makeAjaxRequest(opts){
         $.ajax({
             type: "POST",
             data: { periodo: opts },

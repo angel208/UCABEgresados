@@ -25,71 +25,85 @@
 
 
 <body>
-<div id="wrapper">
+    <div id="wrapper">
 
-    <!-- Titulo en el sidebar -->
-    <div id="sidebar-wrapper">
-       <%include Partials/Sidebar_Egresados.ejs%>
+        <!-- Titulo en el sidebar -->
+        <div id="sidebar-wrapper">
+           <%include Partials/Sidebar_Egresados.ejs%>
+        </div>
+    <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="vertical-center-parent main-background-light" >
+
+                <h1 style="text-align: center;">Postulación</h1>
+
+                <br>
+                <br>
+
+                <div class="alert custom-tip-alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" style="display:inline"></span>
+                    <p style="display:inline">TIP!</p>  <p>Esta por retirar una postulación, una vez retirada NO HAY VUELTA ATRAS</p>
+                </div>
+
+                <br>
+                <br>
+
+                <form action="/egresado-EliminarPostulacion/"  method="post">
+
+                         <div class="container-fluid" >
+
+                             <div class="form-group  ">
+                                    <label for="respuesta">Postulación a Eliminar</label>
+
+                                    <select class="selectpicker form-control" id="CargoEliminar"   name="CargoEliminar">
+
+                                           <% cargos.forEach(function(cargos){ %>
+                                                <option><%= cargos.NombreCargo %></option>
+                                           <% }); %>
+
+                                     </select>
+                             </div>
+
+                             <button   type="button" name="EliminarPostulacion" id="eliminar" value="ELIMINAR" class="btn btn-info btn-block"  data-toggle="modal" data-target="#myModal">Eliminar Postulación</button>
+
+                         </div>
+                 </form>
 
 
+          </div>
 
+        </div>
+        <!-- /#page-content-wrapper -->
+
+
+    <!--=============MODAL DE CONFIRMACION DE ELIMINACION==================================-->
+
+    <div id="myModal" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Eliminar Postulación</h4>
+                </div>
+
+                <div class="modal-body">
+                    Esta seguro de que desea elminar esta postulación?
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger btn-ok" id="eliminar-modal">Borrar</a>
+                </div>
+
+            </div>
+
+        </div>
     </div>
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper" class="vertical-center-parent main-background-light" >
-<h1 style="text-align: center;">Postulación</h1>
-
-
-<br>
-<br>
-    <div class="alert custom-tip-alert">
-        <span class="glyphicon glyphicon-exclamation-sign" style="display:inline"></span>
-          <p style="display:inline">TIP!</p>  <p>Esta por retirar una postulación, una vez retirada NO HAY VUELTA ATRAS</p>
-    </div>
-
-<br>
-<br>
-<form action="/egresado-EliminarPostulacion/"  method="post">
-
- <div class="container-fluid" >
-  
-         
- <div class="form-group  ">
-        <label for="respuesta">Postulación a Eliminar</label>
-
-<select class="selectpicker " id="CargoEliminar"   name="CargoEliminar">
-   <% cargos.forEach(function(cargos){ %>
-  <option><%= cargos.NombreCargo %> </option>
-   <% }); %>
-  
-</select>
-</div>
-
-
-
-
-
-
-          
-       <button   type="submit"   name="EliminarPostulacion" value="ELIMINAR"class="btn btn-info btn-block">Eliminar Postulación</button>
-   
-        </form>
-        
-	        
-		      </div>
-
-    </div>
-    <!-- /#page-content-wrapper -->
-
-</div>
-
-
-    </div>
-
-
-
-</div>
 
 
 
@@ -98,5 +112,16 @@
 <script src="/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/js/bootstrap.min.js"></script>
+
+<script>
+    $("#eliminar-modal").on( 'click' , function(){
+        /* when the submit button in the modal is clicked, submit the form */
+        $("#eliminar").prop('type','submit');
+        $("#eliminar").click();
+
+    });
+</script>
+
+
 </body>
 </html>

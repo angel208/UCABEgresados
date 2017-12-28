@@ -42,7 +42,7 @@ app.get('/candidatos-egre/:IDCargo', requireLogin, function(req, res) {
             titulo: "Candidatos", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() < new Date(sess.PeridoAct.FechaFV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
+    else if(  new Date() < new Date(sess.PeridoAct.FechaFV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
 
         con.query("SELECT NombreCargo FROM cargo WHERE IDCargo ='"+req.params.IDCargo+"'", function (err, result, fields) {
 
@@ -57,9 +57,10 @@ app.get('/candidatos-egre/:IDCargo', requireLogin, function(req, res) {
                                  "propuestacampana as pro,cargo "+
                                 "WHERE eg.CI = post.CIEgresado "+
                                 "AND cargo.IDCargo=post.IDCargo1 "+
-                                "AND cargo.IDCargo='"+req.params.IDCargo+"' "+
+                                "AND cargo.IDCargo='"+req.params.IDCargo+"' " +
+                                "AND post.ValidadaCE = '1' "+
                                 "group  by(eg.CI);", function (err, result, fields) {
-                                console.log(result);
+
 
         res.render('egresado-listaCandidato',{nombreCargo:NombreCargo,SideBarList:sess.SBList,
                      IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, resultado: result});
@@ -98,7 +99,7 @@ app.get('/candidatos-promesas/:IDP', requireLogin, function(req, res) {
          
 
 
-        console.log(result);
+
 
         res.render('egresados-DatosContacto-3',{SideBarList:sess.SBList,
                      IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, resultado: result});
@@ -122,15 +123,15 @@ app.get('/egresado-Postulacion/', requireLogin, function(req, res) {
             titulo: "Postulación", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() >= new Date(sess.PeridoAct.FechaIP) && new Date() < new Date(sess.PeridoAct.FechaFP) ) {
+    else if(  new Date() >= new Date(sess.PeridoAct.FechaIP) && new Date() < new Date(sess.PeridoAct.FechaFP) ) {
       //QUERIE ACTUALZIADO JM 2211
          con.query("SELECT  cargo.NombreCargo, post.IDPE1 as IDP "+
-                    "FROM cargo, Usuario as U, Egresado as eg,postulacion as post "+
-                    "WHERE U.IDUsuario = eg.Usuario_IDUsuario "+
-                    "AND U.NombreUsu='"+sess.NombreUsuario+"' "+
-                    "AND post.IDCargo1=cargo.IDCargo "+
-                    "AND post.CIEgresado= eg.CI;", function (err, result, fields){
-        console.log(result);
+                   "FROM cargo, Usuario as U, Egresado as eg,postulacion as post "+
+                     "WHERE U.IDUsuario = eg.Usuario_IDUsuario "+
+                     "AND U.NombreUsu='"+sess.NombreUsuario+"' "+
+                     "AND post.IDCargo1=cargo.IDCargo "+
+                     "AND post.CIEgresado= eg.CI;", function (err, result, fields){
+
 
         res.render('egresados-Postulacion',{SideBarList:sess.SBList,
                      IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, resultado: result,nombreCargos:result});
@@ -158,7 +159,7 @@ con.query("SELECT  cargo.NombreCargo, post.IDPE1 as IDP "+
           "AND post.CIEgresado= eg.CI;", function (err, result, fields){
     sess = req.session;
 
-        console.log(result);
+
 
         
 
@@ -174,45 +175,49 @@ con.query("SELECT  cargo.NombreCargo, post.IDPE1 as IDP "+
 //******************************************************************//
             // RUTA PARA LLENAR AGREGAR POSTULACIÒN"
 //******************************************************************//
-app.get('/egresados-postularse/:IDP', requireLogin, function(req, res) {
-sess = req.session;
-//QUERIE ACTUALZIADO JM 2211
-   con.query("SELECT pe.IDPE as IDP FROM periodoelectoral "
-    +" as pe where pe.Estado ='I';", function (err, result, fields){
-    
-    var IDP = result;
-    console.log(IDP);
-   
-      //QUERIE ACTUALZIADO JM 2211
-      con.query("SELECT egre.CI as CI,egre.NombreEgresado FROM egresado as egre, usuario as u "
-        +"WHERE egre.Usuario_IDUsuario = u.IDUsuario "
-        +"AND u.IDUsuario='"+sess.IDUsuario+"';", function (err, result, fields){
-    
-    var CI = result;
-    console.log("CEDULA EGRESADOOOOOO");
-    console.log(CI[0].CI);
-   
- //QUERIE ACTUALZIADO JM 2211
-          con.query("  select c.NombreCargo,c.IDCargo "
-            +" FROM cargo AS c "
-            +" WHERE c.IDCargo not in "
-            +" (SELECT c.IDCargo FROM cargo as c," 
-            +" postulacion as post,usuario as u, egresado as egr,periodoelectoral as PE "
-            +" WHERE post.CIEgresado =egr.CI AND egr.Usuario_IDUsuario ='"+sess.IDUsuario+"' "
-            +" AND post.IDCargo1=c.IDCargo AND c.IDCargo=post.IDCargo1 "
-            +" group by c.IDCargo); ", function (err, result, fields){
-    
-console.log(sess.IDUsuario);
+app.get('/egresados-postularse', requireLogin, function(req, res) {
 
-        console.log(result);
+     sess = req.session;
 
-        res.render('egresados-postulacion1',{SideBarList:sess.SBList,
+     //QUERIE ACTUALZIADO JM 2211
+     con.query("SELECT pe.IDPE as IDP FROM periodoelectoral "+" as pe where pe.Estado !='X';", function (err, result, fields){
+    
+        var IDP = result[0].IDP;
+
+   
+              //QUERIE ACTUALZIADO JM 2211
+              con.query("SELECT egre.CI as CI,egre.NombreEgresado FROM egresado as egre, usuario as u "
+                +"WHERE egre.Usuario_IDUsuario = u.IDUsuario "
+                +"AND u.IDUsuario='"+sess.IDUsuario+"';", function (err, result, fields){
+    
+                    var CI = result;
+
+
+   
+                     //QUERIE ACTUALZIADO JM 2211
+                              con.query("select c.NombreCargo,c.IDCargo \n" +
+                                        "FROM cargo AS c, cargosxcarrera, egresado \n" +
+                                        "WHERE c.IDCargo = cargosxcarrera.Cargo_IDCargo\n" +
+                                        "AND cargosxcarrera.Carrera_IDCarrera = egresado.Carrera_IDCarrera\n" +
+                                        "AND egresado.Usuario_IDUsuario = '"+sess.IDUsuario+"'\n" +
+                                        "AND c.IDCargo not in \n" +
+                                        "(SELECT c.IDCargo FROM cargo as c,\n" +
+                                        "postulacion as post,usuario as u, egresado as egr,periodoelectoral as PE \n" +
+                                        "WHERE post.CIEgresado =egr.CI AND egr.Usuario_IDUsuario ='"+sess.IDUsuario+"' \n" +
+                                        "AND post.IDCargo1=c.IDCargo AND c.IDCargo=post.IDCargo1 \n" +
+                                        "AND PE.IDPE = '"+IDP+"' \n" +
+                                        "group by c.IDCargo); ", function (err, result, fields){
+    
+
+
+                                            res.render('egresados-postulacion1',{SideBarList:sess.SBList,
                      IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, resultado: result,IDP:IDP, CI:CI});
-      });
+                              });
 
   
-    });
-  });
+              });
+     });
+
 });
 
 
@@ -253,27 +258,25 @@ if(req.body.updateCargos == 'AgregarNuevo'){
 
 
   var nombreCargo =req.body.NombreCargoPostulado;
-  console.log(nombreCargo);
+
  
   //QUERIE ACTUALZIADO JM 2211
-con.query("SELECT c.IDCargo "
-  +" FROM cargo as c "
-  +" WHERE c.NombreCargo='"+nombreCargo+"';", function (err, result, fields){
+    con.query("SELECT c.IDCargo "+" FROM cargo as c "+" WHERE c.NombreCargo='"+nombreCargo+"';", function (err, result, fields){
 
-    var IDCargo=result[0].IDCargo;
+         var IDCargo=result[0].IDCargo;
 
 
         //QUERIE ACTUALZIADO JM 2211
-con.query("INSERT INTO `ucabegresado`.`postulacion` (`CIEgresado`, `IDCargo1`, `IDPE1`, `Escalafon`, `Fotografia`, `PartidoPolitico`) VALUES "
-   +" ( '"+req.body.CIEgresado+"', '"+IDCargo+"', '"+req.body.IDPH+"', '"+req.body.escalafon+"', 'FOTO' , '"+req.body.PP+"');"
-  , function (err, result) {
-console.log(result);
+        con.query("INSERT INTO `ucabegresado`.`postulacion` (`CIEgresado`, `IDCargo1`, `IDPE1`, `Escalafon`, `Fotografia`, `PartidoPolitico`) VALUES "
+        +" ( '"+req.body.CIEgresado+"', '"+IDCargo+"', '"+req.body.IDPH+"', '"+req.body.escalafon+"', 'FOTO' , '"+req.body.PP+"');"
+        , function (err, result) {
+
 
 
             if (err){
           throw err;
             res.redirect('/egresado-Postulacion');
-            console.log ('agregado existente');
+
 
             }
 
@@ -285,9 +288,9 @@ console.log(result);
 
              
         });
-    }); 
+          });
   }//FIN IF
-  console.log("redireccionado");
+
     res.redirect('/egresado-propuestas');
 });
 
@@ -305,23 +308,17 @@ var IDPE =req.body.IDPE;
 var IDP =req.body.IDP;
 var propu= req.body.NuevaPropuesta;
      
-/*
-console.log("////////////////entro al post GESTIONAR PROPUESTA/////////// ");
-console.log(CI);
-console.log(IDP);
-console.log(IDPE);
-console.log(propu);
-*/
+
   //QUERIE ACTUALZIADO JM 2211
 
 con.query("INSERT INTO propuestacampana (Postulacion_IDPostulacion,prpuesta) VALUES ('"+IDP+"', '"+propu+"');"
 , function (err, result) {
-console.log(result);
+
 
  });
 
     }
-    console.log("redireccionado");
+
     res.redirect('/egresado-propuestas');
 
 });
@@ -352,7 +349,6 @@ sess = req.session;
 });
 
 
-
 //******************************************************************//
               //POST PARA ELIMINAR POSTULACIÓN//
 //******************************************************************//
@@ -366,11 +362,10 @@ if( req.body.EliminarPostulacion == 'ELIMINAR' ){
   var nombreCargo =req.body.CargoEliminar;
  
   //QUERIE ACTUALZIADO JM 2211
-con.query("SELECT c.IDCargo "
-  +" FROM cargo as c "
-  +" WHERE c.NombreCargo='"+nombreCargo+"';", function (err, result, fields){
+con.query("SELECT c.IDCargo " +" FROM cargo as c "+" WHERE c.NombreCargo='"+nombreCargo+"';", function (err, result, fields){
 
     var IDCargo=result[0].IDCargo;
+
 
      //QUERIE ACTUALZIADO JM 2211
     con.query("SELECT p.IDPostulacion "
@@ -379,24 +374,25 @@ con.query("SELECT c.IDCargo "
       +" AND e.Usuario_IDUsuario=u.IDUsuario AND u.IDUsuario='"+sess.IDUsuario+"';"
   , function (err, result, fields){
     
-    var IDPostulacion=result;
+    var IDPostulacion=result[0].IDPostulacion;
 
-con.query(" DELETE FROM propuestacampana WHERE Postulacion_IDPostulacion='"+IDPostulacion+"';"
-  , function (err, result, fields){
+        con.query(" DELETE FROM propuestacampana WHERE Postulacion_IDPostulacion='"+IDPostulacion+"';"
+          , function (err, result, fields){
 
-                                  });
+                                          });
 
-con.query(" DELETE FROM votacion WHERE Postulacion_IDPostulacion='"+IDPostulacion+"';"
-  , function (err, result, fields){
+        con.query(" DELETE FROM votacion WHERE IDPostulacion='"+IDPostulacion+"';"
+          , function (err, result, fields){
 
-                                  });
+                                          });
 
-  con.query(" DELETE FROM postulacion WHERE IDPostulacion='"+IDPostulacion+"';"
-  , function (err, result, fields){
+          con.query(" DELETE FROM postulacion WHERE IDPostulacion='"+IDPostulacion+"';"
+          , function (err, result, fields){
 
-                                  });
-console.log("redireccionado");
-    res.redirect('/egresado-Postulacion');
+                                          });
+
+
+          res.redirect('/egresado-Postulacion');
 
                                 });
 
@@ -409,8 +405,12 @@ console.log("redireccionado");
               //GET RUTA PARA  VOTACION//
 //******************************************************************//
 
+//******************************************************************//
+//GET RUTA PARA  VOTACION//
+//******************************************************************//
+
 app.get('/egresado-InicioVotacion', requireLogin, function(req, res) {
-sess = req.session;
+    sess = req.session;
 
     if(sess.PeridoAct == null){
 
@@ -420,80 +420,126 @@ sess = req.session;
     }
     if(  new Date() >= new Date(sess.PeridoAct.FechaIV) && new Date() < new Date(sess.PeridoAct.FechaFV) ) {
 
-        res.render('egresado-InicioVotacion', {
-            SideBarList: sess.SBList,
-            IDUsuario: sess.IDUsuario,
-            NombreUsu: sess.NombreUsuari
-        });
+        con.query(" SELECT IF( EXISTS( SELECT * FROM votacion "
+            +" WHERE votacion.IDVotante='"+sess.IDUsuario+"' ), 1, 0) as existe;"
+            , function (err, result, fields) {
+                console.log(result);
+                console.log("ENTRO AL EGRESADO INICIO")
+
+                if (result[0].existe == 0) {
+                    res.render('egresado-InicioVotacion', {
+                        SideBarList: sess.SBList,
+                        IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuari
+                    });
+                }
+
+                else {
+                    res.render('egresados-YaVoto', {
+                        SideBarList: sess.SBList,
+                        IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuari
+                    });
+                }
+            });
 
     } else {
-            res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
-                titulo: "Votación", mensaje: "El proceso de votación no esta disponible."  });
-        }
-   
-   
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Votación", mensaje: "El proceso de votación no esta disponible."  });
+    }
+
+
 });
 
 
 
 
 //******************************************************************//
-              //GET RUTA PARA INICIAR VOTACION//
+//GET RUTA PARA INICIAR VOTACION//
 //******************************************************************//
 
 app.get('/egresado-IVotacion', requireLogin, function(req, res) {
-sess = req.session;
+    sess = req.session;
 
- //QUERIE ACTUALZIADO JM 2211
-con.query(" SELECT p.IDCargo1,c.NombreCargo "
-  +" FROM postulacion as p,cargo as c "
-  +" WHERE p.IDcargo1=c.IDCargo "
-  +" group by p.IDCArgo1;"
-  , function (err, result, fields){
+    //QUERIE ACTUALZIADO JM 2211
+    con.query("SELECT p.IDCargo1,c.NombreCargo \n" +
+            "FROM postulacion as p,cargo as c, usuario as u, egresado as e, cargosxcarrera as cxc\n" +
+            "WHERE u.IDUsuario = '"+sess.IDUsuario+"'\n" +
+            "AND u.IDUsuario = e.Usuario_IDUsuario\n" +
+            "AND e.Carrera_IDCarrera = cxc.Carrera_IDCarrera\n" +
+            "AND c.IDCargo = cxc.Cargo_IDCargo\n" +
+            "AND p.IDcargo1=c.IDCargo \n" +
+            "group by p.IDCArgo1;" , function (err, result, fields){
 
-var cargos=result;
+            var cargos=result;
 
 //QUERIE ACTUALZIADO JM 2211
-con.query("select concat_ws(' ',e.NombreEgresado, E.ApellidoEgresado) as nombre,p.IDCargo1 "
-  +" FROM egresado as e, postulacion as p "
-  +" WHERE e.CI=p.CIEgresado "
-  +" order by p.IDCargo1;"
-  , function (err, result, fields){
+            con.query("select concat_ws(' ',e.NombreEgresado, E.ApellidoEgresado) as nombre,p.IDCargo1, p.IDPostulacion"
+                +" FROM egresado as e, postulacion as p "
+                +" WHERE e.CI=p.CIEgresado "
+                +"AND p.ValidadaEscuela='1' "
+                +"AND p.ValidadaCE='1' "
+                +" order by p.IDCargo1;"
+                , function (err, result, fields){
 
 
-res.render('egresado-IVotacion',{SideBarList:sess.SBList,
-                     IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuari,
-                     cargos:cargos,nombreE:result});
+
+                    res.render('egresado-IVotacion',{SideBarList:sess.SBList,
+                        IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuari,
+                        cargos:cargos,nombreE:result});
 
 
-                                  });
-                  });
+
+                });
+        });
 });
 //******************************************************************//
-                    //POST PARA INICIAR VOTACIÓN//
+//POST PARA INICIAR VOTACIÓN//
 //******************************************************************//
 
-app.post('/egresado-Votacion', function(req, res) {
-
+app.post('/egresado-Votacion',requireLogin, function(req, res) {
+    sess = req.session;
 
     if( req.body.InicioVotacion == 'Iniciar' ){
-console.log("////////////////entro al post INICIAR VOTACIÓN/////////// ");
 
-console.log("redireccionado");
-    res.redirect('/egresado-IVotacion');
-} // if iniciar
+        res.redirect('/egresado-IVotacion');
+
+    } // if iniciar
 
     if(req.body.InicioVotacion == 'votar'){
 
-      var vo=req.body.cargos_seleccionados;
- console.log("casillas seleccionadas");
-    for ( i=0, len=vo.length ; i<len-1; i++) 
-    {
-  console.log(vo[i]);
+        //AGREGAR EGRESADO A TABLA DE QUE YA VOTO
+        con.query("INSERT INTO `ucabegresado`.`votacion` (`IDPE`, `IDVotante`) VALUES ('"+sess.PeridoAct.IDPE+"','"+sess.IDUsuario+"');", function (err, result, fields){
+                console.log(result);
+        });
 
-    }
-} // if votar
+
+        var vo = req.body.cargos;
+        var query = "UPDATE `ucabegresado`.`postulacion` SET `Votos`=`Votos`+1 WHERE ";
+        var i = 0;
+
+        console.log("casillas seleccionadas:");
+
+        for ( len=vo.length ; i <(len-1); i++)
+        {
+            console.log(vo[i]);
+            query = query + " `IDPostulacion`= '" + vo[i] +"' OR "
+        } //for
+
+        query = query + " `IDPostulacion`= '" + vo[i] +"' "
+
+
+        con.query( query , function (err, result, fields){
+
+            res.redirect("/index");
+
+         });
+
+
+
+
+
+    } // if votar
 });
+
 
 //******************************************************************//
               //GET RUTA PARA  RESULTADOS//
@@ -502,13 +548,15 @@ console.log("redireccionado");
 app.get('/egresados-Resultados', requireLogin, function(req, res) {
 sess = req.session;
 
+console.log ( new Date(sess.PeridoAct.FechaFV) + " >=  " + new Date() + " < " + new Date(sess.PeridoAct.FechaFin) );
+
     if(sess.PeridoAct == null){
 
         res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
             titulo: "Resultado de las Elecciones", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() >= new Date(sess.PeridoAct.FechaFV) && new Date() < new Date(sess.PeridoAct.FechaFinal)   ) {
+    else if(  new Date() >= new Date(sess.PeridoAct.FechaFV) && new Date() < new Date(sess.PeridoAct.FechaFin)   ) {
 
         //query que devuelve los resultados de las elecciones y los ordena por cargo de forma descendete
         //QUERIE ACTUALZIADO JM 2211
@@ -519,22 +567,21 @@ sess = req.session;
           +" AND p.CIEgresado =e.CI "
           +" AND c.IDCargo=p.IDcargo1  group by v.TotalVotos desc; "
           , function (err, result, fields){
-            GANADOR=result;
 
-            //QUERIE ACTUALZIADO JM 2211
-        con.query(" SELECT p.IDCargo1,c.NombreCargo "
-          +" FROM postulacion as p,cargo as c "
-          +" WHERE p.IDcargo1=c.IDCargo "
-          +" group by p.IDCArgo1;"
-          , function (err, result, fields){
+                GANADOR=result;
+
+                    //QUERIE ACTUALZIADO JM 2211
+                con.query(" SELECT p.IDCargo1,c.NombreCargo "
+                  +" FROM postulacion as p,cargo as c "
+                  +" WHERE p.IDcargo1=c.IDCargo "
+                  +" group by p.IDCArgo1;"
+                  , function (err, result, fields){
 
 
+                        res.render('egresados-Resultados-14',{SideBarList:sess.SBList,
+                                             IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuari,GANADOR:GANADOR, cargos:result});
 
-
-        res.render('egresados-Resultados-14',{SideBarList:sess.SBList,
-                             IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuari,GANADOR:GANADOR, cargos:result});
-
-           }); // 2do QUERY
+                }); // 2do QUERY
             }); // 1er  query
 
 
@@ -576,10 +623,12 @@ sess = req.session;
 
 
 //QUERIE ACTUALZIADO JM 2211
-con.query("SELECT e.CI,concat_ws(' ',e.NombreEgresado,e.ApellidoEgresado) as nombre,c.Nombre as NombreC,c.IDCarrera "
-  +" FROM egresado as e, carrera as c,usuario as u "
-  +" WHERE e.Usuario_IDUsuario=u.IDUsuario "
-  +" AND u.IDUsuario='"+sess.IDUsuario+"';", function (err, result, fields){
+con.query(  "SELECT e.CI,concat_ws(' ',e.NombreEgresado,e.ApellidoEgresado) as nombre,c.Nombre as NombreC, c.IDCarrera,\n" +
+            "       e.Tlf, e.Email, e.direccion\n" +
+            "FROM egresado as e, carrera as c,usuario as u \n" +
+            "WHERE e.Usuario_IDUsuario=u.IDUsuario \n" +
+            "AND c.IDCarrera = e.Carrera_IDCarrera\n" +
+            "AND u.IDUsuario='"+sess.IDUsuario+"';", function (err, result, fields){
 
      res.render('egresados-Guardar-12',{SideBarList:sess.SBList,
                      IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario,datos:result});
@@ -597,18 +646,14 @@ app.post('/Editar-Perfil', function(req, res) {
 sess = req.session;
 
     if( req.body.EditarPerfil == 'Guardar' ){
-console.log("////////////////entro al post EDITAR PERFIL/////////// ");
+
 
 var tlf=req.body.Telefono;
 var Email=req.body.Email;
 var Dirección=req.body.Dirección;
 var CI=req.body.CI;
 var IDCarrera=req.body.IDCarrera;
-console.log(tlf);
-console.log(Email);
-console.log(Dirección);
-console.log(CI);
-console.log(IDCarrera);
+
 
 //QUERIE ACTUALZIADO JM 2211
 con.query("UPDATE egresado SET `Tlf`='"+tlf+"', "
@@ -616,10 +661,9 @@ con.query("UPDATE egresado SET `Tlf`='"+tlf+"', "
   +" WHERE `CI`='"+CI+"' and`Usuario_IDUsuario`='"+sess.IDUsuario
   +"' and `Carrera_IDCarrera`='"+IDCarrera+"';"
   , function (err, result, fields){
-    console.log(result);
 
-console.log("////////////////////////////");
-console.log("redireccionado");
+
+
     res.redirect('/egresados-Perfil');
  
     
@@ -633,17 +677,68 @@ console.log("redireccionado");
 //******************************************************************//
 
 
+//==============================================================================================
+//==============================REGISTRO========================================================
+//==============================================================================================
+
+//******************************************************************//
+//GET RUTA REGISTRO EGRESADO//
+//******************************************************************//
+app.get('/egresados-Registro', function(req, res) {
+
+    res.render('egresados-registro-1');
+
+});
+
+//******************************************************************//
+//POST PARA REGISTRAR USUARIO//
+//******************************************************************//
+app.post('/egresado-Registro', function(req, res) {
+
+    var CI= req.body.CI;
+
+
+    if( CI=="")
+    {
+        res.render('egresados-registro-1');
+    }
+    else{
+
+
+//QUERIE ACTUALZIADO JM 2211
+        con.query("SELECT IF( EXISTS( SELECT * FROM egresado "
+            +" WHERE egresado.CI='"+CI+"' ), 1, 0) as existe;"
+            , function (err, result, fields){
+
+
+
+
+                if(result[0].existe==0)
+                {
+
+                    res.redirect('/egresados-registroNuevo');
+                }
+                else
+                {
+
+                    res.redirect('/egresado-registro-2/'+CI);
+                }
+            });
+    }
+
+});
+
+
 
 //******************************************************************//
               //GET RUTA REGISTRO EGRESADO NO EN SISTEMA//
 //******************************************************************//
-
 app.get('/egresados-registroNuevo', function(req, res) {
 
   //QUERIE ACTUALZIADO JM 2211
 con.query("SELECT * FROM carrera;"
   , function (err, result, fields){
-    console.log(result);
+
 
 res.render('egresados-registro-nuevo',{carrera:result});
 
@@ -652,9 +747,42 @@ res.render('egresados-registro-nuevo',{carrera:result});
 });
 
 //******************************************************************//
+//POST PARA REGISTRAR USUARIO NO EXISTENTE//
+//******************************************************************//
+app.post('/egresado-RegistroNuevo', function(req, res) {
+
+    var CI= req.body.CI;
+    var nombre= req.body.nombreE;
+    var apellidoE= req.body.apellidoE;
+    var email= req.body.Email;
+    var tlf= req.body.tlf;
+    var fenac= req.body.fenac;
+    var direccion= req.body.Dirección;
+    var carrera= req.body.carrera;
+
+
+
+    con.query("SELECT c.IDCarrera FROM carrera as c WHERE c.Nombre='"+carrera+"';", function (err, result, fields){
+
+
+
+            var IDCarrera= result[0].IDCarrera;
+
+            query = "INSERT INTO egresado (`CI`, `NombreEgresado`, `ApellidoEgresado`, `Tlf`, `Email`, `direccion`, `FechaNacim`, `Carrera`, `Carrera_IDCarrera`, `Usuario_IDUsuario`, `preguntaSeg`, `respuestaSeg`)"
+                +" VALUES ('"+CI+"', '"+nombre+"','"+apellidoE+"', '"+tlf+"','"+email+"','"+direccion+"','"+fenac+"', '"+IDCarrera+"', '"+IDCarrera+"',"
+
+
+
+                res.render('egresados-registro-4N',{ci:CI, queryEgresado : query});
+
+        });
+
+});
+
+
+//******************************************************************//
               //GET RUTA REGISTRO EGRESADO  EN SISTEMA//
 //******************************************************************//
-
 app.get('/egresado-registro-2/:CI', function(req, res) {
 
 
@@ -664,79 +792,25 @@ con.query(" SELECT DE.CIEgresado,concat_ws(' ',eg.NombreEgresado,eg.ApellidoEgre
   +" WHERE DE.CIEgresado ='"+req.params.CI+"' "
   +" AND DE.CIegresado=eg.CI;"
   , function (err, result, fields){
-    console.log(result);
+
 
  res.render('egresados-registro-2',{datosE:result});  
 });
 
 });
-//******************************************************************//
-              //GET RUTA REGISTRO EGRESADO//
-//******************************************************************//
 
-app.get('/egresados-Registro', function(req, res) {
-res.render('egresados-registro-1');
-
-});
-
-//******************************************************************//
-              //POST PARA REGISTRAR USUARIO//
-//******************************************************************//
-app.post('/egresado-Registro', function(req, res) {
-
-var CI= req.body.CI;
-console.log("ENTRO A ´POST REGISTRO USUARIO1");
-
-if( CI=="")
-{
-  res.render('egresados-registro-1');
-}
-else{
-
-
-//QUERIE ACTUALZIADO JM 2211
-con.query("SELECT IF( EXISTS( SELECT * FROM egresado "
-  +" WHERE egresado.CI='"+CI+"' ), 1, 0) as existe;"
-  , function (err, result, fields){
-    console.log(result);
- 
-
-
-    if(result[0].existe==0)
-      { 
-        console.log("////////////////////////////");
-          console.log("redireccionado");
-            res.redirect('/egresados-registroNuevo');
-      }
-      else
-      {
-       console.log("////////////////////////////");
-        console.log("redireccionado");
-          res.redirect('/egresado-registro-2/'+CI);
-      }
-});
-}
-
-});
 
 //******************************************************************//
               //post PARA REGISTRO USUARIO PASO 3//
 //******************************************************************//
-
 app.post('/egresado-registro3', function(req, res) {
 
-console.log("ENTRO A ´POST REGISTRO USUARIO3");
+
 var CI= req.body.CI;
 var nombre= req.body.nombre;
 var AnoE= req.body.AñoEgresado;
 var respuesta= req.body.respuesta;
 
-console.log("CI------------/// "+CI+"/");
-console.log("AñoE "+AnoE+"/");
-console.log("respuesta "+respuesta+"/");
-
-console.log("AñoE /"+typeof AnoE);
-console.log("respuesta /"+ typeof respuesta);
 
  var datos={CI:CI,nombre:nombre,AnoE:AnoE,respuesta:respuesta};
 
@@ -752,43 +826,48 @@ else{
 });
 
 
+
+//******************************************************************//
+//GET RUTA REGISTRO  USUARIO NO EN SISTEMA DE PASO 2 A 4//
+//******************************************************************//
+app.get('/registro-egresado4', function(req, res) {
+
+    res.render('egresados-registro-4N');
+
+});
+
 //******************************************************************//
      //post PARA REGISTRO USUARIO PASO 4 USUARIO EN SISTEMA//
 //******************************************************************//
-
 app.post('/registro-egresado4', function(req, res) {
 
-console.log("ENTRO A ´POST REGISTRO USUARIO4");
+
 var usu= req.body.usuario;
-var CI= req.body.CI;
+var CI= req.body.CI.replace(/\s/g,'');
 var pass= req.body.pass;
 var pass2= req.body.pass2;
 var preg= req.body.preg;
 var resp= req.body.resp;
 
-console.log("CI-----------------------------"+CI.replace(/\s+/, "")+"-/");
-console.log("pass "+pass+"/");
-console.log("pass2 "+pass2+"/");
 
-console.log("pass /"+typeof pass);
-console.log("pass2 /"+ typeof pass2);
 
 if(pass == pass2)
 {
-console.log("EBNTRO AL IF PASS")
+
 con.query("INSERT INTO `usuario` (`NombreUsu`, `ClaveUsu`, `Cargo`) "
         +" VALUES ('"+usu+"', '"+pass+"', '3');", function (err, result, fields){
-console.log(result);
+
 
 con.query("SELECT IDUsuario FROM ucabegresado.usuario "+
             "WHERE Nombreusu='"+usu+"';", function (err, result, fields){
+
               
-              console.log("-------IDUSUARIO:"+result[0].IDUsuario)
+
 
 con.query("UPDATE egresado SET `preguntaSeg`='"+preg+"', `respuestaSeg`='"+resp+"',`Usuario_IDUsuario`='"+result[0].IDUsuario+"'  "
-  +" WHERE `CI`='"+CI+";"
+  +" WHERE `CI`='"+CI+"';"
   , function (err, result, fields){
-    console.log(result);
+
     res.redirect('/login');
                                   }); 
 
@@ -802,13 +881,23 @@ else{
 }   
 });
 
+
+
+//******************************************************************//
+//GET RUTA REGISTRO  USUARIO SISTEMA PASO 4//
+//******************************************************************//
+app.get('/egresados-registro-4N', function(req, res) {
+
+    res.render('egresados-registro-4N');
+
+});
+
 //******************************************************************//
      //post PARA REGISTRO USUARIO PASO 4 NO  USUARIO EN SISTEMA//
 //******************************************************************//
-
 app.post('/registro-egresado4N', function(req, res) {
 
-console.log("ENTRO A ´POST REGISTRO  NO USUARIO4");
+
 var usu= req.body.usuario;
 var CI= req.body.CI;
 var pass= req.body.pass;
@@ -820,17 +909,16 @@ var resp= req.body.resp;
  if(pass == pass2)
 {
 
-con.query("INSERT INTO `usuario` (`NombreUsu`, `ClaveUsu`, `Cargo`) "
-  +" VALUES ('"+usu+"', '"+pass+"', '3');", function (err, result, fields){
-
-con.query("UPDATE egresado SET  `Usuario_IDUsuario`='"+"FALTA ESTO"+"', `preguntaSeg`='"+preg+"', `respuestaSeg`='"+resp+"' "
-  +" WHERE `CI`='"+CI+";"
-  , function (err, result, fields){
-
-res.redirect('/login');
+con.query("INSERT INTO `usuario` (`NombreUsu`, `ClaveUsu`, `Cargo`) VALUES ('"+usu+"', '"+pass+"', '3');", function (err, result, fields){
 
 
-}); 
+
+    con.query( req.body.QueryInsertEgresado+"'"+result.insertId+"', '"+preg+"', '"+resp+"');", function (err, result, fields){
+
+        res.redirect('/login');
+
+
+    });
 }); //query usuario insert
 
 }  
@@ -839,99 +927,179 @@ else{
 
 });
 
+
 //******************************************************************//
               //get PARA REGISTRO USUARIO PASO 4//
 //******************************************************************//
-
 app.post('/updateEgre', function(req, res) {
 
-console.log("ENTRO A ´POST REGISTRO USUARIO4");
+
 var CI= req.body.CIE;
 var direccion= req.body.direccion;
 var tlf= req.body.telefono;
 var Email= req.body.email;
 
 //UPDATE `ucabegresado`.`egresado` SET `Tlf`='0424123456', `Email`='juanjose1@gmail.com', `direccion`='villa africana puerto ordazz' WHERE `CI`='1111' and`Usuario_IDUsuario`='5' and`Carrera_IDCarrera`='1000';
-console.log("UPDATE EGRE ANTES DE QUERY ");
+
 con.query("UPDATE `ucabegresado`.`egresado` SET `Tlf`='"+tlf+"', `Email`='"+Email+"', `direccion`='"+direccion+"' "
 +" WHERE `CI`='"+CI+"';"
   , function (err, result, fields){
-    console.log(result);
 
-console.log("////////////////////////////");
-console.log("redireccionado");
+
+
     res.render('egresados-registro-4',{CI:CI});
  
 });
 
 });
 
+
+
+//==============================================================================================
+//==============================================================================================
+
 //******************************************************************//
-              //GET RUTA REGISTRO  USUARIO NO EN SISTEMA DE PASO 2 A 4//
+//GET RUTA RECUPERACION CONTRASEÑA//
 //******************************************************************//
 
-app.get('/registro-egresado4', function(req, res) {
+app.get('/egresados-recuperacionCon', function(req, res) {
 
-res.render('egresados-registro-4N');
-   
+    res.render('egresados-recuperacionCon');
+
 });
 
 //******************************************************************//
-              //GET RUTA REGISTRO  USUARIO SISTEMA PASO 4//
+//POST RECUPERAR CONTRASEÑA PASO 2//
 //******************************************************************//
 
-app.get('/egresados-registro-4N', function(req, res) {
+app.post('/egresado-Recuperacion', function(req, res) {
+
+    var CIE=req.body.CIEmail;
+
+
+
+
+    //QUERIE ACTUALZIADO JM 2211
+    con.query("SELECT IF( EXISTS(SELECT Usuario_IDUsuario, preguntaSeg,respuestaSeg "+
+        " FROM egresado "+
+        "WHERE CI='"+CIE+"' "+
+        "OR EMAIL='"+CIE+"' ), 1, 0) as existe;"
+        , function (err, result, fields){
+
+
+            //si existe ese usuario
+            if(result[0].existe==1)
+            {
+                con.query("SELECT Usuario_IDUsuario, preguntaSeg,respuestaSeg "+
+                    " FROM egresado "+
+                    "WHERE CI='"+CIE+"' "+
+                    "OR EMAIL='"+CIE+"';"
+                    , function (err, result, fields){
+
+
+
+
+
+                        res.render('egresados-recuperacionCon-2',{datos:result});
+
+                    }); // query existe
+
+            }
+            else
+            {
+                res.render( "error_cedula_inexistente.ejs" );
+            }
+        }); // query existe
+
+});//fin post
+
+
+//******************************************************************//
+     //GET RUTA RECUPERACION CONTRASEÑA PASO 2 PREGUNTA SEG//
+//******************************************************************//
+
+app.get('/egresados-recupCon-2', function(req, res) {
   
-  res.render('egresados-registro-4N');
-     
+
+  con.query("SELECT Usuario_IDUsuario, preguntaSeg,respuestaSeg "+
+  " FROM egresado "+
+   "WHERE CI='"+CIE+"' "+
+   "OR EMAIL='"+CIE+"';"
+   , function (err, result, fields){
+
+
+ 
+     res.render('egresados-recuperacionCon-2',{datos:result});
+
+
+ }); // query existe
+
+  
   });
 
+
 //******************************************************************//
-              //POST PARA REGISTRAR USUARIO NO EXISTENTE//
+              //POST RECUPERAR CONTRASEÑA PASO 3//
 //******************************************************************//
 
-app.post('/egresado-RegistroNuevo', function(req, res) {
-
-var CI= req.body.CI;
-var nombre= req.body.nombreE;
-var apellidoE= req.body.apellidoE;
-var email= req.body.Email;
-var tlf= req.body.tlf;
-var fenac= req.body.fenac;
-var direccion= req.body.Dirección;
-var carrera= req.body.carrera;
-var preg= req.body.preg;
-var resp= req.body.resp;
-
-console.log("ENTRO A POST EGRESADO NO EN SISTEMA");
-console.log("CI"+CI);
-console.log("nombre"+nombre);
-console.log("apellidoE"+apellidoE);
-console.log("email"+email);
- console.log("tlf"+tlf);
-console.log("fenac"+fenac);
- console.log("direccion"+direccion);
- console.log("preg"+preg);
- console.log("resp"+resp);
-
-con.query("SELECT c.IDCarrera FROM carrera as c WHERE "
-  +" c.Nombre='"+carrera+"';"
-  , function (err, result, fields){
-    console.log(result);
-
- var IDCarrera= result[0].IDCarrera;
-
-con.query("INSERT INTO egresado (`CI`, `NombreEgresado`, `ApellidoEgresado`, `Tlf`, `Email`, `direccion`, `FechaNacim`, `Carrera`, `preguntaSeg`, `respuestaSeg`, `Usuario_IDUsuario`, `Carrera_IDCarrera`)"
-  +" VALUES ('"+CI+"', '"+nombre+"','"+apellidoE+"', '"+tlf+"','"+email+"','"+direccion+"','"+fenac+"', '"+IDCarrera+"', '"+preg+"', '"+resp+"', '99999999', '"+IDCarrera+"');"
-  , function (err, result, fields){
-    console.log(result);
-
- res.render('egresados-registro-4N',{ci:CI});
-    });
+app.post('/egresado-Recuperacion2', function(req, res) {
   
-});
 
-});
+    
+    var respu=req.body.Respu;
+    var respubd=req.body.Respubd;
+    var usubd=req.body.usuBD;
+  
+
+    if(respu==respubd)
+    {
+
+      con.query("SELECT u.NombreUsu FROM egresado,usuario as u "
+      +" WHERE u.IDUsuario = egresado.Usuario_IDUsuario AND u.IDUsuario='"+usubd+"';"
+       , function (err, result, fields){
+
+
+        
+         res.render('egresados-recuperacionCon-3',{datos:result, usubd: usubd});
+    
+     }); // query existe
+    }  
+    else
+    {
+      res.redirect('/egresados-recuperacionCon-2');
+    } 
+
+    });//fin post
+
+
+//******************************************************************//
+              //POST RECUPERAR CONTRASEÑA PASO 4 guardar contraseñas//
+//******************************************************************//
+
+app.post('/egresado-Recuperacion3', function(req, res) {
+  
+
+    var Contraseña=req.body.Contraseña;
+    var Contraseña1=req.body.Contraseña1;
+    var usubd=req.body.usuBD;
+
+  
+    if(Contraseña==Contraseña1)
+    {
+
+      con.query("UPDATE usuario SET ClaveUsu='"+Contraseña+"' WHERE `IDUsuario`='"+usubd+"';"
+       , function (err, result, fields){
+
+
+         res.render('login');
+    
+     }); // query existe
+    }  
+
+    });//fin post
+
+
+
 
 //++++++++++++++++++  FUNCIONES GLOBALES +++++++++++++++++++++++++++++
 

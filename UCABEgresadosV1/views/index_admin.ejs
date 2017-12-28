@@ -25,54 +25,31 @@
 
 
 <body>
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
 <div id="wrapper">
 
-    <!-- Titulo en el sidebar -->
+
     <div id="sidebar-wrapper">
-       <%include Partials/Sidebar_Egresados.ejs%>
 
-
+        <% include Partials/SideBar_Administrador.ejs %>
 
     </div>
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT                !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
-    <div id="page-content-wrapper" class="vertical-center-parent main-background-light" >
-<h1 style="text-align: center;">Votación</h1>
+    <div id="page-content-wrapper" class="vertical-center-parent main-background-dark" >
+        <div class="container-fluid vertical-center vertical-center-child" >
 
+                    <h1 class="main-background-title"> Sistema de Votación Web para Egresados</h1>
+                    <h2 class="secondary-background-title">(Módulo Administrativo)</h2>
 
-<br>
-<br>
-    <div class="alert custom-tip-alert">
-        <span class="glyphicon glyphicon-exclamation-sign" style="display:inline"></span>
-          <p style="display:inline"> <strong>¡ADVERTENCIA! </strong></p>  <p>Una vez iniciado el proceso de votación no hay marcha atras.</p>
-    </div>
-
-<br>
-<br>
-<form action="/egresado-Votacion"  method="post">
-
- <div class="container-fluid" >
-  
-      
-       <button   type="submit"   name="InicioVotacion" value="Iniciar" class="btn btn-info btn-block">Iniciar Votación</button>
- </div>
-        </form>
-        
-	        
-		      </div>
-
+        </div>
     </div>
     <!-- /#page-content-wrapper -->
 
 </div>
 
 
-    </div>
-
-
-
-</div>
 
 
 

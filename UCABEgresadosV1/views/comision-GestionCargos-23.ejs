@@ -110,7 +110,7 @@
 
 
                         <div class="center-block button-group">
-                            <button type="submit" name="updateCargos" value="Eliminar" class="btn btn-primary horizontal-button" style="width: 200px">
+                            <button type="button" name="updateCargos" id="eliminar" value="Eliminar" class="btn btn-primary horizontal-button" style="width: 200px"  data-toggle="modal" data-target="#myModal">
                                 Eliminar Cargos Seleccionados
                             </button>
                             <button type="submit" name="updateCargos" value="Guardar" class="btn btn-primary horizontal-button" style="width: 200px">
@@ -157,11 +157,22 @@
                                     <label for="carrera<%=carrera.IDCarrera%>">Seleccionar Cargo a Agregar:</label>
                                     <select class="form-control" id="carrera<%=carrera.IDCarrera%>" name="CargosExistentes">
 
+                                        <%  function YaAgregado( id , carrera ,list) {
+                                                 var i;
+                                                 for (i = 0; i < list.length; i++) {
+                                                    if ( (list[i].IDCargo == id)  && (carrera == list[i].IDCarrera)) {
+                                                        return true;
+                                                    }
+                                                 }
+
+                                             return false;
+                                        }%>
+
                                         <% cargos.forEach( function( cargo ) { %>
 
-
-                                        <option><%=cargo.IDCargo + " - " + cargo.NombreCargo%></option>
-
+                                            <%if(!YaAgregado( cargo.IDCargo , carrera.IDCarrera, cargosxcarrera)){%>
+                                                 <option><%=cargo.IDCargo + " - " + cargo.NombreCargo%></option>
+                                            <%}%>
 
                                        <% });%>
 
@@ -181,17 +192,17 @@
 
                                 <div class="form-group modal-label  ">
                                     <label for="respuesta">Nombre del Cargo a Crear:</label>
-                                    <input type="text" class="form-control" id="NuevoCargo" name="NombreNuevoCargo">
+                                    <input type="text" class="form-control" id="NombreCargo" name="NombreNuevoCargo">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="respuesta">Descripción del Cargo a Crear:</label>
-                                    <input type="text" class="form-control" id="NuevoCargo" name="DescNuevoCargo">
+                                    <input type="text" class="form-control" id="DescripcionCargo" name="DescNuevoCargo">
                                 </div>
 
                                 <input class= 'hidden' name="Carrera_Cargo" value="<%= carrera.IDCarrera %>"> <!-- input oculto, que se usara para postear la carrera  -->
 
-                                <button type="submit" name="updateCargos" value="AgregarNuevo" class="btn btn-primary center-block" style="width: 200px">Crear y Agregar Cargo</button>
+                                <button type="submit" name="updateCargos" value="AgregarNuevo" id="AgregarNuevo" class="btn btn-primary center-block" style="width: 200px">Crear y Agregar Cargo</button>
 
 
                             </form>
@@ -217,5 +228,83 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+
+
+<!--=============MODAL DE CONFIRMACION DE ELIMINACION==================================-->
+
+<div id="myModal" class="modal fade" role="dialog">
+
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Eliminar Cargos</h4>
+            </div>
+
+            <div class="modal-body">
+                Esta seguro de que desea elminar los cargos seleccionados?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger btn-ok" id="eliminar-modal">Borrar</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    //<!--=============FUNCION PARA ELIMINAR A TRAVES DEL BOTON DEL MODAL==================================-->
+
+    $("#eliminar-modal").on( 'click' , function(){
+        /* when the submit button in the modal is clicked, submit the form */
+        $("#eliminar").prop('type','submit');
+        $("#eliminar").click();
+
+    });
+
+    $("#AgregarNuevo").on('click', function(e){
+
+        var nombre = $("#NombreCargo");
+        var desc = $("#DescripcionCargo");
+
+        if( !nombre.val() || !desc.val() || !hasCharacters(nombre.val()) || !hasCharacters(desc.val())) {
+            e.preventDefault();
+        }
+
+        if( !nombre.val() || !hasCharacters(nombre.val())){
+            nombre.css({'border-color' : '#ff6666', 'background-color': '#ffe6e6'});
+        }
+        else{
+            nombre.css({'border-color' : '#bfbfbf' , 'background-color': 'white' });
+        }
+
+        if( !desc.val() || !hasCharacters(desc.val()) ){
+            desc.css({'border-color' : '#ff6666', 'background-color': '#ffe6e6'});
+        }
+        else{
+            desc.css({'border-color' : '#bfbfbf' , 'background-color': 'white' });
+        }
+
+    });
+
+    function hasCharacters( s ){
+        for ( i = 0 ; i < s.length ; i++){
+            if ( s[i] != ' ' )
+                return true;
+        }
+
+        return false;
+    }
+
+
+
+</script>
+
+
 </body>
 </html>

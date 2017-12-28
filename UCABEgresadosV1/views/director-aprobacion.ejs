@@ -60,24 +60,26 @@
 
                         <div class="panel panel-default custom-panel">
                             <div class="panel-heading">
-                                <p>Postulados <%=lista[0].NombreCargo%></p>
+                                <p>Postulados <%=cargo.NombreCargo%></p>
                             </div>
                             <div class="panel-body">
-                                <input type="hidden" name="cargo" value="<%=lista[0].IDCargo%>">
-                                <% lista.forEach( function( Element ){ %>
-                                <div class="row">
-                                    <div class="col-xs-11">
-                                        <%=Element.NombreEgresado+" "+Element.ApellidoEgresado%>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <% if ( Element.ValidadaEscuela == 1 ) { %>
-                                              <input type="checkbox" name="seleccionados[]" value="<%= Element.IDPostulacion %>" placeholder="First name" checked>
-                                        <% } else { %>
-                                              <input type="checkbox" name="seleccionados[]" value="<%= Element.IDPostulacion %>" placeholder="First name">
-                                        <%}%>
-                                    </div>
-                                </div>
-                                <% });%>
+                                <input type="hidden" name="cargo" value="<%=cargo.IDCargo%>">
+                                    <%if( lista != undefined){%>
+                                        <% lista.forEach( function( Element ){ %>
+                                            <div class="row">
+                                                <div class="col-xs-11">
+                                                    <%=Element.NombreEgresado+" "+Element.ApellidoEgresado%>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <% if ( Element.ValidadaEscuela == 1 ) { %>
+                                                          <input type="checkbox" name="seleccionados[]" value="<%= Element.IDPostulacion %>" placeholder="First name" checked>
+                                                    <% } else { %>
+                                                          <input type="checkbox" name="seleccionados[]" value="<%= Element.IDPostulacion %>" placeholder="First name">
+                                                    <%}%>
+                                                </div>
+                                            </div>
+                                        <% });%>
+                                    <%}%>
 
                             </div>
                         </div>
