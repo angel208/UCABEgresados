@@ -849,13 +849,6 @@ var pass2= req.body.pass2;
 var preg= req.body.preg;
 var resp= req.body.resp;
 
-<<<<<<< HEAD
-console.log("CI-----------------------------"+CI+"/");
-console.log("usu-----------------------------"+usu+"/");
-console.log("pass "+pass+"/");
-console.log("pass2 "+pass2+"/");
-=======
->>>>>>> angel
 
 
 if(pass == pass2)
@@ -867,14 +860,9 @@ con.query("INSERT INTO `usuario` (`NombreUsu`, `ClaveUsu`, `Cargo`) "
 
 con.query("SELECT IDUsuario FROM ucabegresado.usuario "+
             "WHERE Nombreusu='"+usu+"';", function (err, result, fields){
-              console.log(result);
-              
-              console.log("-------IDUSUARIO:"+result[0].IDUsuario+"/")
-=======
 
               
 
->>>>>>> angel
 
 con.query("UPDATE egresado SET `preguntaSeg`='"+preg+"', `respuestaSeg`='"+resp+"',`Usuario_IDUsuario`='"+result[0].IDUsuario+"'  "
   +" WHERE `CI`='"+CI+"';"
@@ -1103,167 +1091,6 @@ app.post('/egresado-Recuperacion3', function(req, res) {
        , function (err, result, fields){
 
 
-         res.render('login');
-    
-     }); // query existe
-    }  
-
-    });//fin post
-
-
-
-
-//******************************************************************//
-              //GET RUTA RECUPERACION CONTRASEÑA//
-//******************************************************************//
-
-app.get('/egresados-recuperacionCon', function(req, res) {
-  
-  res.render('egresados-recuperacionCon');
-  });
-
-//******************************************************************//
-     //GET RUTA RECUPERACION CONTRASEÑA PASO 2 PREGUNTA SEG//
-//******************************************************************//
-
-app.get('/egresados-recupCon-2', function(req, res) {
-  
-
-  con.query("SELECT Usuario_IDUsuario, preguntaSeg,respuestaSeg "+
-  " FROM egresado "+
-   "WHERE CI='"+CIE+"' "+
-   "OR EMAIL='"+CIE+"';"
-   , function (err, result, fields){
-     console.log(result);
-
- 
-     res.render('egresados-recuperacionCon-2',{datos:result});
-
-
- }); // query existe
-
-  
-  });
-//******************************************************************//
-              //POST RECUPERAR CONTRASEÑA PASO 2//
-//******************************************************************//
-
-app.post('/egresado-Recuperacion', function(req, res) {
-
-  
- 
-  console.log("///////entro al post EGRESADO-RECUPERACION/////////// ");
-  
-  
-  var CIE=req.body.CIEmail;
-
-console.log(CIE);
- 
-  
-  //QUERIE ACTUALZIADO JM 2211
-  con.query("SELECT IF( EXISTS(SELECT Usuario_IDUsuario, preguntaSeg,respuestaSeg "+
-   " FROM egresado "+
-    "WHERE CI='"+CIE+"' "+
-    "OR EMAIL='"+CIE+"' ), 1, 0) as existe;"
-    , function (err, result, fields){
-      console.log(result);
-
-        //si existe ese usuario
-      if(result[0].existe==1)
-      {
-        con.query("SELECT Usuario_IDUsuario, preguntaSeg,respuestaSeg "+
-        " FROM egresado "+
-         "WHERE CI='"+CIE+"' "+
-         "OR EMAIL='"+CIE+"';"
-         , function (err, result, fields){
-           console.log(result);
-      
-          
-           console.log("redireccionado egresados-recuperacionCon-2");
-          
-           res.render('egresados-recuperacionCon-2',{datos:result});
-      
-       }); // query existe
-
-      }
-      else
-      {
-     
-      } 
-  }); // query existe
- 
-  });//fin post
-
-
-//******************************************************************//
-              //POST RECUPERAR CONTRASEÑA PASO 3//
-//******************************************************************//
-
-app.post('/egresado-Recuperacion2', function(req, res) {
-  
-    
-   
-    console.log("///////entro al post EGRESADO-RECUPERACION2/////////// ");
-    
-    
-    var respu=req.body.Respu;
-    var respubd=req.body.Respubd;
-    var usubd=req.body.usuBD;
-  
-    console.log("respu------------/// "+respu+"/");
-    console.log("respubd "+respubd+"/");
-  
-    if(respu==respubd)
-    {
-      con.query("SELECT u.NombreUsu FROM egresado,usuario as u "
-      +" WHERE u.IDUsuario = egresado.Usuario_IDUsuario AND u.IDUsuario='"+usubd+"';"
-       , function (err, result, fields){
-         console.log(result);
-    
-        
-         console.log("redireccionado egresados-recuperacionCon-2");
-        
-         res.render('egresados-recuperacionCon-3',{datos:result, usubd: usubd});
-    
-     }); // query existe
-    }  
-    else
-    {
-      res.redirect('/egresados-recuperacionCon-2');
-    } 
-
-    });//fin post
-
-
-//******************************************************************//
-              //POST RECUPERAR CONTRASEÑA PASO 4 guardar contraseñas//
-//******************************************************************//
-
-app.post('/egresado-Recuperacion3', function(req, res) {
-  
-    
-   
-    console.log("///////entro al post EGRESADO-RECUPERACION 4/////////// ");
-    
-    
-    var Contraseña=req.body.Contraseña;
-    var Contraseña1=req.body.Contraseña1;
-    var usubd=req.body.usuBD;
-  
-    console.log("Contraseña------------/// "+Contraseña+"/");
-    console.log("Contraseña1 "+Contraseña1+"/");
-  
-    if(Contraseña==Contraseña1)
-    {
-
-
-      con.query("UPDATE usuario SET ClaveUsu='"+Contraseña+"' WHERE `IDUsuario`='"+usubd+"';"
-       , function (err, result, fields){
-         console.log(result);
-    
-        
-         console.log("redireccionado login");
-        
          res.render('login');
     
      }); // query existe
