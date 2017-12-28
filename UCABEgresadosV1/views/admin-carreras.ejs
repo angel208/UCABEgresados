@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>UCABEgresados</title>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/angel.css" rel="stylesheet">
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!1!!!!!!!!!!!! -->
+<div id="wrapper">
+
+    <!-- Titulo en el sidebar -->
+    <div id="sidebar-wrapper">
+
+        <%include Partials/SideBar_Administrador.ejs%>
+
+
+
+    </div>
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
+
+    <div id="page-content-wrapper" class="main-background-light" >
+        <div class="container-fluid full-height " >
+
+            <!--==========TITULO Y ALERTAS====================-->
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <h1>Gestión de Carreras</h1>
+
+                </div>
+            </div>
+
+            <!--==========PANEL====================-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <form action="/gestion_carreras" method="post">
+
+
+                        <div class="panel panel-default custom-panel">
+                            <div class="panel-heading">
+                                <p>Carreras Registradas en el Sistema</p>
+                            </div>
+                            <div class="panel-body table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Carrera</th>
+                                            <th>Descripción</th>
+                                            <th > </th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%if( carreras != undefined){%>
+                                            <% carreras.forEach( function( Element ){ %>
+                                                <tr>
+                                                    <td><%=Element.IDCarrera%></td>
+                                                    <td><%=Element.Nombre%></td>
+                                                    <td><%=Element.descripcion%></td>
+                                                    <td>
+                                                        <input class="pull-right" type="checkbox" name="selected[]" value="<%=Element.IDCarrera%>">
+                                                    </td>
+                                                    <td >
+                                                        <button  class="pull-right btn btn-primary" type="button"  data-toggle="modal" data-target="#PassModal" onclick="addID( '<%= Element.IDCarrera%>', '<%= Element.Nombre%>', '<%= Element.descripcion%>' )">Editar</button>
+                                                    </td>
+                                                </tr>
+                                            <% });%>
+                                        <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="center-block button-group">
+                             <button style="width: 200px" class="btn btn-primary btn center-block horizontal-button" type="submit" name="SubmitButton" value="delete"  >
+                                    Eliminar Carreras Seleccionadas
+                             </button>
+
+                            <button style="width: 200px" class="pull-right btn btn-primary horizontal-button"  type="button"  data-toggle="modal" data-target="#PassModal" onclick="initModal()" >
+                                     Agregar Carrera
+                            </button>
+                        </div>
+
+
+
+
+                    </form>
+                </div>
+            </div>
+
+            <!------------------ POR CADA CARRERA SE AGREGARA UN MODAL QUE PERMITIRA AGREGAR NUEVOS CARGOS A ESA CARRERA  -------------------------->
+            <div id="PassModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Carrera: Editar</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+
+                                    <form action="/gestion_carreras" method="post">
+
+
+                                        <input  class="hidden" name="Carrera" id="Carrera" value="nil"> <!-- input oculto, que se usara para postear la carrera  -->
+
+
+                                        <div class="form-group">
+                                            <label for="email">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Carrera">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email">Descripción</label>
+                                            <input type="text" class="form-control"  name="descripcion" id="descripcion" placeholder="Descripción">
+                                        </div>
+
+                                        <button type="submit" name="SubmitButton" id="update" value="update" class="btn btn-primary center-block">Guardar Cambios</button>
+
+                                    </form>
+
+                        </div>
+
+                     </div>
+                </div>
+            </div>
+            <!------------------------------------ END OF MODAL --------------------------------->
+
+
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+
+
+
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+
+
+<script>
+   function addID( carrera, nombre, descripcion ){
+
+       $("#Carrera").val(carrera);
+       $("#nombre").val(nombre);
+       $("#descripcion").val(descripcion);
+   }
+
+   function initModal(){
+       $("#Carrera").val("nil")
+   }
+</script>
+
+
+</body>
+</html>

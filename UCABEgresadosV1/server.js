@@ -17,6 +17,7 @@ var con = conector.conectar();
 var comision = require('./routes/comision');
 var egresados = require('./routes/egresados');
 var director = require('./routes/director');
+var administrador = require('./routes/administrador');
 
 //variable que contiene la lista dinamica de candidatos
 var SidebarList = ['null'];
@@ -33,6 +34,7 @@ app.use(session({secret: 'ssshhhhh', resave: true, saveUninitialized: false}));
 app.use(comision);
 app.use(egresados);
 app.use(director);
+app.use(administrador);
 
 
 //++++++++++++++++++  RUTAS  +++++++++++++++++++++++++++++
@@ -108,7 +110,7 @@ app.get('/index', requireLogin ,function(req, res) {
 
             case '2': res.render('index_director', { IDUsuario : sess.IDUsuario , NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList });break;
 
-            case '4': res.redirect('/login'); break;
+            case '4': res.render('index_admin', { IDUsuario : sess.IDUsuario , NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList });break;
 
             default: res.redirect('/login'); break;
 

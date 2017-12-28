@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/angel.css" rel="stylesheet">
     <link href="/css/simple-sidebar.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
 
@@ -38,100 +39,97 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper" class="vertical-center-parent main-background-light" >
-<h1 style="text-align: center;">Postulación</h1>
+
+            <h1 style="text-align: center;">Postulación</h1>
 
 
-<br>
-<br>
-    <div class="alert custom-tip-alert">
-        <span class="glyphicon glyphicon-exclamation-sign" style="display:inline"></span>
-          <p style="display:inline">TIP!</p>  <p>Paso 2 de 2.</p>
-    </div>
-
-<br>
-<br>
-
-
- <div class="panel panel-default custom-panel">
-
-    <div class="panel-heading">
-      <p>Propuestas</p>
-       </div>
-
-        <div class="panel-body">
-          <% PROCampaña.forEach(function(propuesta){ %>
-          <div class="row">
-               
-                <%= propuesta.prpuesta %>
+            <br>
+            <br>
+                <div class="alert custom-tip-alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" style="display:inline"></span>
+                      <p style="display:inline">TIP!</p>  <p>Paso 2 de 2.</p>
                 </div>
-                <% }); %>
-                   
-                   
-                  </div>
-                  
-
-<button class="btn btn-link center-block"  data-toggle="modal" data-target="#myModal" type="button">+ añadir nueva Propuesta...</button>
-</div>
+            <br>
+            <br>
 
 
-        <div class="container-fluid" >
+             <div class="panel panel-default custom-panel">
 
-          <form action="/egresado-Postulacion/">
-       <button   type="submit" class="btn btn-info btn-block">Culminar Postulación</button>
-   
-        </form>
-        
-	        
-		      </div>
+                <div class="panel-heading">
+                  <p>Propuestas</p>
+                   </div>
 
-    </div>
-    <!-- /#page-content-wrapper -->
+                 <div class="panel-body">
+                      <% PROCampaña.forEach(function(propuesta){ %>
+                      <div class="row">
 
-</div>
+                            <%= propuesta.prpuesta %>
+                       </div>
+                            <% }); %>
 
-<div id="myModal" class="modal fade">
 
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2>Agregar Propuesta</h2>
-    </div>
-    <div class="modal-body">
-      <form action="/gestionar_propuestas" method="post">
+                 </div>
 
-        <div class="form-group modal-label  ">
+                 <button class="btn btn-link center-block"  data-toggle="modal" data-target="#myModal" type="button">+ añadir nueva Propuesta...</button>
 
-          <label for="respuesta">Propuesta:</label>
-          <input type="text" class="form-control" id="NuevaPropuesta" name="NuevaPropuesta">
+                </div>
+
+        <div id="myModal" class="modal fade">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2>Agregar Propuesta</h2>
+                </div>
+
+                <div class="modal-body">
+                    <form action="/gestionar_propuestas" method="post">
+
+                        <div class="form-group modal-label  ">
+
+                            <label for="respuesta">Propuesta:</label>
+                            <input type="text" class="form-control" id="NuevaPropuesta" name="NuevaPropuesta">
+
+                        </div>
+
+                        <input class= 'hidden' name="IDP" value="<%= datospro[0].IDP %>">
+                        <input class= 'hidden' name="IDPE" value="<%= datospro[0].IDPE %>">
+                        <input class= 'hidden' name="CI" value="<%= datospro[0].CI %>">
+
+                        <button type="submit" name="Agregarpropuesta" value="AGREGAR" id="AgregarPropuesta" class="btn btn-primary center-block" style="width: 200px"> Agregar Propuesta</button>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+
+                </div>
+
+            </div>
+
+            <!-- /#page-content-wrapper -->
+
 
         </div>
 
-          <input class= 'hidden' name="IDP" value="<%= datospro[0].IDP %>">
-          <input class= 'hidden' name="IDPE" value="<%= datospro[0].IDPE %>">
-          <input class= 'hidden' name="CI" value="<%= datospro[0].CI %>">
+             <div class="container-fluid" >
+                      <form action="/egresado-Postulacion/">
+                            <button   type="submit"  id="postular" class="btn  btn-primary center-block btn-info ">Culminar Postulación</button>
+                      </form>
+             </div>
 
-        <button type="submit" name="Agregarpropuesta" value="AGREGAR" class="btn btn-primary center-block" style="width: 200px"> Agregar Propuesta</button>
+                <!-- /#page-content-wrapper -->
 
-      </form>
+
+
     </div>
-    <div class="modal-footer">
-      
-    </div>
-  </div>
-
-
-        
-    
-    <!-- /#page-content-wrapper -->
-
-   
-       </div>
-    </div>
-
 
 
 </div>
+
+
+
 
 
 
@@ -140,5 +138,37 @@
 <script src="/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/js/bootstrap.min.js"></script>
+
+<script>
+
+    $("#postular").on("click", function(){
+        alert("La postulación ha sido creada correctamente");
+    });
+
+    $('#AgregarPropuesta').on('click', function( e ){
+
+        if ( $('#NuevaPropuesta').val() == '' || !hasCharacters($('#NuevaPropuesta').val()) ){
+            e.preventDefault();
+            alert("La propuesta no puede estar vacia!");
+        }
+        else{
+
+        }
+
+
+    });
+
+    function hasCharacters( s ){
+        for ( i = 0 ; i < s.length ; i++){
+            if ( s[i] != ' ' )
+                return true;
+        }
+
+        return false;
+    }
+
+
+</script>
+
 </body>
 </html>

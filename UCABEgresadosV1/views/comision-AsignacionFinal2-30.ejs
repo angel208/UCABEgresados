@@ -63,7 +63,11 @@
                 <% lista.forEach( function ( Element ) { %>
                     <a type="button" class="btn btn-primary btn-block" href="/asignacion_final/<%=Element.IDCargo%>">
                          <div class="col-xs-6 col-md-8 text-left"><%=Element.NombreCargo%></div>
+
+                        <% if ( Element.Asignado > 0 ){%>
                          <img src="sources/check.png" class="col-xs-4 col-md-2 img-responsive pull-right" alt="progreso">
+                        <%}%>
+
                          <img src="sources/warning2.png" class="col-xs-2 col-md-2 img-responsive pull-right" alt="progreso">
                     </a>
                 <%});%>

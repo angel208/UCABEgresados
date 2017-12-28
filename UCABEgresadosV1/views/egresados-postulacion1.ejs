@@ -53,14 +53,14 @@
     <%= console.log(CI[0].CI);%> 
       <%= console.log("egresados-postulacion1");%> 
     <input type="hidden" name="CIEgresado" value=" <%= CI[0].CI%> ">
-     <input type="hidden" name="IDPH" value="<%= IDP[0].IDP%> ">
+     <input type="hidden" name="IDPH" value="<%= IDP%> ">
   
      
 
       <div class="form-group  ">
         <label for="respuesta">Cargo A Postularse</label>
 
-<select class="selectpicker " id="cargoPostulado"   name="NombreCargoPostulado">
+<select class="selectpicker form-control " id="cargoPostulado"   name="NombreCargoPostulado">
     <% resultado.forEach(function(Elemento){ %>
   <option><%= Elemento.NombreCargo%> </option>
    <% }); %>

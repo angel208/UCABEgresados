@@ -14,6 +14,8 @@
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
 
+    <link rel="stylesheet" href="/css/bootstrap-datepicker3.min.css"/>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -25,7 +27,7 @@
 </head>
 
 
-<body>
+<body style="height: auto">
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
 
 
@@ -42,67 +44,95 @@
             <div class="alert custom-tip-alert">Lo Sentimos, no fue encontrado en nuestro sistema, por favor introduzca sus datos.</div>
             </div>
 <br>
-            <div class="row  vertical-center-parent" style="height:40% !important;">
- <form  method="post" action="/egresado-RegistroNuevo">
+            <div style="height:40% !important;">
 
+                 <form  method="post" action="/egresado-RegistroNuevo">
 
-                 <label for="cedula">Introduzca su Cédula de Identidad</label>
-                        <label for="cedula">Introduzca su Nombre(s)</label>
-                        <input style="width: 500px" type="text" class="form-control" id="nombreE" name="nombreE">
+                     <div class="row">
+                            <div class="col-xs-3"></div>
+                            <div class="col-xs-6">
+                                <label for="cedula">Introduzca su Cédula de Identidad (sin puntos ni guiones)</label>
+                                <input type="text"  pattern="[0-9]{7,8}" class="form-control" id="cedula" name="CI">
+                            </div>
+                            <div class="col-xs-3"></div>
+                     </div>
+                     <br>
+                     <div class="row">
+                         <div class="col-xs-3"></div>
 
+                         <div class="col-xs-3">
+                             <label for="cedula">Introduzca su Nombre(s)</label>
+                             <input type="text" class="form-control" id="nombreE" name="nombreE">
+                         </div>
 
+                         <div class="col-xs-3">
+                             <label for="cedula">Introduzca su Apellido(s)</label>
+                             <input type="text" class="form-control" id="apellidoE" name="apellidoE">
+                         </div>
 
-                        <label for="cedula">Introduzca su Apellido(s)</label>
-                        <input  style="width: 500px" type="text" class="form-control" id="apellidoE" name="apellidoE">
+                         <div class="col-xs-3"></div>
 
+                     </div>
+                     <br>
+                     <div class="row">
+                         <div class="col-xs-3"></div>
+                         <div class="col-xs-6">
+                            <label for="Email">Email</label>
+                            <input  type="Email" class="form-control" id="Email" name="Email">
+                         </div>
+                         <div class="col-xs-3"></div>
+                     </div>
+                     <br>
+                     <div class="row">
+                             <div class="col-xs-3"></div>
+                             <div class="col-xs-6">
+                                 <label for="tlf">Telefono:</label>
+                                 <input type="tel" pattern="[0-9]{8,15}" class="form-control" id="text" name="tlf">
+                             </div>
+                             <div class="col-xs-3"></div>
+                     </div>
+                     <br>
+                     <div class="row">
+                            <div class="col-xs-3"></div>
+                            <div class="col-xs-6">
+                                <label for="fenac">Fecha Nacimiento</label>
+                                <input type="text" class="form-control datepicker" id="fenac" name="fenac">
+                            </div>
+                            <div class="col-xs-3"></div>
+                     </div>
+                     <br>
+                     <div class="row">
+                           <div class="col-xs-3"></div>
+                           <div class="col-xs-6">
+                               <label for="Dirección">Dirección</label>
+                               <input type="text" class="form-control" id="Dirección" name="Dirección">
+                           </div>
+                           <div class="col-xs-3"></div>
+                     </div>
+                     <br>
+                     <div class="row">
+                            <div class="col-xs-3"></div>
+                            <div class="col-xs-6">
+                                <label for="carrera">Carrera:</label>
 
+                                <select class="selectpicker form-control" id="carrera"   name="carrera">
+                                    <% carrera.forEach(function(Elemento){ %>
+                                  <option><%= Elemento.Nombre%> </option>
+                                   <% }); %>
 
-                        <label for="Email">Email</label>
-                        <input  style="width: 500px" type="Email" class="form-control" id="Email" name="Email">
-
-                         <label for="tlf">Telefono:</label>
-                        <input style="width: 500px" type="text" class="form-control" id="text" name="tlf">
-
-
-
-
-                        <label for="fenac">Fecha Nacimiento</label>
-                        <input style="width: 500px" type="text" class="form-control" id="fenac" name="fenac">
-
-                         <label for="Dirección">Dirección</label>
-                        <input style="width: 500px" type="text" class="form-control" id="Dirección" name="Dirección">
-
-<br>
-
-        <label for="carrera">Carrera:</label>
-
-<select style="width: 435px"  class="selectpicker " id="carrera"   name="carrera">
-    <% carrera.forEach(function(Elemento){ %>
-  <option><%= Elemento.Nombre%> </option>
-   <% }); %>
-
-</select><br>
-
-
-
-
-                        <label for="preg">pregunta Seguridad</label>
-                        <input style="width: 500px" type="text" class="form-control" id="preg" name="preg">
-
-
-
-                        <label for="resp">Respuesta Seguridad</label>
-                        <input style="width: 500px" type="text" class="form-control" id="resp" name="resp">
-
-<br>
-
+                                </select>
+                            </div>
+                         <div class="col-xs-3"></div>
+                     </div>
+                     <br>
+                     <br>
 
      
                     <button type="submit" class="btn btn-primary center-block">
                         Registrar
                     </button>
 
-                </form>
+                  </form>
             </div>
 
         </div>
@@ -112,13 +142,23 @@
 
 
 
-
-
-
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script>
+    //Inicia los datepickers en los inputs.
+    $(function(){
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd",
+            language: "es"
+        });
+    });
+</script>
+
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="/js/bootstrap-datepicker.min.js"></script>
 </body>
 </html>

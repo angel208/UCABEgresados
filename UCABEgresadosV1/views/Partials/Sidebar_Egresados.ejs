@@ -1,4 +1,4 @@
-<% if (!SideBarList[0].NombreCargo) {
+<% if (!SideBarList && !SideBarList[0].NombreCargo) {
 
     system.log("redirecting");
     response.statusCode = 302;
@@ -10,7 +10,7 @@
 <ul class="sidebar-nav">
     <!-- Titulo en el sidebar -->
     <li class="sidebar-brand">
-        <a href="#" style="text-align: center; ">
+        <a href="/index" style="text-align: center; ">
             <p class ="brandUCAB">UCAB</p>
             <p class ="brandEgresados">Egresados</p>
         </a>
@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-9">
                 <div class="user-name">
-                    <p>Usuario</p>
+                    <p><%=NombreUsu%></p>
                     <a href="/egresados-Perfil">Editar</a>
 
                 </div>
@@ -43,16 +43,17 @@
         </div>
         <div id="demo" class="collapse sub-list" >
             <ul>
-
-                <% SideBarList.forEach(function(Elemento){ %>
+              <%if (SideBarList != undefined){%>
+                 <% SideBarList.forEach(function(Elemento){ %>
 
                     <li class="sub-list-item">
-                        <a href="/candidatos-egre/<%= Elemento.IDCargo.toString() %> ">
+                        <a href="/candidatos-egre/<%= Elemento.IDCargo.toString() %>" class="ellipsis">
                             <%= Elemento.NombreCargo %>
                         </a>
                     </li>
 
-                <% }); %>
+                  <% }); %>
+                <%}%>
 
             </ul>
         </div>

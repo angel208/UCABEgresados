@@ -25,22 +25,7 @@
 
 
 <body>
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      SIDE BAR                !!!!!!!!!!!!!!!!!!!!11 -->
-<div id="wrapper">
 
-    <!-- Titulo en el sidebar -->
-    <div id="sidebar-wrapper">
-
-
-        <% if ( cargo == '1' ){%>
-              <%include Partials/SideBar_Comision.ejs%>
-        <%}else if ( cargo == '2'){ %>
-              <%include Partials/SideBar_Director.ejs%>
-        <%}else{ %>
-              <%include Partials/SideBar_Egresados.ejs%>
-        <%}%>
-
-    </div>
 <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!      PAGE CONTENT               !!!!!!!!!!!!!!!!!!!!11 -->
 
     <!-- Page Content -->
@@ -50,7 +35,7 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <h1><%=titulo%></h1>
+                <h1>Recuperación de contraseña</h1>
 
             </div>
         </div>
@@ -58,28 +43,17 @@
          <div class="alert custom-error-alert">
                         <span class="glyphicon glyphicon-exclamation-sign" style="display:inline"></span>
                         <p style="display:inline">ERROR!</p>
-                        <p><%=mensaje%></p>
+                        <p>La cédula ingresada no se encuentra en el sistema</p>
 
          </div>
 
         <div class="container-fluid vertical-center vertical-center-child" >
 
-            <a type="button" class="btn btn-primary btn-lg" href="/index">volver</a>
+            <a type="button" class="btn btn-primary btn-lg" href="/login">volver</a>
 
         </div>
     </div>
     <!-- /#page-content-wrapper -->
 
-</div>
-
-
-
-
-
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/js/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

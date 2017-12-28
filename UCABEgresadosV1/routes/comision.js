@@ -79,14 +79,21 @@ app.get('/gestionar_periodos', requireLogin, function(req, res) {
 
 app.post('/gestionar_periodos', requireLogin, function(req, res) {
 
-    console.log(req.body.submit);
 
     if (req.body.submit_type == 'guardar') {
 
         var post = req.body;
+        var id;
+
+        if(post.idperiodo == undefined ){
+            id= post.nombre.trim();
+        }
+        else{
+            id= post.idperiodo.trim();
+        }
 
         var query = "INSERT INTO periodoelectoral (IDPE, FechaInicio, FechaFin, FechaIP, FechaFP, FechaIV, FechaFV, Estado)" +
-             " VALUES ('"+post.idperiodo+"', STR_TO_DATE('"+post.FI+"','%d/%m/%Y')"+", STR_TO_DATE('"+post.FF+"','%d/%m/%Y')"+
+             " VALUES ('"+id+"', STR_TO_DATE('"+post.FI+"','%d/%m/%Y')"+", STR_TO_DATE('"+post.FF+"','%d/%m/%Y')"+
              ", STR_TO_DATE('"+post.FIP+"','%d/%m/%Y')"+", STR_TO_DATE('"+post.FFP+"','%d/%m/%Y')"+
              ", STR_TO_DATE('"+post.FIV+"','%d/%m/%Y')"+", STR_TO_DATE('"+post.FFV+"','%d/%m/%Y')"+", 'I') " +
              "  ON DUPLICATE KEY UPDATE FechaInicio=VALUES(FechaInicio), FechaFin=VALUES(FechaFin),  FechaIP=VALUES( FechaIP ), " +
@@ -117,7 +124,8 @@ app.post('/gestionar_periodos', requireLogin, function(req, res) {
 
     }
     else {
-        con.query("SELECT *  FROM  periodoelectoral WHERE IDPE = " + req.body.periodo + " ", function (err, result, fields) {
+
+        con.query("SELECT *  FROM  periodoelectoral WHERE IDPE = '" + req.body.periodo + "' ", function (err, result, fields) {
 
 
             result[0].FechaInicio = dateFormat(result[0].FechaInicio, "dd/mm/yyyy");
@@ -145,7 +153,7 @@ app.get('/gestionar_cargos', requireLogin, function(req, res) {
             titulo: "Gestionar Cargos por Carreras", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() < new Date(sess.PeridoAct.FechaIP)  ) {
+    else if(  new Date() < new Date(sess.PeridoAct.FechaIP)  ) {
 
         sess = req.session;
 
@@ -159,10 +167,7 @@ app.get('/gestionar_cargos', requireLogin, function(req, res) {
             var cargosxcarrera = result;
 
             con.query("SELECT DISTINCT carrera.IDCarrera, carrera.Nombre " +
-                "      FROM carrera, cargo, cargosxcarrera " +
-                "      WHERE cargosxcarrera.PeriodoElectoral_IDPE = '"+sess.PeridoAct.IDPE+"' " +
-                "      AND Carrera.IDCarrera = cargosxcarrera.Carrera_IDCarrera " +
-                "      AND cargosxcarrera.Cargo_IDCargo = cargo.IDCargo", function (err, result, fields) {
+                "      FROM carrera ", function (err, result, fields) {
 
                 var carreras = result;
 
@@ -279,7 +284,7 @@ app.get( "/totalizacion" , requireLogin, function( req, res ){
             titulo: "Totalización de Votos", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() > new Date(sess.PeridoAct.FechaFV)  ) {
+    else if(  new Date() > new Date(sess.PeridoAct.FechaFV)  ) {
 
     con.query("SELECT IDCarrera, Nombre FROM  carrera ", function (err, result, fields) {
 
@@ -335,17 +340,24 @@ app.get ( "/conformacion" , requireLogin, function(req, res){
             titulo: "Conformación de Papeletas", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() < new Date(sess.PeridoAct.FechaIV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
+    else if(  new Date() < new Date(sess.PeridoAct.FechaIV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
 
-        con.query("SELECT DISTINCT IDCargo, NombreCargo " +
-                  "FROM  cargo, postulacion        " +
-                  "WHERE cargo.IDCargo = postulacion.IDCargo1      " +
-                  "AND postulacion.IDPE1 = '"+sess.PeridoAct.IDPE+"'       ", function (err, result, fields) {
+        con.query("SELECT DISTINCT IDCargo, NombreCargo FROM  cargo, cargosxcarrera " +
+                  "WHERE cargosxcarrera.`PeriodoElectoral_IDPE` = '"+sess.PeridoAct.IDPE+"'  " +
+                  "AND cargosxcarrera.Cargo_IDCargo = cargo.IDCargo ", function (err, result, fields) {
 
+            var lista = result;
 
-            res.render( "Comision-PreConformacion-26", { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList, lista: result });
+            con.query("SELECT DISTINCT IDCargo, SUM(postulacion.ValidadaCE) as conformado\n" +
+                "FROM  cargo, cargosxcarrera, postulacion\n" +
+                "WHERE cargosxcarrera.PeriodoElectoral_IDPE = '"+sess.PeridoAct.IDPE+"'\n" +
+                "AND cargosxcarrera.Cargo_IDCargo = cargo.IDCargo\n" +
+                "AND cargo.IDCargo = postulacion.IDCargo1   \n" +
+                "GROUP BY IDCargo", function (err, result){
 
+            res.render( "Comision-PreConformacion-26", { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList, lista: lista, aprobados:result });
 
+            });
         });
 
     }
@@ -402,18 +414,21 @@ app.get ( "/conformacion/:cargo" , requireLogin, function(req, res){
     sess = req.session;
 
 
-    con.query("SELECT Egresado.NombreEgresado, Egresado.ApellidoEgresado, Egresado.CI, cargo.NombreCargo,  cargo.IDCargo , postulacion.IDPostulacion, postulacion.ValidadaCE\n" +
-            "FROM  cargo, Egresado, postulacion\n" +
-            "WHERE Egresado.CI = postulacion.CIEgresado\n" +
-            "AND postulacion.IDCargo1 = cargo.IDCargo\n" +
-            "AND cargo.IDCargo = '"+req.params.cargo+"' " +
-            "AND postulacion.IDPE1 = '"+sess.PeridoAct.IDPE+"'\n" +
-            "AND postulacion.ValidadaEscuela = '1'", function (err, result, fields) {
+    con.query(  "SELECT Egresado.NombreEgresado, Egresado.ApellidoEgresado, Egresado.CI, cargo.NombreCargo,  cargo.IDCargo , postulacion.IDPostulacion, postulacion.ValidadaCE\n" +
+                "FROM  cargo, Egresado, postulacion\n" +
+                "WHERE Egresado.CI = postulacion.CIEgresado\n" +
+                "AND postulacion.IDCargo1 = cargo.IDCargo\n" +
+                "AND cargo.IDCargo = '"+req.params.cargo+"' " +
+                "AND postulacion.IDPE1 = '"+sess.PeridoAct.IDPE+"'\n" +
+                "AND postulacion.ValidadaEscuela = '1'", function (err, result, fields) {
 
+        var resultado = result;
 
+        con.query( " SELECT NombreCargo, IDCargo FROM cargo WHERE cargo.IDCargo = '"+req.params.cargo+"' " , function( err, result ){
 
+            res.render( "comision-ConformacionPapeletas-28.ejs", { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList, lista: resultado, cargo:result[0] });
 
-        res.render( "comision-ConformacionPapeletas-28.ejs", { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList, lista: result });
+        });
 
     });
 
@@ -430,12 +445,14 @@ app.get( "/asignacion_final" , requireLogin, function( req, res ){
             titulo: "Asignación Final de los Cargos", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() >= new Date(sess.PeridoAct.FechaFV) && new Date() < new Date(sess.PeridoAct.FechaFin)  ) {
+    else if(  new Date() >= new Date(sess.PeridoAct.FechaFV) && new Date() < new Date(sess.PeridoAct.FechaFin)  ) {
 
-        con.query("SELECT DISTINCT IDCargo, NombreCargo " +
-                  "FROM  cargo, postulacion " +
-                  "WHERE cargo.IDCargo = postulacion.IDCargo1 " +
-                  "AND postulacion.IDPE1 = '"+sess.PeridoAct.IDPE+"' ", function (err, result, fields) {
+        con.query("SELECT DISTINCT IDCargo, NombreCargo, (SUM(postulacion.Principal) + SUM(postulacion.Suplente)) as Asignado " +
+            "FROM  cargo, postulacion " +
+            "WHERE cargo.IDCargo = postulacion.IDCargo1 " +
+            "AND postulacion.IDPE1 = '"+sess.PeridoAct.IDPE+"' GROUP BY IDCargo, NombreCargo ", function (err, result, fields) {
+
+
 
             res.render( "Comision-AsignacionFinal2-30", { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList, lista: result });
 
@@ -514,7 +531,7 @@ app.get('/generar_reporte', requireLogin, function(req, res) {
             titulo: "Generar Reporte Impreso", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() > new Date(sess.PeridoAct.FechaFV)  ) {
+    else if(  new Date() > new Date(sess.PeridoAct.FechaFV)  ) {
 
         res.render( 'comision-GenerarReportes-19.ejs', { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList });
 
@@ -549,13 +566,15 @@ app.get('/candidatos_comision/:carrera', requireLogin, function(req,res){
 
     sess = req.session;
 
+    console.log("Entro a solo carrera");
+
     if(sess.PeridoAct == null){
 
         res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
             titulo: "Candidatos", mensaje: "Actualmente, no hay ningún período activo."  });
 
     }
-    if(  new Date() < new Date(sess.PeridoAct.FechaFV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
+    else if(  new Date() < new Date(sess.PeridoAct.FechaFV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
 
 
         con.query( "SELECT DISTINCT cargo.IDCargo, cargo.NombreCargo, carrera.IDCarrera, carrera.Nombre \n" +
@@ -564,6 +583,8 @@ app.get('/candidatos_comision/:carrera', requireLogin, function(req,res){
                     "AND   cargosxcarrera.Carrera_IDCarrera = carrera.IDCarrera\n" +
                     "AND   carrera.IDCarrera = '"+req.params.carrera+"' " +
                     "AND   cargosxcarrera.PeriodoElectoral_IDPE = '"+sess.PeridoAct.IDPE+"' ", function (err, result, fields) {
+
+
 
             res.render( "comision-candidatos-cargos", { IDUsuario : sess.IDUsuario, NombreUsu : sess.NombreUsuario, SideBarList : sess.SBList, cargo : sess.cargo ,lista: result });
 
@@ -581,8 +602,17 @@ app.get('/candidatos_comision/:carrera', requireLogin, function(req,res){
 
 app.get('/candidatos_comision/:carrera/:cargo', requireLogin, function(req,res){
 
+    console.log("Entro a carrera y cargo");
 
-        con.query("SELECT NombreCargo FROM cargo WHERE IDCargo ='"+1000+"'", function (err, result, fields) {
+    if(sess.PeridoAct == null){
+
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Candidatos", mensaje: "Actualmente, no hay ningún período activo."  });
+
+    }
+    else if(  new Date() < new Date(sess.PeridoAct.FechaFV) && new Date() >= new Date(sess.PeridoAct.FechaFP) ) {
+
+        con.query("SELECT NombreCargo FROM cargo WHERE IDCargo ='"+req.params.cargo+"'", function (err, result, fields) {
             sess = req.session;
 
             NombreCargo = result[0].NombreCargo;
@@ -596,9 +626,10 @@ app.get('/candidatos_comision/:carrera/:cargo', requireLogin, function(req,res){
                 "propuestacampana as pro,cargo "+
                 "WHERE eg.CI = post.CIEgresado "+
                 "AND cargo.IDCargo=post.IDCargo1 "+
-                "AND cargo.IDCargo='"+req.params.cargo+"' "+
+                "AND cargo.IDCargo='"+req.params.cargo+"' " +
+                "AND post.ValidadaCE = '1' "+
                 "group  by(eg.CI);", function (err, result, fields) {
-                console.log(result);
+
 
 
                 res.render('comision-listaCandidato',{nombreCargo:NombreCargo,SideBarList:sess.SBList,
@@ -606,6 +637,11 @@ app.get('/candidatos_comision/:carrera/:cargo', requireLogin, function(req,res){
             });
 
         });
+    }
+    else {
+        res.render('error_fecha.ejs', { IDUsuario: sess.IDUsuario, NombreUsu: sess.NombreUsuario, SideBarList: sess.SBList, cargo: sess.cargo,
+            titulo: "Candidatos", mensaje: "El listado de candidatos no está disponible aún."  });
+    }
 
 });
 
@@ -630,7 +666,7 @@ app.get('/candidatos_promesas_comision/:IDP', requireLogin, function(req,res){
 
             sess = req.session;
 
-            console.log(result);
+
 
             if(!result.length){
 

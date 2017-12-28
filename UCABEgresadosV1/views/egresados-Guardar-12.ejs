@@ -68,38 +68,41 @@
 
       </div>
 
+        <form action="/Editar-Perfil" method="post">
+
        <div class="table-responsive">          
   <table class="table">
     <thead>
         <tr>
         <th>Telefono De Contacto</th>
-        
-        <th>Email</th>
-        
+
         <th>Dirección</th>
+
+        <th>Email</th>
+
         
       </tr>
      
     </thead>
     <tbody>
-      <form action="/Editar-Perfil" method="post">
         <input class= 'hidden' name="CI" value="<%= datos[0].CI %>">
         <input class= 'hidden' name="IDCarrera" value="<%= datos[0].IDCarrera %>">
         <tr>
-        <td>
-        <input type="tel"  id="Telefono" pattern="[0-9]{9}" name="Telefono">
-        </td>
-         
-        <td>
-        <input type="Email" class="form-control" id="Email" name="Email">
-        </td>
-        
-        <td>
-        <input type="text" class="form-control" id="Dirección" name="Dirección">
-        </td>
-         </tr>
+            <td>
+                 <input type="tel" class="form-control" id="Telefono" pattern="[0-9|'0'-'9']{8,15}" name="Telefono" value="<%=datos[0].Tlf%>">
+            </td>
 
-</tbody>
+
+            <td>
+                <input type="text" class="form-control" id="Dirección" name="Dirección" value="<%=datos[0].direccion%>">
+            </td>
+
+
+            <td>
+                <input type="Email" class="form-control" id="Email" name="Email" value="<%=datos[0].Email%>">
+            </td>
+        </tr>
+    </tbody>
      
   </table>
   </div>
@@ -126,7 +129,7 @@
 
 <br> 
         <div class="row vertical-center-parent">
-       <button type="submit" name="EditarPerfil" value="Guardar" class="btn btn-primary center-block" style="width: 200px"> Guardar Cambios</button>
+       <button type="submit" name="EditarPerfil" value="Guardar"  id="GuardarButton" class="btn btn-primary center-block" style="width: 200px"> Guardar Cambios</button>
 
         </div>
 
@@ -151,5 +154,25 @@
 <script src="/js/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+
+
+<script>
+
+    $('#GuardarButton').on('click', function( e ){
+
+        if ( $('#Telefono').val() == '' || $('#Direccion').val() == '' || $('#Email').val() == '' ){
+            e.preventDefault();
+            alert("Existen campos vacios, por favor, complete los datos");
+        }
+        else{
+
+        }
+
+
+    })
+
+
+</script>
+
 </body>
 </html>
